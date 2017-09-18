@@ -1,0 +1,32 @@
+*{
+    box-sizing: border-box;
+}
+
+.box{
+    margin-top: 20%;
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%;
+    border: 10px solid black;
+    height: 100px;
+}
+
+.messages{
+    background-color: grey;
+}
+
+
+textarea{
+    width: 80%;
+    height: 30px;
+    display: inline;
+    float: left;
+}
+
+input{
+    display: inline;
+    width:20%;
+    height: 30px;
+    padding: 0;
+    margin: 0;
+}
