@@ -2,19 +2,33 @@
     box-sizing: border-box;
 }
 
+body{
+    min-width: 300px;
+    min-height: 300px;
+}
+
 .box{
-    margin-top: 20%;
-    margin-left: 15%;
-    margin-right: 15%;
-    width: 70%;
+    min-width: 300px;
+    min-height: 300px;  
     border: 10px solid black;
-    height: 100px;
+    position: relative;
 }
 
 .messages{
-    background-color: grey;
+    overflow-y: scroll;
+    height:250px;
 }
 
+.message{
+    background-color: #00ffff;
+    display: inline;
+}
+
+.send{
+    position: absolute;
+    bottom: 0;
+    width:100%;
+}
 
 textarea{
     width: 80%;
