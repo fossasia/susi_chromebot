@@ -8,7 +8,7 @@ formid.addEventListener('submit',function(e){
     var text = textarea.value;
     var newP = document.createElement('p');
     var newDiv = document.createElement('div'); 
-    newP.setAttribute('class','message');      
+    newDiv.setAttribute('class','newmessage');      
     var textnode = document.createTextNode(text);  
     newP.appendChild(textnode); 
     //message.insertAdjacentElement('beforeend',textmessage);

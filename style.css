@@ -3,15 +3,16 @@
 }
 
 body{
-    min-width: 300px;
+    min-width: 350px;
     min-height: 300px;
 }
 
-.box{
+.surroundbox{
     min-width: 300px;
-    min-height: 300px;  
-    border: 10px solid black;
+    min-height: 300px;
     position: relative;
+    padding: 0 5px;
+    padding-bottom: 0;
 }
 
 .messages{
@@ -19,7 +20,12 @@ body{
     height:250px;
 }
 
-.message{
+.newmessage{
+    text-align: right;
+    margin-right: 0.5rem;
+}
+
+.newmessage p{
     background-color: #00ffff;
     display: inline;
 }
@@ -27,20 +33,7 @@ body{
 .send{
     position: absolute;
     bottom: 0;
-    width:100%;
 }
-
-textarea{
-    width: 80%;
-    height: 30px;
-    display: inline;
-    float: left;
-}
-
-input{
-    display: inline;
-    width:20%;
-    height: 30px;
-    padding: 0;
-    margin: 0;
+.button{
+    margin-left : 15px;
 }
