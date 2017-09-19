@@ -20,12 +20,22 @@ body{
     height:250px;
 }
 
-.newmessage{
+.mynewmessage{
     text-align: right;
     margin-right: 0.5rem;
 }
 
-.newmessage p{
+.mynewmessage p{
+    background-color: #00ffff;
+    display: inline;
+}
+
+.susinewmessage{
+    text-align: left;
+    margin-right: 0.5rem;
+}
+
+.susinewmessage p{
     background-color: #00ffff;
     display: inline;
 }

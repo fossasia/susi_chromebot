@@ -8,11 +8,19 @@ formid.addEventListener('submit',function(e){
     var text = textarea.value;
     var newP = document.createElement('p');
     var newDiv = document.createElement('div'); 
-    newDiv.setAttribute('class','newmessage');      
-    var textnode = document.createTextNode(text);  
-    newP.appendChild(textnode); 
-    //message.insertAdjacentElement('beforeend',textmessage);
+    newDiv.setAttribute('class','mynewmessage');      
+    var myTextNode = document.createTextNode(text);  
+    newP.appendChild(myTextNode); 
     newDiv.appendChild(newP);
     messages.appendChild(newDiv);
-    console.log(text);
+    textarea.value = '';
+    setTimeout(function(){
+        var newP = document.createElement('p');
+        var newDiv = document.createElement('div'); 
+        var susiTextNode = document.createTextNode("hi from susi");
+        newDiv.setAttribute('class','susinewmessage');
+        newP.appendChild(susiTextNode); 
+        newDiv.appendChild(newP);
+        messages.appendChild(newDiv);
+    },2000);
 });
