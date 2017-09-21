@@ -7,6 +7,18 @@ body{
     min-height: 300px;
 }
 
+.headerbox{
+    background-color: rgb(66, 133, 244);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    text-align: center;
+    color: white;
+}
+
 .surroundbox{
     min-width: 300px;
     min-height: 300px;
@@ -15,24 +27,30 @@ body{
     padding-bottom: 0;
 }
 
+.box{
+    background-color: rgb(243, 242, 244);
+}
+
 .messages{
     overflow-y: scroll;
     height:250px;
 }
 
 .mynewmessage{
-    text-align: right;
     margin-right: 0.5rem;
+    background-color: #e0e0e0;
+    text-align: right;
+    width: 50%;
 }
 
 .mynewmessage p{
-    background-color: #00ffff;
     display: inline;
 }
 
 .susinewmessage{
     text-align: left;
     margin-right: 0.5rem;
+    width:50%
 }
 
 .susinewmessage p{
