@@ -47,3 +47,8 @@ body{
 .button{
     margin-left : 15px;
 }
+
+.textarea:not([rows]) {
+    max-height: 600px;
+    min-height: 40px;
+}
