@@ -27,7 +27,7 @@ formid.addEventListener('submit',function(e){
 		var newMsgDiv = document.createElement('div');
 		newMsgDiv.setAttribute('class','newmessage');
 		var susiTextNode = document.createTextNode("hi from susi");
-		newSusiMsgDiv.setAttribute('class','susinewmessage is-pulled-left is-clearfix');
+		newSusiMsgDiv.setAttribute('class','susinewmessage is-pulled-left');
 		newParagraph.appendChild(susiTextNode);
 		newSusiMsgDiv.appendChild(newParagraph);
 		newMsgDiv.appendChild(newSusiMsgDiv);
