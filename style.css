@@ -40,7 +40,9 @@ body{
     margin-right: 0.5rem;
     background-color: #e0e0e0;
     text-align: right;
-    width: 50%;
+    width: auto;
+    float: right;
+    clear: both;
 }
 
 .mynewmessage p{
@@ -50,7 +52,9 @@ body{
 .susinewmessage{
     text-align: left;
     margin-right: 0.5rem;
-    width:50%
+    width:auto;
+    float: left;
+    clear: both;
 }
 
 .susinewmessage p{
