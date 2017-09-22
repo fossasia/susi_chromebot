@@ -7,6 +7,23 @@
         "16" : "icon.png"
        },
        "default_title" : "susi_ai",
-       "default_popup" : "popup.html" 
+       "default_popup" : "popup.html"
+    },
+    "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+    },
+    "content_scripts": [
+    {
+      "matches": ["http://www.google.com/*"],
+      "css": ["style.css"],
+      "js": ["script.js","jquery-3.2.1.min.js"]
     }
+  ],
+    "content_security_policy": "script-src 'self' https://api.susi.ai; object-src 'self'",
+    "permissions":[
+      "http://*/*",
+      "https://*/*",
+      "http://ajax.googleapis.com/ajax/libs/jquery/"
+    ]
 }
