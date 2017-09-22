@@ -18,6 +18,7 @@ body{
     margin-bottom: 4px;
     text-align: center;
     color: white;
+
 }
 
 .surroundbox{
@@ -146,4 +147,9 @@ body{
 
 .textarea:active,.textarea:focus,.textarea:hover{
     border-color: rgb(66, 133, 244);   
+}
+#susi-logo{
+ padding-top: 6px;
+ width: 100px;
+ height: auto;
 }
