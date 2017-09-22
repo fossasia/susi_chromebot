@@ -5,6 +5,19 @@
 body{
     min-width: 350px;
     min-height: 300px;
+    font-family: 'Lato', sans-serif;
+}
+
+.headerbox{
+    background-color: rgb(66, 133, 244);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    text-align: center;
+    color: white;
 }
 
 .surroundbox{
@@ -15,6 +28,10 @@ body{
     padding-bottom: 0;
 }
 
+.box{
+    background-color: rgb(243, 242, 244);
+}
+
 .messages{
     overflow-y: scroll;
     height:250px;
@@ -23,27 +40,104 @@ body{
 .mynewmessage{
     text-align: right;
     margin-right: 0.5rem;
+    background-color: #e0e0e0;
+    width: auto;
+    max-width: 50%;
+    float: right;
+    clear: both;
+    overflow-wrap: break-word;
+    position: relative;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 0.5rem 0.5rem;
+    border-top-right-radius: 0;
+}
+
+.mynewmessage:before{
+    content: '';
+    position: absolute;
+    border-color: transparent transparent transparent black;
+    border-width: 5px 0 5px 5px;
+    border-style: solid;
+    right: -5px;
+    top: 0.5px;
+    border-radius: 20%;
+}
+
+.mynewmessage:after{
+    content: '';
+    position: absolute;
+    border-color: transparent transparent transparent #e0e0e0;
+    border-width: 5px 0 5px 5px;
+    border-style: solid;
+    right: -4.5px;
+    top: 0.3px;
+    border-radius: 20%;
+    float: right;
+    clear: both;
 }
 
 .mynewmessage p{
-    background-color: #00ffff;
     display: inline;
+    padding: 1rem;
 }
 
 .susinewmessage{
     text-align: left;
-    margin-right: 0.5rem;
+    margin-left: 0.3rem;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    width:auto;
+    max-width: 50%;
+    float: left;
+    clear: both;
+    overflow-wrap: break-word;
+    background-color: #fff;
+    position: relative;
+    border-radius: 0.5rem 0.5rem;
+    border-top-left-radius: 0;
+}
+
+.susinewmessage:before{
+    content: '';
+    position: absolute;
+    border-color: transparent black transparent transparent;
+    border-width: 5px 5px 5px 0;
+    border-style: solid;
+    left: -5px;
+    top: 0.5px;
+    border-radius: 20%;
+}
+
+.susinewmessage:after{
+    content: '';
+    position: absolute;
+    border-color: transparent #fff transparent transparent;
+    border-width: 5px 5px 5px 0;
+    border-style: solid;
+    left: -4.5px;
+    top: 0.3px;
+    border-radius: 20%;
 }
 
 .susinewmessage p{
-    background-color: #00ffff;
     display: inline;
+    padding: 1rem;
 }
 
 .send{
     position: absolute;
     bottom: 0;
 }
+
 .button{
     margin-left : 15px;
+}
+
+.button.is-primary{
+    background-color: rgb(66, 133, 244);
+}
+
+.textarea:active,.textarea:focus,.textarea:hover{
+    border-color: rgb(66, 133, 244);   
 }
