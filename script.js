@@ -7,7 +7,7 @@ var messages = document.getElementById("messages");
 function getResponse(query){
     $.ajax({ 
     dataType: 'jsonp', 
-    type:'GET', url: 'http://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=' + query, 
+    type:'GET', url: 'https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=' + query, 
         success: function(data){ 
             var recQuery = data['answers'][0]['data'][0]['query'];
             //console.log('success', data);
