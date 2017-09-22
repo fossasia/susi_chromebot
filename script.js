@@ -2,7 +2,7 @@ var message = document.getElementById('message');
 var messages = document.getElementById('messages');
 var formid = document.getElementById('formid');
 var messages = document.getElementById("messages");
-
+var textarea = document.getElementById('textarea');
 
 function getResponse(query){
     $.ajax({ 
@@ -43,10 +43,10 @@ function getResponse(query){
     });
 }
 
-formid.addEventListener('submit',function(e){
-    e.preventDefault();
-    var textarea = document.getElementById('textarea');
-    var text = textarea.value;
+function submitForm()
+{
+var text = textarea.value;
+    text=text.trim();
     if(text == ""){
         return console.log("Empty Query!");
     }
@@ -60,4 +60,16 @@ formid.addEventListener('submit',function(e){
     textarea.value = '';
     getResponse(text);
     messages.scrollTop = messages.scrollHeight;
+}
+
+textarea.onkeyup = function(e) {
+  if (e.which == 13 && !e.shiftKey) {
+    e.preventDefault();
+    submitForm();
+    }
+};
+
+formid.addEventListener('submit',function(e){
+    e.preventDefault();
+    submitForm();
 });
