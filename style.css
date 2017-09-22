@@ -134,6 +134,12 @@ body{
     margin-left : 15px;
 }
 
+.susi-img{
+    border:solid 0.2em;
+    height: 200px;
+    width:150px;
+}
+
 .button.is-primary{
     background-color: rgb(66, 133, 244);
 }
