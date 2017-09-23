@@ -9,6 +9,16 @@ function getResponse(query) {
         dataType: "jsonp",
         type: "GET",
         url: "https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=" + query,
+        error: function(xhr,textStatus,errorThrown) {
+            var newP = document.createElement("p");
+            var newDiv = messages.childNodes[messages.childElementCount];
+            loading(false);
+            newDiv.setAttribute("class", "susinewmessage");
+            var myTextNode = document.createTextNode("Sorry! request could not be made.");
+            newP.appendChild(myTextNode);
+            newDiv.appendChild(newP);
+            messages.appendChild(newDiv);        
+        },
         success: function (data) {
             var recQuery = data["answers"][0]["data"][0]["query"];
             if (query !== recQuery) {
@@ -75,7 +85,18 @@ function submitForm() {
     messages.appendChild(newDiv);
     textarea.value = "";
     loading();
-    getResponse(text);
+    if(window.navigator.onLine)
+        getResponse(text);
+    else {
+        loading(false);
+        var newP = document.createElement("p");
+        var newDiv =  messages.childNodes[messages.childElementCount];
+        newDiv.setAttribute("class", "susinewmessage");
+        var myTextNode = document.createTextNode("Not connected to Internet!");
+        newP.appendChild(myTextNode);
+        newDiv.appendChild(newP);
+        messages.appendChild(newDiv);
+    }
     messages.scrollTop = messages.scrollHeight;
 }
 
