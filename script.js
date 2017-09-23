@@ -17,7 +17,8 @@ function getResponse(query) {
             var link = data["answers"][0]["data"][0]["link"];
             var image = data["answers"][0]["data"][0]["image"];
             var answer = data["answers"][0]["data"][0]["answer"];
-            var newDiv = document.createElement("div");
+            loading(false);
+            var newDiv = messages.childNodes[messages.childElementCount];
             var newP = document.createElement("p");
             newP.appendChild(document.createTextNode(answer));
             newDiv.appendChild(newP);
@@ -43,6 +44,22 @@ function getResponse(query) {
     });
 }
 
+function loading(condition=true){
+    if(condition == true){
+        var newDiv = document.createElement('div');
+        var newImg = document.createElement('img');
+        newImg.setAttribute("src","loading.gif");
+        newImg.setAttribute("style","height:10px;width:auto");
+        newDiv.appendChild(newImg);
+        newDiv.setAttribute("class","susinewmessage");
+        messages.appendChild(newDiv);
+        messages.scrollTop = messages.scrollHeight;
+    }
+    else{
+        messages.childNodes[messages.childElementCount].innerHTML = "";
+    }
+}
+
 function submitForm() {
     var text = textarea.value;
     text = text.trim();
@@ -57,6 +74,7 @@ function submitForm() {
     newDiv.appendChild(newP);
     messages.appendChild(newDiv);
     textarea.value = "";
+    loading();
     getResponse(text);
     messages.scrollTop = messages.scrollHeight;
 }
@@ -72,3 +90,4 @@ formid.addEventListener("submit", function (e) {
     e.preventDefault();
     submitForm();
 });
+
