@@ -25,13 +25,32 @@ function getResponse(query) {
                 return getResponse(query);
             }
             var link = data["answers"][0]["data"][0]["link"];
-            var image = data["answers"][0]["data"][0]["image"];
+            var image1 = data["answers"][0]["data"][0]["answer"];
+            var image2 = data["answers"][0]["data"][0]["webformatURL"];
+            try {
+            if (image1.startsWith("http"))
+                var image=image1;
+            else if (image2.startsWith("http"))
+                var image=image2;
+            }
+            catch(err)
+            {}
             var answer = data["answers"][0]["data"][0]["answer"];
             loading(false);
             var newDiv = messages.childNodes[messages.childElementCount];
             var newP = document.createElement("p");
-            newP.appendChild(document.createTextNode(answer));
-            newDiv.appendChild(newP);
+            if (image) {
+                var newImg = document.createElement("img");
+                newDiv.appendChild(document.createElement("br"));
+                newImg.setAttribute("src", image);
+                newImg.setAttribute("class", "susi-img");
+                newDiv.appendChild(newImg);
+            }
+             else
+            {
+                newP.appendChild(document.createTextNode(answer));
+                newDiv.appendChild(newP);
+            }
             if (link) {
                 var newA = document.createElement("a");
                 newA.appendChild(document.createTextNode(link));
@@ -39,13 +58,6 @@ function getResponse(query) {
                 newA.setAttribute("target", "_blank");
                 newDiv.appendChild(document.createElement("br"));
                 newDiv.appendChild(newA);
-            }
-            if (image) {
-                var newImg = document.createElement("img");
-                newDiv.appendChild(document.createElement("br"));
-                newImg.setAttribute("src", image);
-                newImg.setAttribute("class", "susi-img");
-                newDiv.appendChild(newImg);
             }
             newDiv.setAttribute("class", "susinewmessage");
             messages.appendChild(newDiv);
@@ -111,4 +123,3 @@ formid.addEventListener("submit", function (e) {
     e.preventDefault();
     submitForm();
 });
-
