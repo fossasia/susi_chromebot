@@ -134,16 +134,14 @@ body{
 
 .button{
     margin-left : 15px;
+    border: none;
+    color:blue;
 }
 
 .susi-img{
     border:solid 0.2em;
     height: 200px;
     width:150px;
-}
-
-.button.is-primary{
-    background-color: rgb(66, 133, 244);
 }
 
 .textarea:active,.textarea:focus,.textarea:hover{
