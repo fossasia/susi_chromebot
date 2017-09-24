@@ -5,8 +5,25 @@ Why? We have the SUSI web client, however certain situations we don't want to le
 
 ## Installation
 
+```sh
+$ git clone https://github.com/fossasia/susi_chromebot
+$ cd susi_chromebot
+$ cd src
+```
+
 1. Clone this repository.
-2. Goto chrome://extensions on your chrome browser.
+2. Goto `chrome://extensions` on your chrome browser.
 3. Turn on developer mode if not already on.
-4. Load unpacked extension and load the folder.
-5. Click on the new icon you see on your browser toolbar.
+4. Load unpacked extension from `src` folder.
+5. Click on the SUSI icon you see on your browser toolbar.
+
+## Working GIF
+
+![SUSI_CHROMEBOT_GIF](https://github.com/fossasia/susi_chromebot/blob/master/susi_chromebot.gif)
+
+
+# Want to Contribute?
+
+Check Issues [here](https://github.com/fossasia/susi_chromebot/issues)
+
+Read `CONTRIBUTING.md` [here](https://github.com/fossasia/susi_chromebot/blob/master/CONTRIBUTING.md)
