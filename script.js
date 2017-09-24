@@ -25,13 +25,23 @@ function getResponse(query) {
                 return getResponse(query);
             }
             var link = data["answers"][0]["data"][0]["link"];
-            var image = data["answers"][0]["data"][0]["image"];
+            var image1 = data["answers"][0]["data"][0]["answer"];
+        	console.log(image1);
+            var image2 = data["answers"][0]["data"][0]["webformatURL"];
+        	console.log(image2);
+        	try{
+        	
+        	if (image1.startsWith("https"))
+        		var image=image1;
+        	else if (image2.startsWith("https"))
+        		var image=image2;
+    		}
+    		catch(err)
+    		{}
             var answer = data["answers"][0]["data"][0]["answer"];
             loading(false);
             var newDiv = messages.childNodes[messages.childElementCount];
             var newP = document.createElement("p");
-            newP.appendChild(document.createTextNode(answer));
-            newDiv.appendChild(newP);
             if (link) {
                 var newA = document.createElement("a");
                 newA.appendChild(document.createTextNode(link));
@@ -46,6 +56,11 @@ function getResponse(query) {
                 newImg.setAttribute("src", image);
                 newImg.setAttribute("class", "susi-img");
                 newDiv.appendChild(newImg);
+            }
+            else
+            {
+            	newP.appendChild(document.createTextNode(answer));
+            	newDiv.appendChild(newP);
             }
             newDiv.setAttribute("class", "susinewmessage");
             messages.appendChild(newDiv);
