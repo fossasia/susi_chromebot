@@ -134,6 +134,8 @@ body{
 
 .button{
     margin-left : 15px;
+    border:none;
+    color:blue;
 }
 
 .susi-img{
@@ -142,9 +144,6 @@ body{
     width:150px;
 }
 
-.button.is-primary{
-    background-color: rgb(66, 133, 244);
-}
 
 .textarea:active,.textarea:focus,.textarea:hover{
     border-color: rgb(66, 133, 244);   
