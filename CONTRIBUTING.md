@@ -5,6 +5,7 @@
 * When you make very very minor changes to a PR of yours (like for example fixing a failing travis build or some small style corrections or minor changes requested by reviewers) make sure you squash your commits afterwards so that you don't have an absurd number of commits for a very small fix. (Learn how to squash at https://davidwalsh.name/squash-commits-git )
 * When you're submitting a PR for a UI-related issue, it would be really awesome if you add a screenshot of your change or a link to a deployment where it can be tested out along with your PR. It makes it very easy for the reviewers and you'll also get reviews quicker.
 * Collective Code Construction Contract (https://rfc.zeromq.org/spec:42/C4/)
+* Make the code as modular as possible. Add functions for any relevant code.
 
 **Feature Requests and Bug Reports**
 * When you file a feature request or when you are submitting a bug report to the [issue tracker](https://github.com/fossasia/susi_chromebot/issues), make sure you add steps to reproduce it. Especially if that bug is some weird/rare one.
