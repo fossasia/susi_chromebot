@@ -1,15 +1,14 @@
 /*jslint browser:true */
-var message = document.getElementById("message");
 var messages = document.getElementById("messages");
 var formid = document.getElementById("formid");
 var textarea = document.getElementById("textarea");
 
 function composeResponse(data){
-    var link = data["answers"][0]["data"][0]["link"];
-    var image1 = data["answers"][0]["data"][0]["answer"];
-    var image2 = data["answers"][0]["data"][0]["webformatURL"];
-    var image3 = data["answers"][0]["data"][0]["image"];
-    var answer = data["answers"][0]["data"][0]["answer"];
+    var link = data.answers[0].data[0].link;
+    var image1 = data.answers[0].data[0].answer;
+    var image2 = data.answers[0].data[0].webformatURL;
+    var image3 = data.answers[0].data[0].image;
+    var answer = data.answers[0].data[0].answer;
     var image;
     try {
         if (image2.startsWith("https")) {
@@ -41,35 +40,10 @@ function composeResponse(data){
     };
 }
 
-function getResponse(query) {
-    $.ajax({
-        dataType: "jsonp",
-        type: "GET",
-        url: "https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=" + query,
-        error: function(xhr,textStatus,errorThrown) {
-            loading(false);
-            var response = {
-                error: true,
-                errorText: "Sorry! request could not be made"
-            };
-            composeSusiMessage(response);        
-        },
-        success: function (data) {
-            var recQuery = data["answers"][0]["data"][0]["query"];
-            if (query !== recQuery) {
-                return getResponse(query);
-            }
-            var response = composeResponse(data);
-            loading(false);
-            composeSusiMessage(response);
-        }
-    });
-}
-
 function loading(condition=true){
-    if(condition == true){
-        var newDiv = document.createElement('div');
-        var newImg = document.createElement('img');
+    if(condition === true){
+        var newDiv = document.createElement("div");
+        var newImg = document.createElement("img");
         newImg.setAttribute("src","loading.gif");
         newImg.setAttribute("style","height:10px;width:auto");
         newDiv.appendChild(newImg);
@@ -80,18 +54,6 @@ function loading(condition=true){
     else{
         messages.childNodes[messages.childElementCount].innerHTML = "";
     }
-}
-
-function composeMyMessage(text) {
-    var newP = document.createElement("p");
-    var newDiv = document.createElement("div");
-    newDiv.setAttribute("class", "mynewmessage");
-    var myTextNode = document.createTextNode(text);
-    newP.appendChild(myTextNode);
-    newDiv.appendChild(newP);
-    messages.appendChild(newDiv);
-    textarea.value = "";
-    messages.scrollTop = messages.scrollHeight;
 }
 
 function composeLink(link) {
@@ -138,6 +100,46 @@ function composeSusiMessage(response) {
     messages.scrollTop = messages.scrollHeight;
 }
 
+function getResponse(query) {
+    $.ajax({
+        dataType: "jsonp",
+        type: "GET",
+        url: "https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=" + query,
+        error: function(xhr,textStatus,errorThrown) {
+        	console.log(xhr);
+        	console.log(textStatus);
+        	console.log(errorThrown);
+            loading(false);
+            var response = {
+                error: true,
+                errorText: "Sorry! request could not be made"
+            };
+            composeSusiMessage(response);        
+        },
+        success: function (data) {
+            var recQuery = data.answers[0].data[0].query;
+            if (query !== recQuery) {
+                return getResponse(query);
+            }
+            var response = composeResponse(data);
+            loading(false);
+            composeSusiMessage(response);
+        }
+    });
+}
+
+function composeMyMessage(text) {
+    var newP = document.createElement("p");
+    var newDiv = document.createElement("div");
+    newDiv.setAttribute("class", "mynewmessage");
+    var myTextNode = document.createTextNode(text);
+    newP.appendChild(myTextNode);
+    newDiv.appendChild(newP);
+    messages.appendChild(newDiv);
+    textarea.value = "";
+    messages.scrollTop = messages.scrollHeight;
+}
+
 function submitForm() {
     var text = textarea.value;
     text = text.trim();
@@ -146,8 +148,9 @@ function submitForm() {
     }
     composeMyMessage(text);
     loading();
-    if(window.navigator.onLine)
+    if(window.navigator.onLine){
         getResponse(text);
+    }
     else {
         loading(false);
         var response = {
