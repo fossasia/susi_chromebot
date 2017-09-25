@@ -148,7 +148,18 @@ body{
     border-color: rgb(66, 133, 244);   
 }
 #susi-logo{
- padding-top: 6px;
- width: 100px;
- height: auto;
+    padding-top: 6px;
+    width: 100px;
+    height: auto;
+}
+
+.icon{
+	font-size:30px;
+	margin-left:62px;
+}
+
+.textarea{
+	max-width:125%;
+	width:125%;
+	margin-bottom:5px;
 }
