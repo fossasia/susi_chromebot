@@ -1,5 +1,7 @@
 # Chrome extension to access SUSI.AI
 
+[![Build Status](https://travis-ci.org/fossasia/susi_chromebot.svg?branch=master)](https://travis-ci.org/fossasia/susi_chromebot)
+
 Hi. This is a chrome extension to access SUSI.AI.
 Why? We have the SUSI web client, however certain situations we don't want to leave the current browsing tab, and to access SUSI we would have to move to the next tab. But with SUSI.AI chrome extension, access SUSI.AI from any tabs while browsing without having to leave the tab.
 
