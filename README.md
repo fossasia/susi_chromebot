@@ -1,5 +1,6 @@
 # Chrome extension to access SUSI.AI
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/98a620d9aed84320ab5d38e03e23a09b)](https://www.codacy.com/app/zamhaq/susi_chromebot?utm_source=github.com&utm_medium=referral&utm_content=fossasia/susi_chromebot&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/fossasia/susi_chromebot.svg?branch=master)](https://travis-ci.org/fossasia/susi_chromebot)
 
 Hi. This is a chrome extension to access SUSI.AI.
