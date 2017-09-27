@@ -8,25 +8,26 @@ var formid = document.getElementById("formid");
 var textarea = document.getElementById("textarea");
 var mic = document.getElementById("mic");
 var setting = document.getElementById("setting");
+var dark = false;
 
 function getCurrentTime() {
-        var ap="AM";
-        var currDate=new Date();
-        var hours=currDate.getHours();
-        var minutes=currDate.getMinutes();
-        var time="";
-        if(hours>12){
-                ap="PM";
-                hours-=12;
-        }
-        if(hours===12){
-                ap="PM";
-        }
-        if(minutes<10){
-                minutes="0"+minutes;
-        }
-        time=hours+":"+minutes+" "+ap;
-        return time;
+    var ap="AM";
+    var currDate=new Date();
+    var hours=currDate.getHours();
+    var minutes=currDate.getMinutes();
+    var time="";
+    if(hours>12){
+        ap="PM";
+        hours-=12;
+    }
+    if(hours===12){
+        ap="PM";
+    }
+    if(minutes<10){
+        minutes="0"+minutes;
+    }
+    time=hours+":"+minutes+" "+ap;
+    return time;
 }
 
 function composeResponse(data){
@@ -106,6 +107,10 @@ function composeSusiMessage(response) {
     var newP = document.createElement("p");
     var newDiv =  messages.childNodes[messages.childElementCount];
     newDiv.setAttribute("class", "susinewmessage");
+    if(dark === true)
+    {
+        newDiv.setAttribute("class", "message-dark susinewmessage");
+    }
     var t = getCurrentTime();
     var currtime = document.createElement("p");
     currtime.setAttribute("class","time");
@@ -172,6 +177,10 @@ function composeMyMessage(text) {
     var newP = document.createElement("p");
     var newDiv = document.createElement("div");
     newDiv.setAttribute("class", "mynewmessage");
+    if(dark === true)
+    {
+        newDiv.setAttribute("class", "message-dark mynewmessage");
+    }
     var myTextNode = document.createTextNode(text);
     newP.appendChild(myTextNode);
     newDiv.appendChild(newP);
@@ -269,3 +278,47 @@ formid.addEventListener("submit", function (e) {
     e.preventDefault();
     submitForm();
 });
+
+function check(){
+    if(dark === false)
+    {
+        dark = true;
+    }
+    else
+    {
+        dark = false;
+    }
+    var box = document.getElementById("box");
+    box.classList.toggle("box-modified");
+    var field = document.getElementById("field");
+    field.classList.toggle("fieldmod");
+    var body = document.getElementById("body");
+    body.classList.toggle("body");
+    var butt = document.getElementById("but");
+    butt.classList.toggle("butmod");
+    mic.classList.toggle("butmod");
+    var headerbox = document.getElementById("headerbox");
+    headerbox.classList.toggle("header-modified");
+    var surroundbox = document.getElementById("surroundbox");
+    surroundbox.classList.toggle("surroundbox-modified");
+    formid.classList.toggle("darkform");
+    textarea.classList.toggle("textarea-mod");
+    var icon = document.getElementById("icon");
+    icon.classList.toggle("icon-mod");
+    var icon1 = document.getElementById("icon1");
+    icon1.classList.toggle("icon1-mod");
+   /* try{
+        var susimessage = document.getElementByClassName("susinewmessage");
+    }
+    catch(e)
+    {}
+    try{
+                var mymessage = document.getElementByClassName("mynewmessage");
+            
+    }
+    catch(e)
+    {}*/
+}
+
+document.getElementById("check").addEventListener("click", check);
+
