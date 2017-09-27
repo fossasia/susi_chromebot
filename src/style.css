@@ -1,5 +1,7 @@
 *{
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body{
@@ -20,6 +22,14 @@ body{
     text-align: center;
     color: white;
 
+}
+
+.header-modified{
+    background-color:rgb(25,50,76);
+}
+
+.body{
+    background-color:rgb(25,50,76);
 }
 
 .surroundbox{
@@ -148,11 +158,19 @@ body{
     border-color: rgb(66, 133, 244);   
 }
 #susi-logo{
-	float:center;
-	margin-left:-40px;
+        float:center;
+        margin-left: 0px;
     padding-top: 6px;
     width: 100px;
     height: auto;
+}
+
+.fieldmod{
+    background-color:rgb(25,50,76);
+}
+
+.butmod{
+    background-color:rgb(25,50,76);
 }
 
 .icon{
@@ -160,20 +178,108 @@ body{
     margin-right: 15px;
 }
 
-.button.icon{
-    margin-top: 2px;
-}
+
 #setting{
-	float:left;
-	padding:5px;
-	color:white;
+        float:left;
+        padding:5px;
+        color:white;
 }
 .textarea{
-	max-width:125%;
-	width:100%;
+        max-width:125%;
+        width:100%;
     margin-bottom:5px;
 }
 
-.time{
-	font-size:10px;
+.textarea-mod{
+    background-color:rgb(25,50,76);
+    border: 0;
+    color: #0ad5c1;
 }
+
+.time{
+        font-size:10px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 35px;
+  height: 22px;
+}
+
+.darkform{
+    background-color: rgb(25,50,76);
+}
+
+.icon-mod{
+    color: silver;
+    background-color: rgb(25,50,76);
+}
+
+.icon1-mod{
+    color: silver;
+    background-color: rgb(25,50,76);
+}
+
+.message-dark        {
+    background-color:rgba(25,147,147,.2);
+    color: #0ad5c1;
+}
+
+.box-modified{
+    background-color: rgb(25,50,76);
+}
+
+.switch input {display:none;}
+
+/* The slider */
+.theme{
+    float:right;
+    padding: 5px;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 1px;
+  bottom: 1px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(16px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+

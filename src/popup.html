@@ -11,27 +11,33 @@
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
-<body>
-    <div class="surroundbox">
-        <header class="headerbox">
+<body id="body">
+    <div class="surroundbox" id="surroundbox">
+        <header class="headerbox" id="headerbox">
             <a href="javascript: void(0)" id="setting"><i class="material-icons">settings</i></a>
           <a href="https://chat.susi.ai/overview" target="_blank">  <img id="susi-logo" src="susi-logo.png" > </a>
+          <div class="theme">
+          <label class="switch">
+		  <input type="checkbox" id="check">
+		  <span class="slider round"></span>
+		  </label>
+		  </div>
         </header>
-        <div class="box">
+        <div class="box" id="box">
             <div class="messages" id="messages">
             </div>
         </div>
 
         <form id="formid">
-            <div class="field has-addons">
+            <div class="field has-addons" id="field">
                 <div class="control">
-                        <button id="mic" class="button icon"><i class="material-icons">keyboard_voice</i></button>
+                        <button id="mic" class="button icon"><i class="material-icons" id="icon">keyboard_voice</i></button>
                 </div>
                 <div class="control">
                     <textarea class="textarea" placeholder="Enter message" name="text" id="textarea" cols="20" rows="1" autofocus></textarea>
                 </div>
                 <div class="control">
-                    <button class="button icon"><i class="material-icons">&#xE163;</i></button>
+                    <button class="button icon" id="but"><i class="material-icons" id="icon1">&#xE163;</i></button>
                 </div>
             </div>            
         </form>
