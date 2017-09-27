@@ -9,6 +9,26 @@ var textarea = document.getElementById("textarea");
 var mic = document.getElementById("mic");
 var setting = document.getElementById("setting");
 
+function getCurrentTime() {
+        var ap="AM";
+        var currDate=new Date();
+        var hours=currDate.getHours();
+        var minutes=currDate.getMinutes();
+        var time="";
+        if(hours>12){
+                ap="PM";
+                hours-=12;
+        }
+        if(hours===12){
+                ap="PM";
+        }
+        if(minutes<10){
+                minutes="0"+minutes;
+        }
+        time=hours+":"+minutes+" "+ap;
+        return time;
+}
+
 function composeResponse(data){
     var link = data.answers[0].data[0].link;
     var image1 = data.answers[0].data[0].answer;
@@ -33,7 +53,7 @@ function composeResponse(data){
     try {
         if (image1.startsWith("https")) {
             image=image1;
-            answer="";	
+            answer="";        
         }
     }
     catch(err)
@@ -86,6 +106,11 @@ function composeSusiMessage(response) {
     var newP = document.createElement("p");
     var newDiv =  messages.childNodes[messages.childElementCount];
     newDiv.setAttribute("class", "susinewmessage");
+    var t = getCurrentTime();
+    var currtime = document.createElement("p");
+    currtime.setAttribute("class","time");
+    var time = document.createTextNode(t);
+    currtime.append(time);
     var susiTextNode;
     if(response.error===true){
         susiTextNode = document.createTextNode(response.errorText);
@@ -109,6 +134,8 @@ function composeSusiMessage(response) {
             }
             speakOutput(response.answer);   
     }
+    newDiv.appendChild(document.createElement("br"));
+    newDiv.appendChild(currtime);
     messages.appendChild(newDiv);
     messages.scrollTop = messages.scrollHeight;
 }
@@ -119,9 +146,9 @@ function getResponse(query) {
         type: "GET",
         url: "https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=" + query,
         error: function(xhr,textStatus,errorThrown) {
-        	console.log(xhr);
-        	console.log(textStatus);
-        	console.log(errorThrown);
+                console.log(xhr);
+                console.log(textStatus);
+                console.log(errorThrown);
             loading(false);
             var response = {
                 error: true,
@@ -148,6 +175,13 @@ function composeMyMessage(text) {
     var myTextNode = document.createTextNode(text);
     newP.appendChild(myTextNode);
     newDiv.appendChild(newP);
+    var t = getCurrentTime();
+    var currtime = document.createElement("p");
+    currtime.setAttribute("class","time");
+    var time = document.createTextNode(t);
+    currtime.append(time);
+    newDiv.appendChild(document.createElement("br"));
+    newDiv.appendChild(currtime);
     messages.appendChild(newDiv);
     textarea.value = "";
     messages.scrollTop = messages.scrollHeight;
