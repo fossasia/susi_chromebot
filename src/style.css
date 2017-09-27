@@ -148,6 +148,8 @@ body{
     border-color: rgb(66, 133, 244);   
 }
 #susi-logo{
+	float:center;
+	margin-left:-40px;
     padding-top: 6px;
     width: 100px;
     height: auto;
@@ -158,8 +160,13 @@ body{
     margin-right: 15px;
 }
 
-button#setting.button.icon{
+.button.icon{
     margin-top: 2px;
+}
+#setting{
+	float:left;
+	padding:5px;
+	color:white;
 }
 .textarea{
 	max-width:125%;
