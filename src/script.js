@@ -1,7 +1,13 @@
 /*jslint browser:true */
+/* global SpeechSynthesisUtterance */
+/* global webkitSpeechRecognition */
+/* global chrome */
+
 var messages = document.getElementById("messages");
 var formid = document.getElementById("formid");
 var textarea = document.getElementById("textarea");
+var mic = document.getElementById("mic");
+var setting = document.getElementById("setting");
 
 function composeResponse(data){
     var link = data.answers[0].data[0].link;
@@ -71,6 +77,11 @@ function composeImage(image) {
     return newImg;
 }
 
+function speakOutput(msg){
+    var voiceMsg = new SpeechSynthesisUtterance(msg);
+    window.speechSynthesis.speak(voiceMsg);
+}
+
 function composeSusiMessage(response) {
     var newP = document.createElement("p");
     var newDiv =  messages.childNodes[messages.childElementCount];
@@ -80,6 +91,7 @@ function composeSusiMessage(response) {
         susiTextNode = document.createTextNode(response.errorText);
         newP.appendChild(susiTextNode);
         newDiv.appendChild(newP);
+        speakOutput(response.errorText);
     }
     else {
             susiTextNode = document.createTextNode(response.answer);
@@ -94,7 +106,8 @@ function composeSusiMessage(response) {
                 var newImg = composeImage(response.image);
                 newDiv.appendChild(document.createElement("br"));
                 newDiv.appendChild(newImg);
-            }   
+            }
+            speakOutput(response.answer);   
     }
     messages.appendChild(newDiv);
     messages.scrollTop = messages.scrollHeight;
@@ -160,6 +173,56 @@ function submitForm() {
         composeSusiMessage(response);
     }
 }
+
+
+var recognizing;
+
+function reset() {
+    recognizing = false;
+}
+
+var recognition = new webkitSpeechRecognition();
+recognition.onerror = function(e){
+    console.log(e.error);
+};
+
+//recognition.continuous = true;
+reset();
+recognition.onend = reset();
+
+recognition.onresult = function (event) {
+    var interimText=" ";
+  for (var i = event.resultIndex; i < event.results.length; ++i) {
+    if (event.results[i].isFinal) {
+      textarea.value = event.results[i][0].transcript;
+      submitForm();
+    }
+    else {
+        interimText += event.results[i][0].transcript;
+        textarea.value += interimText;
+    }
+  }
+};
+
+function toggleStartStop() {
+  if (recognizing) {
+    recognition.stop();
+    reset();
+  } else {
+    recognition.start();
+    recognizing = true;
+  }
+}
+
+mic.addEventListener("click", function () {
+    toggleStartStop();
+});
+
+setting.addEventListener("click", function () {
+    chrome.tabs.create({
+        url: chrome.runtime.getURL("options.html")
+    });
+});
 
 textarea.onkeyup = function (e) {
     if (e.which === 13 && !e.shiftKey) {
