@@ -283,3 +283,18 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+.micmodal {
+    width:100%;
+    z-index: 1;
+    display: none;
+    background-color: white;
+    position: absolute;
+}
+
+.active{
+    display: block;
+}
+
+.micmodal-content{
+    text-align: center;
+}
