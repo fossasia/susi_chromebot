@@ -9,6 +9,7 @@ var textarea = document.getElementById("textarea");
 var mic = document.getElementById("mic");
 var setting = document.getElementById("setting");
 var dark = false;
+var upCount = 0;
 
 function getCurrentTime() {
     var ap="AM";
@@ -54,7 +55,7 @@ function composeResponse(data){
     try {
         if (image1.startsWith("https")) {
             image=image1;
-            answer="";        
+            answer="";
         }
     }
     catch(err)
@@ -94,7 +95,7 @@ function composeLink(link) {
 function composeImage(image) {
     var newImg = document.createElement("img");
     newImg.setAttribute("src", image);
-    newImg.setAttribute("class", "susi-img"); 
+    newImg.setAttribute("class", "susi-img");
     return newImg;
 }
 
@@ -137,7 +138,7 @@ function composeSusiMessage(response) {
                 newDiv.appendChild(document.createElement("br"));
                 newDiv.appendChild(newImg);
             }
-            speakOutput(response.answer);   
+            speakOutput(response.answer);
     }
     newDiv.appendChild(document.createElement("br"));
     newDiv.appendChild(currtime);
@@ -159,7 +160,7 @@ function getResponse(query) {
                 error: true,
                 errorText: "Sorry! request could not be made"
             };
-            composeSusiMessage(response);        
+            composeSusiMessage(response);
         },
         success: function (data) {
             var recQuery = data.answers[0].data[0].query;
@@ -268,9 +269,27 @@ setting.addEventListener("click", function () {
 });
 
 textarea.onkeyup = function (e) {
-    if (e.which === 13 && !e.shiftKey) {
-        e.preventDefault();
-        submitForm();
+    var prevMessages,myQuery;
+    try{
+        if (e.which === 38){
+            upCount = upCount + 1;
+            prevMessages = document.getElementsByClassName("mynewmessage");
+            myQuery = prevMessages[prevMessages.length - upCount].getElementsByTagName("p")[0].textContent;
+            textarea.value = myQuery;
+        }
+        if (e.which === 40){
+            upCount = upCount - 1;
+            prevMessages = document.getElementsByClassName("mynewmessage");
+            myQuery = prevMessages[prevMessages.length - upCount].getElementsByTagName("p")[0].textContent;
+            textarea.value = myQuery;
+        }
+        if (e.which === 13 && !e.shiftKey) {
+            upCount = 0;
+            e.preventDefault();
+            submitForm();
+        }
+    }
+    catch(excep){
     }
 };
 
@@ -314,7 +333,7 @@ function check(){
     {}
     try{
                 var mymessage = document.getElementByClassName("mynewmessage");
-            
+
     }
     catch(e)
     {}*/
