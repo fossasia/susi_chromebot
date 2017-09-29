@@ -88,7 +88,7 @@ body{
     text-align: left;
     margin-left: 0.3rem;
     padding: 0.5rem;
-    margin-top: 0.5rem;
+    margin-top: 0.5rem;gre
     width:auto;
     max-width: 50%;
     float: left;
@@ -176,4 +176,50 @@ body{
 
 .time{
 	font-size:10px;
+}
+.dropdown{
+    position: relative;
+    display: inline-block;
+    background-color: rgb(66, 133, 244);
+    right: 110px;
+    top:2.5px;
+}
+.dropdown-content{
+    display: none ;
+    position: absolute ; 
+    background-color: #f9f9f9 ; 
+    min-width: 150px ;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px ;
+    z-index: 1 ;
+    color: grey !important;
+    list-style: none;
+    text-align: left;
+    opacity: 0.7;
+}
+.dropdown:hover .dropdown-content {
+    display: block  ;
+    
+}
+#ddown{
+    background-color: rgb(66, 133, 244);
+    color: white;
+    border: none;
+    margin-top: 2px;
+   }
+.dropdown-content li:hover{
+    background-color: #e5e5e5;
+    border-radius: 5px;
+}
+.dropdown-content li{
+    letter-spacing: 0.5px;
+    border-spacing: 0.5px;
+
+}
+.dropdown-content a{
+    color: grey;
+}
+.dropdow-content a:hover{
+    background-color: #e5e5e5;
+    border-radius: 5px;
 }
