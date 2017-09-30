@@ -7,7 +7,9 @@ var messages = document.getElementById("messages");
 var formid = document.getElementById("formid");
 var textarea = document.getElementById("textarea");
 var mic = document.getElementById("mic");
-var setting = document.getElementById("setting");
+var micimg = document.getElementById("micimg");
+var micmodal = document.getElementById("micmodal");
+var setting = document.getElementById("setting"); 
 var dark = false;
 var upCount = 0;
 
@@ -230,9 +232,17 @@ recognition.onerror = function(e){
     console.log(e.error);
 };
 
+recognition.onstart = function () {
+    micimg.setAttribute("src","mic-animate.gif");
+};
+
 //recognition.continuous = true;
 reset();
-recognition.onend = reset();
+recognition.onend = function(){
+    reset();
+    micmodal.classList.remove("active");
+    micimg.setAttribute("src","mic.gif");
+}; 
 
 recognition.onresult = function (event) {
     var interimText=" ";
@@ -252,9 +262,11 @@ function toggleStartStop() {
   if (recognizing) {
     recognition.stop();
     reset();
+    micmodal.classList.remove("active");
   } else {
     recognition.start();
     recognizing = true;
+    micmodal.className += " active";
   }
 }
 
