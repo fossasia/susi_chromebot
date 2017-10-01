@@ -74,7 +74,7 @@ function loading(condition=true){
     if(condition === true){
         var newDiv = document.createElement("div");
         var newImg = document.createElement("img");
-        newImg.setAttribute("src","loading.gif");
+        newImg.setAttribute("src","images/loading.gif");
         newImg.setAttribute("style","height:10px;width:auto");
         newDiv.appendChild(newImg);
         newDiv.setAttribute("class","susinewmessage");
@@ -233,7 +233,7 @@ recognition.onerror = function(e){
 };
 
 recognition.onstart = function () {
-    micimg.setAttribute("src","mic-animate.gif");
+    micimg.setAttribute("src","images/mic-animate.gif");
 };
 
 //recognition.continuous = true;
@@ -241,7 +241,7 @@ reset();
 recognition.onend = function(){
     reset();
     micmodal.classList.remove("active");
-    micimg.setAttribute("src","mic.gif");
+    micimg.setAttribute("src","images/mic.gif");
 }; 
 
 recognition.onresult = function (event) {
