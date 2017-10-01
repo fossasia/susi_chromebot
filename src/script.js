@@ -338,7 +338,8 @@ function check(){
     icon.classList.toggle("icon-mod");
     var icon1 = document.getElementById("icon1");
     icon1.classList.toggle("icon1-mod");
-    
+    var doc = document.getElementById("doc");
+    doc.classList.toggle("dark");
    /* try{
         var susimessage = document.getElementByClassName("susinewmessage");
     }

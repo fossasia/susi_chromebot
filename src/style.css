@@ -21,7 +21,27 @@ body{
     margin-bottom: 4px;
     text-align: center;
     color: white;
+}
 
+#micdiv{
+	position: absolute;
+	left: -10px;
+	bottom: -28px;
+}
+
+#textareadiv{
+	position: absolute;
+	left: 34px;
+	
+}
+#senddiv{
+	position: absolute;
+	right: -10px;
+	bottom: -28px;
+}
+
+.dark{
+	background: rgb(25,50,76);
 }
 
 .header-modified{
