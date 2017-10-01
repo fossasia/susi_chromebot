@@ -25,4 +25,3 @@ Pull requests must be reviewed before merge. The goal is to have two people revi
 
 Note that this does not clarify what to do if there a negative reviews.
 The goal is again to spread knowledge and feedback but also prevent frustration and stagnation of the project.
-
