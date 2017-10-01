@@ -5,15 +5,22 @@
     "version" : "1.0.0",
     "browser_action" : {
        "default_icon" : {
+
+
         "16" : "images/icon.png"
-       },
+
+      },
        "default_title" : "susi_ai",
        "default_popup" : "popup.html"
     },
+
     "background": {
     "scripts": ["background.js"],
     "persistent": false
     },
+    "icons": {
+    "48":"images/icon.png"}
+    ,
     "content_scripts": [
     {
       "matches": ["http://www.google.com/*"],
