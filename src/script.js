@@ -112,7 +112,7 @@ function composeSusiMessage(response) {
     newDiv.setAttribute("class", "susinewmessage");
     if(dark === true)
     {
-        newDiv.setAttribute("class", "message-dark susinewmessage");
+        newDiv.setAttribute("class", "message-susi-dark susinewmessage");
     }
     var t = getCurrentTime();
     var currtime = document.createElement("p");
@@ -338,6 +338,7 @@ function check(){
     icon.classList.toggle("icon-mod");
     var icon1 = document.getElementById("icon1");
     icon1.classList.toggle("icon1-mod");
+    
    /* try{
         var susimessage = document.getElementByClassName("susinewmessage");
     }
