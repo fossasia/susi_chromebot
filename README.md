@@ -19,6 +19,7 @@ $ cd src
 3. Turn on developer mode if not already on.
 4. Load unpacked extension from `src` folder.
 5. Click on the SUSI icon you see on your browser toolbar.
+6. Click on the settings icon (top left of the popup) to allow mic access.
 
 ## Working GIF
 

@@ -14,6 +14,9 @@
     "scripts": ["background.js"],
     "persistent": false
     },
+    "icons":{
+      "48" : "images/icon.png"
+    },
     "content_scripts": [
     {
       "matches": ["http://www.google.com/*"],
