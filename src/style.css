@@ -298,3 +298,46 @@ input:checked + .slider:before {
 .micmodal-content{
     text-align: center;
 }
+.dropdown{
+    position: relative;
+    display: inline-block;
+    background-color: rgb(66,133,244);
+    right: 75px;
+    top: 3px;
+}
+.dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    color: grey;
+    list-style: none;
+    text-align: left;
+}
+.dropdown:hover .dropdown-content{
+    display: block;
+}
+#ddown{
+    background-color: rgb(66,133,244);
+    color: white;
+    border: none;
+    margin-top: 2px;
+}
+.dropdown-content li:hover{
+    background-color: #e5e5e5;
+    border-radius: 5px;
+}
+.dropdown-content li{
+    letter-spacing: 0.5px;
+    border-spacing: 0.5px;
+}
+.dropdown-content a{
+    color: grey;
+}
+.dropdown-content a:hover{
+    background-color: #e5e5e5;
+    border-radius: 5px;
+}
