@@ -21,7 +21,27 @@ body{
     margin-bottom: 4px;
     text-align: center;
     color: white;
+}
 
+#micdiv{
+	position: absolute;
+	left: -10px;
+	bottom: -28px;
+}
+
+#textareadiv{
+	position: absolute;
+	left: 34px;
+	
+}
+#senddiv{
+	position: absolute;
+	right: -10px;
+	bottom: -28px;
+}
+
+.dark{
+	background: rgb(25,50,76);
 }
 
 .header-modified{
@@ -151,15 +171,15 @@ body{
 .susi-img{
     border:solid 0.2em;
     height: 200px;
-    width:150px;
+    width: 150px;
 }
 
 .textarea:active,.textarea:focus,.textarea:hover{
     border-color: rgb(66, 133, 244);   
 }
 #susi-logo{
-        float:center;
-        margin-left: 0px;
+    float:center;
+    margin-left: 0px;
     padding-top: 6px;
     width: 100px;
     height: auto;
@@ -180,13 +200,13 @@ body{
 
 
 #setting{
-        float:left;
-        padding:5px;
-        color:white;
+    float:left;
+    padding:5px;
+    color:white;
 }
 .textarea{
-        max-width:125%;
-        width:100%;
+    max-width:125%;
+    width:118%;
     margin-bottom:5px;
 }
 
@@ -197,7 +217,7 @@ body{
 }
 
 .time{
-        font-size:10px;
+    font-size:10px;
 }
 
 .switch {
@@ -224,6 +244,11 @@ body{
 .message-dark        {
     background-color:rgba(25,147,147,.2);
     color: #0ad5c1;
+}
+
+.message-susi-dark        {
+    background-color:rgba(25,147,147,.2);
+    color: #0ec879;
 }
 
 .box-modified{
@@ -298,6 +323,7 @@ input:checked + .slider:before {
 .micmodal-content{
     text-align: center;
 }
+
 #dropdown{
     position: relative;
     display: inline-block;
@@ -345,3 +371,4 @@ input:checked + .slider:before {
     border-radius:5px;
 
 }
+r
