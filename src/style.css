@@ -367,8 +367,5 @@ input:checked + .slider:before {
     color: grey;
 }
 .dropdown-content a:hover{
-    background-color: #e5e5e5
-    border-radius:5px;
-
-}
-r
+    background-color: #e5e5e5;
+	    border-radius:5px;}
