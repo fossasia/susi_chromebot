@@ -7,7 +7,7 @@
        "default_icon" : {
         "16" : "images/icon.png"
        },
-       "default_title" : "susi_ai",
+       "default_title" : "susi_ai (Alt+Shift+S)",
        "default_popup" : "popup.html"
     },
     "background": {
@@ -29,5 +29,13 @@
       "http://*/*",
       "https://*/*",
       "http://ajax.googleapis.com/ajax/libs/jquery/"
-    ]
+    ],
+
+    "commands": {
+      "_execute_browser_action": {
+        "suggested_key": {
+          "default": "Alt+Shift+S"
+        }
+      }
+    }
 }
