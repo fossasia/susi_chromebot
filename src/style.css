@@ -261,6 +261,7 @@ body{
 .theme{
     float:right;
     padding: 5px;
+
 }
 
 .slider {
@@ -369,4 +370,4 @@ input:checked + .slider:before {
 .dropdown-content a:hover{
     background-color: #e5e5e5;
 	    border-radius:5px;}
-
+>>>>>>> 814f01bc21811887dddaf400d57d8ca7c57e8e92
