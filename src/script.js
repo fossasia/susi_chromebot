@@ -12,6 +12,7 @@ var micmodal = document.getElementById("micmodal");
 var setting = document.getElementById("setting"); 
 var dark = false;
 var upCount = 0;
+var shouldSpeak = true;
 
 function getCurrentTime() {
     var ap="AM";
@@ -51,9 +52,11 @@ function loading(condition=true){
 
 
 
-function speakOutput(msg){
-    var voiceMsg = new SpeechSynthesisUtterance(msg);
-    window.speechSynthesis.speak(voiceMsg);
+function speakOutput(msg,speak=false){
+    if(speak){
+        var voiceMsg = new SpeechSynthesisUtterance(msg);
+        window.speechSynthesis.speak(voiceMsg);
+    }
 }
 
 function composeImage(image) {
@@ -140,14 +143,14 @@ function composeSusiMessage(response) {
         susiTextNode = document.createTextNode(response.errorText);
         newP.appendChild(susiTextNode);
         newDiv.appendChild(newP);
-        speakOutput(response.errorText);
+        speakOutput(response.errorText,shouldSpeak);
     }
     else {
             if (response.reply && !response.image) {
                 susiTextNode = document.createTextNode(response.reply);
                 newP.appendChild(susiTextNode);
                 newDiv.appendChild(newP);
-                speakOutput(response.reply);
+                speakOutput(response.reply,shouldSpeak);
             }
             else if(response.image) {
                 var newImg = composeImage(response.reply);
@@ -393,5 +396,17 @@ function check(){
     {}*/
 }
 
-document.getElementById("check").addEventListener("click", check);
+function changeSpeak(){
+    shouldSpeak = !shouldSpeak;
+    var SpeakIcon = document.getElementById("speak-icon");
+    if(!shouldSpeak){
+        SpeakIcon.innerText = "volume_off";
+    }else{
+        SpeakIcon.innerText = "volume_up";
+    }
+    console.log("Should be speaking? " + shouldSpeak);
+}
 
+
+document.getElementById("check").addEventListener("click", check);
+document.getElementById("speak").addEventListener("click",changeSpeak);
