@@ -24,6 +24,6 @@
     "browser": true, 
     "devel": true, 
     "moz":true, 
-    "es5": true, 
-    "strict": false
+    "strict": false,
+    "esversion": 6
 }

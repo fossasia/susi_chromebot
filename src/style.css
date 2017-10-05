@@ -74,7 +74,7 @@ body{
     margin-right: 0.5rem;
     background-color: #e0e0e0;
     width: auto;
-    max-width: 50%;
+    max-width: 100%;
     float: right;
     clear: both;
     overflow-wrap: break-word;
@@ -120,7 +120,7 @@ body{
     padding: 0.5rem;
     margin-top: 0.5rem;
     width:auto;
-    max-width: 50%;
+    max-width: 100%;
     float: left;
     clear: both;
     overflow-wrap: break-word;
@@ -170,8 +170,7 @@ body{
 
 .susi-img{
     border:solid 0.2em;
-    height: 200px;
-    width: 150px;
+    width: 100%;
 }
 
 .textarea:active,.textarea:focus,.textarea:hover{
@@ -368,3 +367,25 @@ input:checked + .slider:before {
 .dropdown-content a:hover{
     background-color: #e5e5e5;
         border-radius:5px;}
+
+.table-response{
+    table-layout: fixed;
+    width: 100%;
+}
+
+.table-response tr {
+    font-size: 0.8em;
+    border-bottom: 1px solid lightgrey;
+}
+
+td, th {
+    padding: 0.1rem;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 30px;
+    text-overflow: ellipsis;
+}
+
+.link {
+    color: rgb(66, 133, 244);
+}

@@ -33,43 +33,6 @@ function getCurrentTime() {
     return time;
 }
 
-function composeResponse(data){
-    var link = data.answers[0].data[0].link;
-    var image1 = data.answers[0].data[0].answer;
-    var image2 = data.answers[0].data[0].webformatURL;
-    var image3 = data.answers[0].data[0].image;
-    var answer = data.answers[0].data[0].answer;
-    var image;
-    try {
-        if (image2.startsWith("https")) {
-            image=image2;
-            answer="";
-        }
-    }catch(err)
-    {}
-    try {
-        if (image3.startsWith("https")) {
-            image=image3;
-        }
-    }
-    catch(err)
-    {}
-    try {
-        if (image1.startsWith("https")) {
-            image=image1;
-            answer="";
-        }
-    }
-    catch(err)
-    {}
-    return {
-        error: false,
-        link,
-        image,
-        answer
-    };
-}
-
 function loading(condition=true){
     if(condition === true){
         var newDiv = document.createElement("div");
@@ -86,12 +49,11 @@ function loading(condition=true){
     }
 }
 
-function composeLink(link) {
-    var newA = document.createElement("a");
-    newA.appendChild(document.createTextNode(link));
-    newA.setAttribute("href", link);
-    newA.setAttribute("target", "_blank");
-    return newA;
+
+
+function speakOutput(msg){
+    var voiceMsg = new SpeechSynthesisUtterance(msg);
+    window.speechSynthesis.speak(voiceMsg);
 }
 
 function composeImage(image) {
@@ -101,9 +63,63 @@ function composeImage(image) {
     return newImg;
 }
 
-function speakOutput(msg){
-    var voiceMsg = new SpeechSynthesisUtterance(msg);
-    window.speechSynthesis.speak(voiceMsg);
+function composeLink(link) {
+    var newA = document.createElement("a");
+    newA.appendChild(document.createTextNode(link));
+    newA.setAttribute("href", link);
+    newA.setAttribute("target", "_blank");
+    newA.setAttribute("class", "link");
+    return newA;
+}
+
+function composeReplyAnswer(response,replyData){
+    response.reply = replyData;
+    if(replyData.startsWith("https")) {
+        response.image = true;
+    } 
+    return response;
+}
+
+function composeReplyTable(response,columns,data) {
+    var keys = Object.keys(columns);
+    var table = document.createElement("table");
+    table.setAttribute("class","table-response");
+    var tableHead = document.createElement("thead");
+    var trHead = document.createElement("tr");
+    keys.map((key) => {
+        var th = document.createElement("th");
+        th.appendChild(document.createTextNode(columns[key]));
+        trHead.appendChild(th);
+    });
+    tableHead.appendChild(trHead);
+    table.appendChild(tableHead);
+    var tableBody = document.createElement("tbody");
+    data.map((item) => {
+        var trItem = document.createElement("tr");
+        var flag = false;
+        keys.map((key) => {
+            if(item[key]){
+                flag=true;
+                var tdItem = document.createElement("td");
+                if(item[key].startsWith("http")) {
+                    var linkItem = composeLink(item[key]);
+                    tdItem.appendChild(linkItem);
+                    trItem.appendChild(tdItem);
+                }
+                else {
+                tdItem.appendChild(document.createTextNode(item[key]));
+                trItem.appendChild(tdItem);
+                }
+            }
+        });
+        if(flag) {
+            tableBody.appendChild(trItem);
+        }
+    });
+    table.appendChild(tableBody);
+    response.tableType = true;
+    response.table = table;
+    return response;
 }
 
 function composeSusiMessage(response) {
@@ -127,20 +143,23 @@ function composeSusiMessage(response) {
         speakOutput(response.errorText);
     }
     else {
-            susiTextNode = document.createTextNode(response.answer);
-            newP.appendChild(susiTextNode);
-            newDiv.appendChild(newP);
-            if (response.link) {
-                var newA = composeLink(response.link);
-                newDiv.appendChild(document.createElement("br"));
-                newDiv.appendChild(newA);
+            if (response.reply && !response.image) {
+                susiTextNode = document.createTextNode(response.reply);
+                newP.appendChild(susiTextNode);
+                newDiv.appendChild(newP);
+                speakOutput(response.reply);
             }
-            if (response.image) {
-                var newImg = composeImage(response.image);
+            else if(response.image) {
+                var newImg = composeImage(response.reply);
                 newDiv.appendChild(document.createElement("br"));
-                newDiv.appendChild(newImg);
+                newDiv.appendChild(newImg);    
             }
-            speakOutput(response.answer);
+            else if(response.tableType) {
+                    newDiv.appendChild(response.table);
+            }
+            else {
+                console.log("could not make response");
+            }
     }
     newDiv.appendChild(document.createElement("br"));
     newDiv.appendChild(currtime);
@@ -148,16 +167,36 @@ function composeSusiMessage(response) {
     messages.scrollTop = messages.scrollHeight;
 }
 
+function composeResponse(action,data) {
+    var response = {
+        error: false,
+        reply: "",
+        image: false,
+        tableType: false 
+    };
+    switch(action.type){
+        case "answer" : response = composeReplyAnswer(response,action.expression);
+                        break;
+        case "table" :  response = composeReplyTable(response,action.columns,data);
+                        break;
+        default :       response.error = true;
+                        response.errorText = "No matching action type";
+                        break; 
+    }
+    return response;
+}
+
 function getResponse(query) {
+    loading();
     $.ajax({
         dataType: "jsonp",
         type: "GET",
         url: "https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=" + query,
-        error: function(xhr,textStatus,errorThrown) {
+        error: function(xhr,textStatus,errorThrown) {   
                 console.log(xhr);
                 console.log(textStatus);
                 console.log(errorThrown);
-            loading(false);
+                loading(false);
             var response = {
                 error: true,
                 errorText: "Sorry! request could not be made"
@@ -165,13 +204,14 @@ function getResponse(query) {
             composeSusiMessage(response);
         },
         success: function (data) {
-            var recQuery = data.answers[0].data[0].query;
-            if (query !== recQuery) {
-                return getResponse(query);
-            }
-            var response = composeResponse(data);
-            loading(false);
-            composeSusiMessage(response);
+            data.answers[0].actions.map((action) => {
+                var response = composeResponse(action,data.answers[0].data);
+                loading(false);
+                composeSusiMessage(response);
+                if(action.type !== data.answers[0].actions[data.answers[0].actions.length-1].type){
+                    loading(); //if not last action then create another loading box for susi response
+                }
+            });
         }
     });
 }
@@ -206,16 +246,16 @@ function submitForm() {
         return console.log("Empty Query!");
     }
     composeMyMessage(text);
-    loading();
     if(window.navigator.onLine){
         getResponse(text);
     }
     else {
-        loading(false);
+        loading();
         var response = {
             error: true,
             errorText: "Not connected to Internet!"
         };
+        loading(false);
         composeSusiMessage(response);
     }
 }
@@ -236,8 +276,8 @@ recognition.onstart = function () {
     micimg.setAttribute("src","images/mic-animate.gif");
 };
 
-//recognition.continuous = true;
 reset();
+
 recognition.onend = function(){
     reset();
     micmodal.classList.remove("active");
