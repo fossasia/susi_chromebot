@@ -84,6 +84,7 @@ function composeReplyTable(response,columns,data) {
     var keys = Object.keys(columns);
     var table = document.createElement("table");
     table.setAttribute("class","table-response");
+    table.setAttribute("id","table-res");
     var tableHead = document.createElement("thead");
     var trHead = document.createElement("tr");
     keys.map((key) => {
@@ -156,6 +157,7 @@ function composeSusiMessage(response) {
             }
             else if(response.tableType) {
                     newDiv.appendChild(response.table);
+                    $("#table-res").addClass("table-height");
             }
             else {
                 console.log("could not make response");
@@ -380,17 +382,8 @@ function check(){
     icon1.classList.toggle("icon1-mod");
     var doc = document.getElementById("doc");
     doc.classList.toggle("dark");
-   /* try{
-        var susimessage = document.getElementByClassName("susinewmessage");
-    }
-    catch(e)
-    {}
-    try{
-                var mymessage = document.getElementByClassName("mynewmessage");
-
-    }
-    catch(e)
-    {}*/
+	$(".susinewmessage").toggleClass("message-susi-dark");
+	$(".mynewmessage").toggleClass("message-dark");
 }
 
 document.getElementById("check").addEventListener("click", check);

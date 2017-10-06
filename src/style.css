@@ -176,6 +176,7 @@ body{
 .textarea:active,.textarea:focus,.textarea:hover{
     border-color: rgb(66, 133, 244);   
 }
+
 #susi-logo{
     float:center;
     margin-left: 0px;
@@ -240,9 +241,55 @@ body{
     background-color: rgb(25,50,76);
 }
 
-.message-dark        {
-    background-color:rgba(25,147,147,.2);
+.message-dark:before{
+    content: '';
+    position: absolute;
+    border-color: transparent transparent transparent black;
+    border-width: 5px 0 5px 5px;
+    border-style: solid;
+    right: -5px;
+    top: 0.5px;
+    border-radius: 20%;
+}
+
+.message-dark:after{
+    content: '';
+    position: absolute;
+    border-color: transparent transparent transparent #0A5658;
+    border-width: 5px 0 5px 5px;
+    border-style: solid;
+    right: -4.5px;
+    top: 0.3px;
+    border-radius: 20%;
+    float: right;
+    clear: both;
+}
+
+.message-dark{
+    background-color: rgba(25,147,147,.2);
     color: #0ad5c1;
+}
+
+.message-susi-dark:before{
+    content: '';
+    position: absolute;
+    border-color: transparent black transparent transparent;
+    border-width: 5px 5px 5px 0;
+    border-style: solid;
+    left: -5px;
+    top: 0.5px;
+    border-radius: 20%;
+}
+
+.message-susi-dark:after{
+    content: '';
+    position: absolute;
+    border-color: transparent #0A5658 transparent transparent;
+    border-width: 5px 5px 5px 0;
+    border-style: solid;
+    left: -4.5px;
+    top: 0.3px;
+    border-radius: 20%;
 }
 
 .message-susi-dark        {
@@ -371,6 +418,8 @@ input:checked + .slider:before {
 .table-response{
     table-layout: fixed;
     width: 100%;
+    height: 40%;
+    overflow: auto;
 }
 
 .table-response tr {
@@ -388,4 +437,9 @@ td, th {
 
 .link {
     color: rgb(66, 133, 244);
+}
+
+.table-height {
+	height: 75%;
+	overflow: auto;
 }
