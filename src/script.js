@@ -380,6 +380,8 @@ function check(){
     icon1.classList.toggle("icon1-mod");
     var doc = document.getElementById("doc");
     doc.classList.toggle("dark");
+    var dropdown = document.getElementById("dropdown");
+    dropdown.classList.toggle("drop-dark");
    /* try{
         var susimessage = document.getElementByClassName("susinewmessage");
     }
@@ -394,4 +396,3 @@ function check(){
 }
 
 document.getElementById("check").addEventListener("click", check);
-
