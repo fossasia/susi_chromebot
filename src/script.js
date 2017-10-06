@@ -380,17 +380,8 @@ function check(){
     icon1.classList.toggle("icon1-mod");
     var doc = document.getElementById("doc");
     doc.classList.toggle("dark");
-   /* try{
-        var susimessage = document.getElementByClassName("susinewmessage");
-    }
-    catch(e)
-    {}
-    try{
-                var mymessage = document.getElementByClassName("mynewmessage");
-
-    }
-    catch(e)
-    {}*/
+	$(".susinewmessage").toggleClass("message-susi-dark");
+	$(".mynewmessage").toggleClass("message-dark");
 }
 
 document.getElementById("check").addEventListener("click", check);
