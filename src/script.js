@@ -13,6 +13,8 @@ var setting = document.getElementById("setting");
 var dark = false;
 var upCount = 0;
 var shouldSpeak = true;
+var storageItems= [];
+var storageArr = [];
 
 function getCurrentTime() {
     var ap="AM";
@@ -50,7 +52,25 @@ function loading(condition=true){
     }
 }
 
+function restoreMessages(storageItems){
+    if(!storageItems){
+        return;
+    }
+    storageItems.map((item) => {
+        loading(true);
+        loading(false);
+        var newDiv =  messages.childNodes[messages.childElementCount];
+        newDiv.setAttribute("class",item.senderClass);
+        newDiv.innerHTML = item.content;
+    });
+}
 
+chrome.storage.sync.get("message",(items) => {
+    if(items){
+     storageItems=items.message;
+     restoreMessages(storageItems);
+ } 
+});  
 
 function speakOutput(msg,speak=false){
     if(speak){
@@ -87,6 +107,7 @@ function composeReplyTable(response,columns,data) {
     var keys = Object.keys(columns);
     var table = document.createElement("table");
     table.setAttribute("class","table-response");
+    table.setAttribute("id","table-res");
     var tableHead = document.createElement("thead");
     var trHead = document.createElement("tr");
     keys.map((key) => {
@@ -159,6 +180,7 @@ function composeSusiMessage(response) {
             }
             else if(response.tableType) {
                     newDiv.appendChild(response.table);
+                    $("#table-res").addClass("table-height");
             }
             else {
                 console.log("could not make response");
@@ -167,6 +189,23 @@ function composeSusiMessage(response) {
     newDiv.appendChild(document.createElement("br"));
     newDiv.appendChild(currtime);
     messages.appendChild(newDiv);
+    var storageObj = {
+        senderClass: "",
+        content: "" 
+        };
+    var susimessage = newDiv.innerHTML;
+    storageObj.content = susimessage;
+    storageObj.senderClass = "susinewmessage";
+    chrome.storage.sync.get("message",(items) => {
+        if(items.message){
+            storageArr = items.message;
+            console.log("this was true");
+        }
+        storageArr.push(storageObj);
+        chrome.storage.sync.set({"message":storageArr},() => {
+            console.log("saved");
+        });
+    });
     messages.scrollTop = messages.scrollHeight;
 }
 
@@ -240,6 +279,22 @@ function composeMyMessage(text) {
     messages.appendChild(newDiv);
     textarea.value = "";
     messages.scrollTop = messages.scrollHeight;
+    var storageObj = {
+        senderClass: "",
+        content: "" 
+        };
+    var mymessage = newDiv.innerHTML;
+    storageObj.content = mymessage;
+    storageObj.senderClass = "mynewmessage";
+    chrome.storage.sync.get("message",(items) => {
+        if(items.message){
+            storageArr = items.message;
+        }
+        storageArr.push(storageObj);
+        chrome.storage.sync.set({"message":storageArr},() => {
+            console.log("saved");
+        });
+    });
 }
 
 function submitForm() {
@@ -383,17 +438,10 @@ function check(){
     icon1.classList.toggle("icon1-mod");
     var doc = document.getElementById("doc");
     doc.classList.toggle("dark");
-   /* try{
-        var susimessage = document.getElementByClassName("susinewmessage");
-    }
-    catch(e)
-    {}
-    try{
-                var mymessage = document.getElementByClassName("mynewmessage");
-
-    }
-    catch(e)
-    {}*/
+     var dropdown = document.getElementById("dropdown");
+    dropdown.classList.toggle("drop-dark");
+	$(".susinewmessage").toggleClass("message-susi-dark");
+	$(".mynewmessage").toggleClass("message-dark");
 }
 
 function changeSpeak(){
