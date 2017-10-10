@@ -372,7 +372,6 @@ input:checked + .slider:before {
 #dropdown{
     position: relative;
     display: inline-block;
-    background-color: rgb(66,133,244) ;
     right: 80px;
     top: 7px;
     
@@ -438,7 +437,9 @@ td, th {
 .link {
     color: rgb(66, 133, 244);
 }
-
+.drop-dark{
+	background: rgb(25,50,76);
+}
 .table-height {
 	height: 75%;
 	overflow: auto;

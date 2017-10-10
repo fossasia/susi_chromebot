@@ -438,6 +438,8 @@ function check(){
     icon1.classList.toggle("icon1-mod");
     var doc = document.getElementById("doc");
     doc.classList.toggle("dark");
+     var dropdown = document.getElementById("dropdown");
+    dropdown.classList.toggle("drop-dark");
 	$(".susinewmessage").toggleClass("message-susi-dark");
 	$(".mynewmessage").toggleClass("message-dark");
 }
