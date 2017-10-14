@@ -30,4 +30,6 @@ $ cd src
 
 Check Issues [here](https://github.com/fossasia/susi_chromebot/issues)
 
+Talk to us [here](https://gitter.im/fossasia/susi_server)
+
 Read `CONTRIBUTING.md` [here](https://github.com/fossasia/susi_chromebot/blob/master/CONTRIBUTING.md)
