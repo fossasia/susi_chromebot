@@ -9,7 +9,8 @@ var textarea = document.getElementById("textarea");
 var mic = document.getElementById("mic");
 var micimg = document.getElementById("micimg");
 var micmodal = document.getElementById("micmodal");
-var setting = document.getElementById("setting"); 
+var setting = document.getElementById("setting");
+var clear = document.getElementById("clear");
 var dark = false;
 var upCount = 0;
 var shouldSpeak = true;
@@ -376,6 +377,10 @@ setting.addEventListener("click", function () {
     chrome.tabs.create({
         url: chrome.runtime.getURL("options.html")
     });
+});
+
+clear.addEventListener("click", function() {
+	chrome.storage.sync.clear();
 });
 
 textarea.onkeyup = function (e) {
