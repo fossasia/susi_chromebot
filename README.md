@@ -31,7 +31,7 @@ $ cd src
 
 Check Issues [here](https://github.com/fossasia/susi_chromebot/issues)
 
-Read `CONTRIBUTING.md` [here](https://github.com/fossasia/susi_chromebot/blob/master/CONTRIBUTING.md)
+Read `CONTRIBUTING.md` [here](https://github.com/fossasia/susi_chromebot/blob/master/.github/CONTRIBUTING.md)
 
 # Communication
 
