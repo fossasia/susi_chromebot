@@ -1,17 +1,17 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-body{
+body {
     min-width: 350px;
     min-height: 300px;
     max-width: 350px;
     font-family: 'Lato', sans-serif;
 }
 
-.headerbox{
+.headerbox {
     background-color: rgb(66, 133, 244);
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
@@ -23,36 +23,36 @@ body{
     color: white;
 }
 
-#micdiv{
-	position: absolute;
-	left: -10px;
-	bottom: -28px;
+#micdiv {
+    position: absolute;
+    left: -10px;
+    bottom: -28px;
 }
 
-#textareadiv{
-	position: absolute;
-	left: 34px;
-	
-}
-#senddiv{
-	position: absolute;
-	right: -10px;
-	bottom: -28px;
+#textareadiv {
+    position: absolute;
+    left: 34px;
 }
 
-.dark{
-	background: rgb(25,50,76);
+#senddiv {
+    position: absolute;
+    right: -10px;
+    bottom: -28px;
 }
 
-.header-modified{
-    background-color:rgb(25,50,76);
+.dark {
+    background: rgb(25, 50, 76);
 }
 
-.body{
-    background-color:rgb(25,50,76);
+.header-modified {
+    background-color: rgb(25, 50, 76);
 }
 
-.surroundbox{
+.body {
+    background-color: rgb(25, 50, 76);
+}
+
+.surroundbox {
     min-width: 300px;
     min-height: 300px;
     position: relative;
@@ -60,16 +60,16 @@ body{
     padding-bottom: 0;
 }
 
-.box{
+.box {
     background-color: rgb(243, 242, 244);
 }
 
-.messages{
+.messages {
     overflow-y: auto;
-    height:250px;
+    height: 250px;
 }
 
-.mynewmessage{
+.mynewmessage {
     text-align: right;
     margin-right: 0.5rem;
     background-color: #e0e0e0;
@@ -85,7 +85,7 @@ body{
     border-top-right-radius: 0;
 }
 
-.mynewmessage:before{
+.mynewmessage:before {
     content: '';
     position: absolute;
     border-color: transparent transparent transparent black;
@@ -96,7 +96,7 @@ body{
     border-radius: 20%;
 }
 
-.mynewmessage:after{
+.mynewmessage:after {
     content: '';
     position: absolute;
     border-color: transparent transparent transparent #e0e0e0;
@@ -109,17 +109,17 @@ body{
     clear: both;
 }
 
-.mynewmessage p{
+.mynewmessage p {
     display: inline;
     padding: 1rem;
 }
 
-.susinewmessage{
+.susinewmessage {
     text-align: left;
     margin-left: 0.3rem;
     padding: 0.5rem;
     margin-top: 0.5rem;
-    width:auto;
+    width: auto;
     max-width: 100%;
     float: left;
     clear: both;
@@ -130,7 +130,7 @@ body{
     border-top-left-radius: 0;
 }
 
-.susinewmessage:before{
+.susinewmessage:before {
     content: '';
     position: absolute;
     border-color: transparent black transparent transparent;
@@ -141,7 +141,7 @@ body{
     border-radius: 20%;
 }
 
-.susinewmessage:after{
+.susinewmessage:after {
     content: '';
     position: absolute;
     border-color: transparent #fff transparent transparent;
@@ -152,96 +152,98 @@ body{
     border-radius: 20%;
 }
 
-.susinewmessage p{
+.susinewmessage p {
     display: inline;
     padding: 1rem;
 }
 
-.send{
+.send {
     position: absolute;
     bottom: 0;
 }
 
-.button{
-    margin-left : 15px;
+.button {
+    margin-left: 15px;
     border: none;
-    color:rgb(66,133,244);
+    color: rgb(66, 133, 244);
 }
 
-.susi-img{
-    border:solid 0.2em;
+.susi-img {
+    border: solid 0.2em;
     width: 100%;
 }
 
-.textarea:active,.textarea:focus,.textarea:hover{
-    border-color: rgb(66, 133, 244);   
+.textarea:active,
+.textarea:focus,
+.textarea:hover {
+    border-color: rgb(66, 133, 244);
 }
 
-#susi-logo{
-    float:center;
+#susi-logo {
+    float: center;
     margin-left: 0px;
     padding-top: 6px;
     width: 100px;
     height: auto;
 }
 
-.fieldmod{
-    background-color:rgb(25,50,76);
+.fieldmod {
+    background-color: rgb(25, 50, 76);
 }
 
-.butmod{
-    background-color:rgb(25,50,76);
+.butmod {
+    background-color: rgb(25, 50, 76);
 }
 
-.icon{
+.icon {
     margin-left: 15px;
     margin-right: 15px;
 }
 
-
-#setting{
-    float:left;
-    padding:5px;
-    color:white;
-}
-.textarea{
-    max-width:125%;
-    width:118%;
-    margin-bottom:5px;
+#setting {
+    float: left;
+    padding: 5px;
+    color: white;
 }
 
-.textarea-mod{
-    background-color:rgb(25,50,76);
+.textarea {
+    max-width: 125%;
+    width: 118%;
+    margin-bottom: 5px;
+}
+
+.textarea-mod {
+    background-color: rgb(25, 50, 76);
     border: 0;
     color: #0ad5c1;
 }
 
-.time{
-    font-size:10px;
+.time {
+    font-size: 10px;
 }
 
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 35px;
-  height: 22px;
+    position: relative;
+    display: inline-block;
+    width: 35px;
+    height: 22px;
 }
 
-.darkform{
-    background-color: rgb(25,50,76);
+.darkform {
+    background-color: rgb(25, 50, 76);
 }
 
-.icon-mod{
+.icon-mod {
     color: silver;
-    background-color: rgb(25,50,76);
+    background-color: rgb(25, 50, 76);
 }
 
-.icon1-mod{
+.icon1-mod {
     color: silver;
-    background-color: rgb(25,50,76);
+    background-color: rgb(25, 50, 76);
 }
 
-.message-dark:before{
+.message-dark:before {
     content: '';
     position: absolute;
     border-color: transparent transparent transparent black;
@@ -252,7 +254,7 @@ body{
     border-radius: 20%;
 }
 
-.message-dark:after{
+.message-dark:after {
     content: '';
     position: absolute;
     border-color: transparent transparent transparent #0A5658;
@@ -265,12 +267,12 @@ body{
     clear: both;
 }
 
-.message-dark{
-    background-color: rgba(25,147,147,.2);
+.message-dark {
+    background-color: rgba(25, 147, 147, .2);
     color: #0ad5c1;
 }
 
-.message-susi-dark:before{
+.message-susi-dark:before {
     content: '';
     position: absolute;
     border-color: transparent black transparent transparent;
@@ -281,7 +283,7 @@ body{
     border-radius: 20%;
 }
 
-.message-susi-dark:after{
+.message-susi-dark:after {
     content: '';
     position: absolute;
     border-color: transparent #0A5658 transparent transparent;
@@ -292,129 +294,143 @@ body{
     border-radius: 20%;
 }
 
-.message-susi-dark        {
-    background-color:rgba(25,147,147,.2);
+.message-susi-dark {
+    background-color: rgba(25, 147, 147, .2);
     color: #0ec879;
 }
 
-.box-modified{
-    background-color: rgb(25,50,76);
+.box-modified {
+    background-color: rgb(25, 50, 76);
 }
 
-.switch input {display:none;}
+.switch input {
+    display: none;
+}
+
 
 /* The slider */
-.theme{
-    float:right;
+
+.theme {
+    float: right;
     padding: 5px;
 }
 
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 1px;
-  bottom: 1px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 1px;
+    bottom: 1px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
 
-input:checked + .slider {
-  background-color: #2196F3;
+input:checked+.slider {
+    background-color: #2196F3;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked + .slider:before {
-  transform: translateX(16px);
+input:checked+.slider:before {
+    transform: translateX(16px);
 }
+
 
 /* Rounded sliders */
+
 .slider.round {
-  border-radius: 34px;
+    border-radius: 34px;
 }
 
 .slider.round:before {
-  border-radius: 50%;
+    border-radius: 50%;
 }
 
 .micmodal {
-    width:100%;
+    width: 100%;
     z-index: 1;
     display: none;
     background-color: white;
     position: absolute;
 }
 
-.active{
+.active {
     display: block;
 }
 
-.micmodal-content{
+.micmodal-content {
     text-align: center;
 }
-#dropdown{
+
+#dropdown {
     position: relative;
     display: inline-block;
     right: 80px;
     top: 7px;
-    
 }
-.dropdown-content{
+
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 150px;
-    box-shadow: 0px 8px 16px 0px rgb(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgb(0, 0, 0, 0.2);
     padding: 12px 16px;
     z-index: 1;
     color: grey;
     list-style: none;
     text-align: left;
-    top:30px;
+    top: 30px;
     right: -60px;
 }
-.dropdown:hover .dropdown-content{
+
+.dropdown:hover .dropdown-content {
     display: block;
 }
-#ddown{
-    background-color: rgb(66,133,244);
+
+#ddown {
+    background-color: rgb(66, 133, 244);
     color: white;
-    border:none;
+    border: none;
     margin-top: 2px;
 }
-.dropdown-content li:hover{
+
+.dropdown-content li:hover {
     background-color: #e5e5e5;
     border-radius: 5px;
 }
-.dropdown-content li{
+
+.dropdown-content li {
     letter-spacing: 0.5px;
     border-radius: 0.5px;
 }
-.dropdown-content a{
+
+.dropdown-content a {
     color: grey;
 }
-.dropdown-content a:hover{
-    background-color: #e5e5e5;
-        border-radius:5px;}
 
-.table-response{
+.dropdown-content a:hover {
+    background-color: #e5e5e5;
+    border-radius: 5px;
+}
+
+.table-response {
     table-layout: fixed;
     width: 100%;
     height: 40%;
@@ -426,7 +442,8 @@ input:checked + .slider:before {
     border-bottom: 1px solid lightgrey;
 }
 
-td, th {
+td,
+th {
     padding: 0.1rem;
     overflow: hidden;
     white-space: nowrap;
@@ -437,10 +454,29 @@ td, th {
 .link {
     color: rgb(66, 133, 244);
 }
-.drop-dark{
-	background: rgb(25,50,76);
+
+.drop-dark {
+    background: rgb(25, 50, 76);
 }
+
 .table-height {
-	height: 75%;
-	overflow: auto;
+    height: 75%;
+    overflow: auto;
+}
+
+
+/* Scrollbar style */
+
+::-webkit-scrollbar {
+    background: transparent;
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    border-radius: 20px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background-color: #009688;
 }
