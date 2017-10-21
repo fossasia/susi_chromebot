@@ -398,10 +398,12 @@ input:checked + .slider:before {
     color: white;
     border:none;
     margin-top: 2px;
+    height: 40px;
 }
 .dropdown-content li:hover{
     background-color: #e5e5e5;
     border-radius: 5px;
+    margin: 3px;
 }
 .dropdown-content li{
     letter-spacing: 0.5px;
