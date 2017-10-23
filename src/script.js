@@ -11,6 +11,7 @@ var micimg = document.getElementById("micimg");
 var micmodal = document.getElementById("micmodal");
 var setting = document.getElementById("setting");
 var clear = document.getElementById("clear");
+var settings = document.getElementById("settings");
 var dark = false;
 var upCount = 0;
 var shouldSpeak = true;
@@ -383,6 +384,10 @@ clear.addEventListener("click", function() {
 	chrome.storage.sync.clear();
 });
 
+settings.addEventListener("click", function () {
+    window.open("options.html", "Popup", "location,status,scrollbars,resizable,width=800, height=800");
+});
+
 textarea.onkeyup = function (e) {
     var prevMessages,myQuery;
     try{
@@ -459,8 +464,8 @@ function check(){
     doc.classList.toggle("dark");
     var dropdown = document.getElementById("dropdown");
     dropdown.classList.toggle("drop-dark");
-	$(".susinewmessage").toggleClass("message-susi-dark");
-	$(".mynewmessage").toggleClass("message-dark");
+    $(".susinewmessage").toggleClass("message-susi-dark");
+    $(".mynewmessage").toggleClass("message-dark");
 }
 
 function changeSpeak(){
@@ -473,7 +478,6 @@ function changeSpeak(){
     }
     console.log("Should be speaking? " + shouldSpeak);
 }
-
 
 document.getElementById("check").addEventListener("click", check);
 document.getElementById("speak").addEventListener("click",changeSpeak);
