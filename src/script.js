@@ -413,15 +413,29 @@ formid.addEventListener("submit", function (e) {
     submitForm();
 });
 
+
+chrome.storage.sync.get("darktheme", (obj) => {
+    if(obj.darktheme === true ){
+    console.log("Dark theme state true");
+    document.getElementById("check").click();
+    }
+});
+
 function check(){
+
     if(dark === false)
     {
         dark = true;
+        chrome.storage.sync.set({"darktheme": true}, () => {
+        });
     }
     else
     {
         dark = false;
+        chrome.storage.sync.set({"darktheme": false}, () => {
+        });
     }
+    
     var box = document.getElementById("box");
     box.classList.toggle("box-modified");
     var field = document.getElementById("field");
@@ -443,7 +457,7 @@ function check(){
     icon1.classList.toggle("icon1-mod");
     var doc = document.getElementById("doc");
     doc.classList.toggle("dark");
-     var dropdown = document.getElementById("dropdown");
+    var dropdown = document.getElementById("dropdown");
     dropdown.classList.toggle("drop-dark");
 	$(".susinewmessage").toggleClass("message-susi-dark");
 	$(".mynewmessage").toggleClass("message-dark");
