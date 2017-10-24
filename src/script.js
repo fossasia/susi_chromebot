@@ -11,6 +11,7 @@ var micimg = document.getElementById("micimg");
 var micmodal = document.getElementById("micmodal");
 var setting = document.getElementById("setting");
 var clear = document.getElementById("clear");
+var settings = document.getElementById("settings");
 var dark = false;
 var upCount = 0;
 var shouldSpeak = true;
@@ -64,14 +65,23 @@ function restoreMessages(storageItems){
         newDiv.setAttribute("class",item.senderClass);
         newDiv.innerHTML = item.content;
     });
+    chrome.storage.local.get("askSusiQuery",(items) => {
+        if(items.askSusiQuery){
+            var query = items.askSusiQuery ;
+			textarea.value=query;
+			document.getElementById("but").click();
+			chrome.storage.local.remove("askSusiQuery");
+            chrome.browserAction.setBadgeText({text: ""});
+     }
+    });
 }
 
 chrome.storage.sync.get("message",(items) => {
     if(items){
      storageItems=items.message;
      restoreMessages(storageItems);
- } 
-});  
+ }
+});
 
 function speakOutput(msg,speak=false){
     if(speak){
@@ -100,7 +110,7 @@ function composeReplyAnswer(response,replyData){
     response.reply = replyData;
     if(replyData.startsWith("https")) {
         response.image = true;
-    } 
+    }
     return response;
 }
 
@@ -177,7 +187,7 @@ function composeSusiMessage(response) {
             else if(response.image) {
                 var newImg = composeImage(response.reply);
                 newDiv.appendChild(document.createElement("br"));
-                newDiv.appendChild(newImg);    
+                newDiv.appendChild(newImg);
             }
             else if(response.tableType) {
                     newDiv.appendChild(response.table);
@@ -192,7 +202,7 @@ function composeSusiMessage(response) {
     messages.appendChild(newDiv);
     var storageObj = {
         senderClass: "",
-        content: "" 
+        content: ""
         };
     var susimessage = newDiv.innerHTML;
     storageObj.content = susimessage;
@@ -215,7 +225,7 @@ function composeResponse(action,data) {
         error: false,
         reply: "",
         image: false,
-        tableType: false 
+        tableType: false
     };
     switch(action.type){
         case "answer" : response = composeReplyAnswer(response,action.expression);
@@ -224,7 +234,7 @@ function composeResponse(action,data) {
                         break;
         default :       response.error = true;
                         response.errorText = "No matching action type";
-                        break; 
+                        break;
     }
     return response;
 }
@@ -235,7 +245,7 @@ function getResponse(query) {
         dataType: "jsonp",
         type: "GET",
         url: "https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=" + query,
-        error: function(xhr,textStatus,errorThrown) {   
+        error: function(xhr,textStatus,errorThrown) {
                 console.log(xhr);
                 console.log(textStatus);
                 console.log(errorThrown);
@@ -282,7 +292,7 @@ function composeMyMessage(text) {
     messages.scrollTop = messages.scrollHeight;
     var storageObj = {
         senderClass: "",
-        content: "" 
+        content: ""
         };
     var mymessage = newDiv.innerHTML;
     storageObj.content = mymessage;
@@ -341,7 +351,7 @@ recognition.onend = function(){
     reset();
     micmodal.classList.remove("active");
     micimg.setAttribute("src","images/mic.gif");
-}; 
+};
 
 recognition.onresult = function (event) {
     var interimText=" ";
@@ -381,6 +391,10 @@ setting.addEventListener("click", function () {
 
 clear.addEventListener("click", function() {
 	chrome.storage.sync.clear();
+});
+
+settings.addEventListener("click", function () {
+    window.open("options.html", "Popup", "location,status,scrollbars,resizable,width=800, height=800");
 });
 
 textarea.onkeyup = function (e) {
@@ -435,7 +449,7 @@ function check(){
         chrome.storage.sync.set({"darktheme": false}, () => {
         });
     }
-    
+
     var box = document.getElementById("box");
     box.classList.toggle("box-modified");
     var field = document.getElementById("field");
@@ -461,8 +475,8 @@ function check(){
     var dropdown = document.getElementById("dropdown");
 
     dropdown.classList.toggle("drop-dark");
-	$(".susinewmessage").toggleClass("message-susi-dark");
-	$(".mynewmessage").toggleClass("message-dark");
+    $(".susinewmessage").toggleClass("message-susi-dark");
+    $(".mynewmessage").toggleClass("message-dark");
 }
 
 function changeSpeak(){
@@ -475,7 +489,6 @@ function changeSpeak(){
     }
     console.log("Should be speaking? " + shouldSpeak);
 }
-
 
 document.getElementById("check").addEventListener("click", check);
 document.getElementById("speak").addEventListener("click",changeSpeak);

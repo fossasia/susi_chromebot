@@ -66,11 +66,13 @@ body {
 
 .box {
     background-color: rgb(243, 242, 244);
+    padding-right: 10px;
 }
 
 .messages {
     overflow-y: auto;
     height: 250px;
+    padding-right: 10px;
 }
 
 .mynewmessage {
@@ -495,4 +497,3 @@ th {
 .dark ::-webkit-scrollbar-thumb {
     background-color: #009688;
 }
-
