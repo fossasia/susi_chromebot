@@ -2,8 +2,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-
-
 }
 
 body {
@@ -11,7 +9,6 @@ body {
     min-height: 300px;
     max-width: 350px;
     font-family: 'Lato', sans-serif;
-
 }
 
 .headerbox {
@@ -37,19 +34,18 @@ body {
     left: 34px;
 }
 
-#senddiv{
-	position: absolute;
-	right: -5px;
-	bottom: -28px;
+#senddiv {
+    position: absolute;
+    right: -10px;
+    bottom: -28px;
 }
 
 .dark {
     background: rgb(25, 50, 76);
 }
 
-
-.header-modified{
-    background-color:rgb(15, 40, 66);
+.header-modified {
+    background-color: rgb(25, 50, 76);
 }
 
 .body {
@@ -185,9 +181,8 @@ body {
     border-color: rgb(66, 133, 244);
 }
 
-
-#susi-logo{
-    float:center;
+#susi-logo {
+    float: center;
     margin-left: 0px;
     padding-top: 6px;
     width: 100px;
@@ -212,15 +207,15 @@ body {
     padding: 5px;
     color: white;
 }
-.textarea{
-    /*max-width:125%;*/
-    width:270px;
-    margin-bottom:7px;
-    resize:none;
+
+.textarea {
+    max-width: 125%;
+    width: 118%;
+    margin-bottom: 5px;
 }
 
-.textarea-mod{
-    background-color:rgb(15, 40, 66);
+.textarea-mod {
+    background-color: rgb(25, 50, 76);
     border: 0;
     color: #0ad5c1;
 }
@@ -240,17 +235,17 @@ body {
     background-color: rgb(25, 50, 76);
 }
 
-.icon-mod{
-    color: white;
-    background-color: rgb(25,50,76);
+.icon-mod {
+    color: silver;
+    background-color: rgb(25, 50, 76);
 }
 
-.icon1-mod{
-    color: white;
-    background-color: rgb(25,50,76);
+.icon1-mod {
+    color: silver;
+    background-color: rgb(25, 50, 76);
 }
 
-.message-dark:before{
+.message-dark:before {
     content: '';
     position: absolute;
     border-color: transparent transparent transparent black;
@@ -261,8 +256,7 @@ body {
     border-radius: 20%;
 }
 
-
-.message-dark:after{
+.message-dark:after {
     content: '';
     position: absolute;
     border-color: transparent transparent transparent #0A5658;
@@ -275,13 +269,12 @@ body {
     clear: both;
 }
 
-
-.message-dark{
-    background-color: rgba(25,147,147,.2);
+.message-dark {
+    background-color: rgba(25, 147, 147, .2);
     color: #0ad5c1;
 }
 
-.message-susi-dark:before{
+.message-susi-dark:before {
     content: '';
     position: absolute;
     border-color: transparent black transparent transparent;
@@ -292,8 +285,7 @@ body {
     border-radius: 20%;
 }
 
-
-.message-susi-dark:after{
+.message-susi-dark:after {
     content: '';
     position: absolute;
     border-color: transparent #0A5658 transparent transparent;
@@ -304,9 +296,8 @@ body {
     border-radius: 20%;
 }
 
-
-.message-susi-dark        {
-    background-color:rgba(25,147,147,.2);
+.message-susi-dark {
+    background-color: rgba(25, 147, 147, .2);
     color: #0ec879;
 }
 
@@ -389,63 +380,52 @@ input:checked+.slider:before {
     text-align: center;
 }
 
+#dropdown{
+    position: relative;
+    display: inline-block;
+    right: 80px;
+    top: 7px;
+    
+}
 .dropdown-content{
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 150px;
     box-shadow: 0px 8px 16px 0px rgb(0,0,0,0.2);
-    padding: 12px 4px;
+    padding: 12px 16px;
     z-index: 1;
     color: grey;
     list-style: none;
     text-align: left;
-    top:23px;
-    left: 8px;
+    top:30px;
+    right: -60px;
 }
-
-.dropdown{
-    position: relative;
-    display: inline-block;
-    right:78px;
-    top: 7px;
-    
-}
-
-
-
 .dropdown:hover .dropdown-content{
     display: block;
 }
-
-
 #ddown{
     background-color: rgb(66,133,244);
     color: white;
-    border: none;
+    border:none;
     margin-top: 2px;
+    height: 40px;
 }
-
-.dropdown-content li:hover {
+.dropdown-content li:hover{
     background-color: #e5e5e5;
     border-radius: 5px;
+    margin: 3px;
 }
-
-.dropdown-content li {
+.dropdown-content li{
     letter-spacing: 0.5px;
     border-radius: 0.5px;
-    padding: 1px 5px;
 }
-
-.dropdown-content a {
+.dropdown-content a{
     color: grey;
 }
-
-.dropdown-content a:hover {
+.dropdown-content a:hover{
     background-color: #e5e5e5;
-    border-radius: 5px;
-}
-
+        border-radius:5px;}
 .table-response {
     table-layout: fixed;
     width: 100%;
@@ -470,7 +450,6 @@ th {
 .link {
     color: rgb(66, 133, 244);
 }
-
 
 .drop-dark {
     background: rgb(25, 50, 76);
