@@ -389,63 +389,56 @@ input:checked+.slider:before {
     text-align: center;
 }
 
+
+#dropdown{
+    position: relative;
+    display: inline-block;
+    right: 80px;
+    top: 7px;
+    
+}
 .dropdown-content{
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 150px;
     box-shadow: 0px 8px 16px 0px rgb(0,0,0,0.2);
-    padding: 12px 4px;
+
+    padding: 12px 16px;
     z-index: 1;
     color: grey;
     list-style: none;
     text-align: left;
-    top:23px;
-    left: 8px;
+
+    top:30px;
+    right: -60px;
 }
-
-.dropdown{
-    position: relative;
-    display: inline-block;
-    right:78px;
-    top: 7px;
-    
-}
-
-
-
 .dropdown:hover .dropdown-content{
     display: block;
 }
-
-
 #ddown{
     background-color: rgb(66,133,244);
     color: white;
-    border: none;
+    border:none;
     margin-top: 2px;
+    height: 40px;
 }
-
-.dropdown-content li:hover {
+.dropdown-content li:hover{
     background-color: #e5e5e5;
     border-radius: 5px;
+    margin: 3px;
 }
-
-.dropdown-content li {
+.dropdown-content li{
     letter-spacing: 0.5px;
     border-radius: 0.5px;
     padding: 1px 5px;
 }
-
-.dropdown-content a {
+.dropdown-content a{
     color: grey;
 }
-
-.dropdown-content a:hover {
+.dropdown-content a:hover{
     background-color: #e5e5e5;
-    border-radius: 5px;
-}
-
+        border-radius:5px;}
 .table-response {
     table-layout: fixed;
     width: 100%;
