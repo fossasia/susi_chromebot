@@ -38,6 +38,7 @@ function getCurrentTime() {
     return time;
 }
 
+
 function loading(condition=true){
     if(condition === true){
         var newDiv = document.createElement("div");
@@ -45,7 +46,13 @@ function loading(condition=true){
         newImg.setAttribute("src","images/loading.gif");
         newImg.setAttribute("style","height:10px;width:auto");
         newDiv.appendChild(newImg);
-        newDiv.setAttribute("class","susinewmessage");
+        if(dark === true)
+        {
+            newDiv.setAttribute("class","susinewmessage message-dark");
+        }
+        else{
+            newDiv.setAttribute("class","susinewmessage");
+        }
         messages.appendChild(newDiv);
         messages.scrollTop = messages.scrollHeight;
     }
@@ -80,6 +87,7 @@ chrome.storage.sync.get("message",(items) => {
     if(items){
      storageItems=items.message;
      restoreMessages(storageItems);
+
  }
 });
 
@@ -258,12 +266,12 @@ function getResponse(query) {
         },
         success: function (data) {
             data.answers[0].actions.map((action) => {
-                var response = composeResponse(action,data.answers[0].data);
-                loading(false);
-                composeSusiMessage(response);
-                if(action.type !== data.answers[0].actions[data.answers[0].actions.length-1].type){
-                    loading(); //if not last action then create another loading box for susi response
-                }
+            var response = composeResponse(action,data.answers[0].data);
+            loading(false);
+            composeSusiMessage(response);
+            if(action.type !== data.answers[0].actions[data.answers[0].actions.length-1].type){
+                loading(); //if not last action then create another loading box for susi response
+            }
             });
         }
     });
