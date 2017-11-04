@@ -12,11 +12,27 @@ var micmodal = document.getElementById("micmodal");
 var setting = document.getElementById("setting");
 var clear = document.getElementById("clear");
 var settings = document.getElementById("settings");
+var scrollIconElement = document.getElementById("scrollIcon");
 var dark = false;
 var upCount = 0;
 var shouldSpeak = true;
 var storageItems= [];
 var storageArr = [];
+
+function handleScroll(){
+ 	var scrollIcon = scrollIconElement;
+ 	var end=messages.scrollHeight - messages.scrollTop === messages.clientHeight;
+ 	if(end){
+ 		//hide icon
+ 		scrollIcon.style.display="none";
+ 	}
+ 	else{
+ 		//show icon
+ 		scrollIcon.style.display="block";
+ 	}
+}
+
+messages.addEventListener("scroll",handleScroll);
 
 function getCurrentTime() {
     var ap="AM";
@@ -493,6 +509,13 @@ function changeSpeak(){
     }
     console.log("Should be speaking? " + shouldSpeak);
 }
+
+scrollIconElement.addEventListener("click",function(e){
+ 	$(messages).stop().animate({
+ 		scrollTop: $(messages)[0].scrollHeight
+ 	}, 800);
+ 	e.preventDefault();
+ });
 
 document.getElementById("check").addEventListener("click", check);
 document.getElementById("speak").addEventListener("click",changeSpeak);
