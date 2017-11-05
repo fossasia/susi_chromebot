@@ -79,6 +79,8 @@ function loading(condition=true){
 
 function restoreMessages(storageItems){
     if(!storageItems){
+        var htmlMsg="<div class='empty-history'> Start by saying \"Hi\"</div>";
+ 			$(htmlMsg).appendTo(messages);
         return;
     }
     storageItems.map((item) => {
@@ -301,6 +303,7 @@ function getResponse(query) {
 }
 
 function composeMyMessage(text) {
+    $(".empty-history").remove();
     var newP = document.createElement("p");
     var newDiv = document.createElement("div");
     newDiv.setAttribute("class", "mynewmessage");
