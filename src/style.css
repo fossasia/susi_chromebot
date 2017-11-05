@@ -481,6 +481,10 @@ th {
     width: 10px;
 }
 
+.table-height::-webkit-scrollbar {
+    display: none;
+}
+
 ::-webkit-scrollbar-thumb {
     background-color: darkgrey;
     border-radius: 20px;

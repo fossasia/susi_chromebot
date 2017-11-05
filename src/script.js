@@ -215,7 +215,14 @@ function composeSusiMessage(response) {
             }
             else if(response.tableType) {
                     newDiv.appendChild(response.table);
-                    $("#table-res").addClass("table-height");
+                    if(dark === true)
+                    {
+                    	newDiv.setAttribute("class", "table-height susinewmessage message-susi-dark");
+                	}
+                    else
+                    {
+                  	  	newDiv.setAttribute("class", "table-height susinewmessage");
+              	  	}
             }
             else {
                 console.log("could not make response");
