@@ -246,14 +246,21 @@ function getResponse(query) {
             composeSusiMessage(response);
         },
         success: function (data) {
-            data.answers[0].actions.map((action) => {
-                var response = composeResponse(action,data.answers[0].data);
-                loading(false);
-                composeSusiMessage(response);
-                if(action.type !== data.answers[0].actions[data.answers[0].actions.length-1].type){
-                    loading(); //if not last action then create another loading box for susi response
-                }
-            });
+        	if (data.answers && data.answers[0]) {
+        		data.answers[0].actions.map((action) => {
+		            var response = composeResponse(action,data.answers[0].data);
+		            loading(false);
+		            composeSusiMessage(response);
+		            if(action.type !== data.answers[0].actions[data.answers[0].actions.length-1].type){
+		                loading(); //if not last action then create another loading box for susi response
+		            }
+		        });
+        	} else {
+        		composeResponse({
+        			type: 'answer',
+        			expression: 'SUSI could not find an answer to your question.'
+        		});
+        	}
         }
     });
 }
