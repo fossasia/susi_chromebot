@@ -27,6 +27,7 @@
     "content_security_policy": "script-src 'self' https://api.susi.ai; object-src 'self'",
     "permissions":[
       "storage",
+      "contextMenus",
       "http://*/*",
       "https://*/*",
       "http://ajax.googleapis.com/ajax/libs/jquery/"
