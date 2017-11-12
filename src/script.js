@@ -256,10 +256,12 @@ function getResponse(query) {
 		            }
 		        });
         	} else {
-        		composeResponse({
+        		var response = composeResponse({
         			type: 'answer',
         			expression: 'SUSI could not find an answer to your question.'
         		});
+	            loading(false);
+	            composeSusiMessage(response);
         	}
         }
     });
