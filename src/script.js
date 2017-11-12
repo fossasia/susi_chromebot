@@ -9,12 +9,30 @@ var textarea = document.getElementById("textarea");
 var mic = document.getElementById("mic");
 var micimg = document.getElementById("micimg");
 var micmodal = document.getElementById("micmodal");
-var setting = document.getElementById("setting"); 
+var setting = document.getElementById("setting");
+var clear = document.getElementById("clear");
+var settings = document.getElementById("settings");
+var scrollIconElement = document.getElementById("scrollIcon");
 var dark = false;
 var upCount = 0;
 var shouldSpeak = true;
 var storageItems= [];
 var storageArr = [];
+
+function handleScroll(){
+ 	var scrollIcon = scrollIconElement;
+ 	var end=messages.scrollHeight - messages.scrollTop === messages.clientHeight;
+ 	if(end){
+ 		//hide icon
+ 		scrollIcon.style.display="none";
+ 	}
+ 	else{
+ 		//show icon
+ 		scrollIcon.style.display="block";
+ 	}
+}
+
+messages.addEventListener("scroll",handleScroll);
 
 function getCurrentTime() {
     var ap="AM";
@@ -36,6 +54,7 @@ function getCurrentTime() {
     return time;
 }
 
+
 function loading(condition=true){
     if(condition === true){
         var newDiv = document.createElement("div");
@@ -43,7 +62,13 @@ function loading(condition=true){
         newImg.setAttribute("src","images/loading.gif");
         newImg.setAttribute("style","height:10px;width:auto");
         newDiv.appendChild(newImg);
-        newDiv.setAttribute("class","susinewmessage");
+        if(dark === true)
+        {
+            newDiv.setAttribute("class","susinewmessage message-dark");
+        }
+        else{
+            newDiv.setAttribute("class","susinewmessage");
+        }
         messages.appendChild(newDiv);
         messages.scrollTop = messages.scrollHeight;
     }
@@ -63,14 +88,24 @@ function restoreMessages(storageItems){
         newDiv.setAttribute("class",item.senderClass);
         newDiv.innerHTML = item.content;
     });
+    chrome.storage.local.get("askSusiQuery",(items) => {
+        if(items.askSusiQuery){
+            var query = items.askSusiQuery ;
+			textarea.value=query;
+			document.getElementById("but").click();
+			chrome.storage.local.remove("askSusiQuery");
+            chrome.browserAction.setBadgeText({text: ""});
+     }
+    });
 }
 
 chrome.storage.sync.get("message",(items) => {
     if(items){
      storageItems=items.message;
      restoreMessages(storageItems);
- } 
-});  
+
+ }
+});
 
 function speakOutput(msg,speak=false){
     if(speak){
@@ -99,7 +134,7 @@ function composeReplyAnswer(response,replyData){
     response.reply = replyData;
     if(replyData.startsWith("https")) {
         response.image = true;
-    } 
+    }
     return response;
 }
 
@@ -176,11 +211,18 @@ function composeSusiMessage(response) {
             else if(response.image) {
                 var newImg = composeImage(response.reply);
                 newDiv.appendChild(document.createElement("br"));
-                newDiv.appendChild(newImg);    
+                newDiv.appendChild(newImg);
             }
             else if(response.tableType) {
                     newDiv.appendChild(response.table);
-                    $("#table-res").addClass("table-height");
+                    if(dark === true)
+                    {
+                    	newDiv.setAttribute("class", "table-height susinewmessage message-susi-dark");
+                	}
+                    else
+                    {
+                  	  	newDiv.setAttribute("class", "table-height susinewmessage");
+              	  	}
             }
             else {
                 console.log("could not make response");
@@ -191,7 +233,7 @@ function composeSusiMessage(response) {
     messages.appendChild(newDiv);
     var storageObj = {
         senderClass: "",
-        content: "" 
+        content: ""
         };
     var susimessage = newDiv.innerHTML;
     storageObj.content = susimessage;
@@ -214,7 +256,7 @@ function composeResponse(action,data) {
         error: false,
         reply: "",
         image: false,
-        tableType: false 
+        tableType: false
     };
     switch(action.type){
         case "answer" : response = composeReplyAnswer(response,action.expression);
@@ -223,7 +265,7 @@ function composeResponse(action,data) {
                         break;
         default :       response.error = true;
                         response.errorText = "No matching action type";
-                        break; 
+                        break;
     }
     return response;
 }
@@ -234,7 +276,7 @@ function getResponse(query) {
         dataType: "jsonp",
         type: "GET",
         url: "https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=" + query,
-        error: function(xhr,textStatus,errorThrown) {   
+        error: function(xhr,textStatus,errorThrown) {
                 console.log(xhr);
                 console.log(textStatus);
                 console.log(errorThrown);
@@ -260,8 +302,8 @@ function getResponse(query) {
         			type: "answer",
         			expression: "SUSI could not find an answer to your question."
         		});
-	            loading(false);
-	            composeSusiMessage(response);
+	          loading(false);
+	          composeSusiMessage(response);
         	}
         }
     });
@@ -290,7 +332,7 @@ function composeMyMessage(text) {
     messages.scrollTop = messages.scrollHeight;
     var storageObj = {
         senderClass: "",
-        content: "" 
+        content: ""
         };
     var mymessage = newDiv.innerHTML;
     storageObj.content = mymessage;
@@ -349,7 +391,7 @@ recognition.onend = function(){
     reset();
     micmodal.classList.remove("active");
     micimg.setAttribute("src","images/mic.gif");
-}; 
+};
 
 recognition.onresult = function (event) {
     var interimText=" ";
@@ -365,16 +407,22 @@ recognition.onresult = function (event) {
   }
 };
 
+
 function toggleStartStop() {
+  navigator.getUserMedia({ audio:true },
+  function(){
   if (recognizing) {
-    recognition.stop();
-    reset();
-    micmodal.classList.remove("active");
+    	recognition.stop();
+    	reset();
+    	micmodal.classList.remove("active");
   } else {
-    recognition.start();
-    recognizing = true;
-    micmodal.className += " active";
+		recognition.start();
+		recognizing = true;
+		micmodal.className += " active";
   }
+} , function () {
+		alert("Please Enable Mic by setting option(Note: If you have blocked the mic before you have to remove it from chrome settings and then enable from extension)");
+	});
 }
 
 mic.addEventListener("click", function () {
@@ -385,6 +433,14 @@ setting.addEventListener("click", function () {
     chrome.tabs.create({
         url: chrome.runtime.getURL("options.html")
     });
+});
+
+clear.addEventListener("click", function() {
+	chrome.storage.sync.clear();
+});
+
+settings.addEventListener("click", function () {
+    window.open("options.html", "Popup", "location,status,scrollbars,resizable,width=800, height=800");
 });
 
 textarea.onkeyup = function (e) {
@@ -417,15 +473,29 @@ formid.addEventListener("submit", function (e) {
     submitForm();
 });
 
+
+chrome.storage.sync.get("darktheme", (obj) => {
+    if(obj.darktheme === true ){
+    console.log("Dark theme state true");
+    document.getElementById("check").click();
+    }
+});
+
 function check(){
+
     if(dark === false)
     {
         dark = true;
+        chrome.storage.sync.set({"darktheme": true}, () => {
+        });
     }
     else
     {
         dark = false;
+        chrome.storage.sync.set({"darktheme": false}, () => {
+        });
     }
+
     var box = document.getElementById("box");
     box.classList.toggle("box-modified");
     var field = document.getElementById("field");
@@ -447,10 +517,10 @@ function check(){
     icon1.classList.toggle("icon1-mod");
     var doc = document.getElementById("doc");
     doc.classList.toggle("dark");
-     var dropdown = document.getElementById("dropdown");
+    var dropdown = document.getElementById("dropdown");
     dropdown.classList.toggle("drop-dark");
-	$(".susinewmessage").toggleClass("message-susi-dark");
-	$(".mynewmessage").toggleClass("message-dark");
+    $(".susinewmessage").toggleClass("message-susi-dark");
+    $(".mynewmessage").toggleClass("message-dark");
 }
 
 function changeSpeak(){
@@ -464,6 +534,12 @@ function changeSpeak(){
     console.log("Should be speaking? " + shouldSpeak);
 }
 
+scrollIconElement.addEventListener("click",function(e){
+ 	$(messages).stop().animate({
+ 		scrollTop: $(messages)[0].scrollHeight
+ 	}, 800);
+ 	e.preventDefault();
+ });
 
 document.getElementById("check").addEventListener("click", check);
 document.getElementById("speak").addEventListener("click",changeSpeak);
