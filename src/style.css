@@ -74,7 +74,7 @@ body {
 }
 
 .box {
-    background-color: rgb(243, 242, 244);
+    background-image: url('images/background.jpg');
     padding-right: 10px;
 }
 
@@ -98,6 +98,7 @@ body {
     margin-top: 0.5rem;
     border-radius: 0.5rem 0.5rem;
     border-top-right-radius: 0;
+    z-index: 200;
 }
 
 .mynewmessage:before {
@@ -143,6 +144,7 @@ body {
     position: relative;
     border-radius: 0.5rem 0.5rem;
     border-top-left-radius: 0;
+    z-index: 200;
 }
 
 .susinewmessage:before {
@@ -471,6 +473,12 @@ th {
 .table-height {
     height: 75%;
     overflow: auto;
+}
+.Custom_url{
+    height: 8%;
+    width: auto;
+    color: white;
+    background-color: #5086ec;
 }
 
 
