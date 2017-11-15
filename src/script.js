@@ -12,11 +12,27 @@ var micmodal = document.getElementById("micmodal");
 var setting = document.getElementById("setting");
 var clear = document.getElementById("clear");
 var settings = document.getElementById("settings");
+var scrollIconElement = document.getElementById("scrollIcon");
 var dark = false;
 var upCount = 0;
 var shouldSpeak = true;
 var storageItems= [];
 var storageArr = [];
+
+function handleScroll(){
+ 	var scrollIcon = scrollIconElement;
+ 	var end=messages.scrollHeight - messages.scrollTop === messages.clientHeight;
+ 	if(end){
+ 		//hide icon
+ 		scrollIcon.style.display="none";
+ 	}
+ 	else{
+ 		//show icon
+ 		scrollIcon.style.display="block";
+ 	}
+}
+
+messages.addEventListener("scroll",handleScroll);
 
 function getCurrentTime() {
     var ap="AM";
@@ -38,6 +54,7 @@ function getCurrentTime() {
     return time;
 }
 
+
 function loading(condition=true){
     if(condition === true){
         var newDiv = document.createElement("div");
@@ -45,7 +62,13 @@ function loading(condition=true){
         newImg.setAttribute("src","images/loading.gif");
         newImg.setAttribute("style","height:10px;width:auto");
         newDiv.appendChild(newImg);
-        newDiv.setAttribute("class","susinewmessage");
+        if(dark === true)
+        {
+            newDiv.setAttribute("class","susinewmessage message-dark");
+        }
+        else{
+            newDiv.setAttribute("class","susinewmessage");
+        }
         messages.appendChild(newDiv);
         messages.scrollTop = messages.scrollHeight;
     }
@@ -56,6 +79,8 @@ function loading(condition=true){
 
 function restoreMessages(storageItems){
     if(!storageItems){
+        var htmlMsg="<div class='empty-history'> Start by saying \"Hi\"</div>";
+ 			$(htmlMsg).appendTo(messages);
         return;
     }
     storageItems.map((item) => {
@@ -80,6 +105,7 @@ chrome.storage.sync.get("message",(items) => {
     if(items){
      storageItems=items.message;
      restoreMessages(storageItems);
+
  }
 });
 
@@ -191,7 +217,14 @@ function composeSusiMessage(response) {
             }
             else if(response.tableType) {
                     newDiv.appendChild(response.table);
-                    $("#table-res").addClass("table-height");
+                    if(dark === true)
+                    {
+                    	newDiv.setAttribute("class", "table-height susinewmessage message-susi-dark");
+                	}
+                    else
+                    {
+                  	  	newDiv.setAttribute("class", "table-height susinewmessage");
+              	  	}
             }
             else {
                 console.log("could not make response");
@@ -258,18 +291,19 @@ function getResponse(query) {
         },
         success: function (data) {
             data.answers[0].actions.map((action) => {
-                var response = composeResponse(action,data.answers[0].data);
-                loading(false);
-                composeSusiMessage(response);
-                if(action.type !== data.answers[0].actions[data.answers[0].actions.length-1].type){
-                    loading(); //if not last action then create another loading box for susi response
-                }
+            var response = composeResponse(action,data.answers[0].data);
+            loading(false);
+            composeSusiMessage(response);
+            if(action.type !== data.answers[0].actions[data.answers[0].actions.length-1].type){
+                loading(); //if not last action then create another loading box for susi response
+            }
             });
         }
     });
 }
 
 function composeMyMessage(text) {
+    $(".empty-history").remove();
     var newP = document.createElement("p");
     var newDiv = document.createElement("div");
     newDiv.setAttribute("class", "mynewmessage");
@@ -487,6 +521,13 @@ function changeSpeak(){
     }
     console.log("Should be speaking? " + shouldSpeak);
 }
+
+scrollIconElement.addEventListener("click",function(e){
+ 	$(messages).stop().animate({
+ 		scrollTop: $(messages)[0].scrollHeight
+ 	}, 800);
+ 	e.preventDefault();
+ });
 
 document.getElementById("check").addEventListener("click", check);
 document.getElementById("speak").addEventListener("click",changeSpeak);

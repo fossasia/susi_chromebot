@@ -52,6 +52,19 @@ body {
     background-color: rgb(25, 50, 76);
 }
 
+.scroll-icon{
+     position: absolute;
+     right: 20px;
+     cursor: pointer;
+     z-index: 99;
+     bottom: 40px;
+     background-color: #ffffff;
+     padding: 0px 8px;
+     border-radius: 50%;
+     padding-top: 5px;
+     display: none;
+ }
+
 .surroundbox {
     min-width: 300px;
     min-height: 300px;
@@ -460,12 +473,25 @@ th {
     overflow: auto;
 }
 
+.empty-history{
+   background-color: #dbdbdb;
+   margin: 15px;
+   margin-left: 60px;
+   margin-right: 60px;
+   padding: 6px;
+   border-radius: 40px;
+   text-align: center;
+}
 
 /* Scrollbar style */
 
 ::-webkit-scrollbar {
     background: transparent;
     width: 10px;
+}
+
+.table-height::-webkit-scrollbar {
+    display: none;
 }
 
 ::-webkit-scrollbar-thumb {

@@ -2,7 +2,13 @@
   "name": "susi_chromebot",
   "version": "1.0.0",
   "description": "Chrome Extension of SUSI AI",
-  "dependencies": {},
+  "dependencies": {
+    "moment": "^2.18.1",
+    "onelogin": "^2.0.0",
+    "react-cookie": "^2.0.7",
+    "swipe-js-iso": "^2.0.3",
+    "universal-cookie": "^2.0.8"
+  },
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
