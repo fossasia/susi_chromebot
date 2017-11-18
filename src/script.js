@@ -401,16 +401,22 @@ recognition.onresult = function (event) {
   }
 };
 
+
 function toggleStartStop() {
+  navigator.getUserMedia({ audio:true },
+  function(){
   if (recognizing) {
-    recognition.stop();
-    reset();
-    micmodal.classList.remove("active");
+    	recognition.stop();
+    	reset();
+    	micmodal.classList.remove("active");
   } else {
-    recognition.start();
-    recognizing = true;
-    micmodal.className += " active";
+		recognition.start();
+		recognizing = true;
+		micmodal.className += " active";
   }
+} , function () {
+		alert("Please Enable Mic by setting option(Note: If you have blocked the mic before you have to remove it from chrome settings and then enable from extension)");
+	});
 }
 
 mic.addEventListener("click", function () {
