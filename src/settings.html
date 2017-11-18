@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SUSI Addon Settings</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="settings.css">
+</head>
+<body id="bdy">
+    <div class="container signin-container">
+<div class="row">
+<div class="col-2"></div>
+	<div class="col-8">
+ 
+ <div class="card">
+     <img src="images/susi-logo.png" class="img-fluid signin-image">
+	<div class="nologgedin" id="nologgedin">
+		<form id="login" class="col-sm-8" >
+			<input type="email" id="username" placeholder="Email">
+			<br>
+			<input type="password" id="password" placeholder="Password">
+			<br>
+			<br>
+			<button type="submit" name="Login" id="loginbutton" value="Login">Login</button>
+			<br>
+			<p class="col-12" style="margin-left: 100px;">
+               <a href="https://chat.susi.ai/" style="color: #fff; ">New User? Visit our website to sign up.</a>
+            </p>
+		</form>
+	</div>
+	<div class="loggedin" id="loggedin">
+		<input type="button" id="logout" value="Logout" onClick="logout(this)" />
+		<br />
+	</div>
+        </div>
+    <script src="jquery/jquery-3.2.1.min.js"></script>
+	<script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+input[type=button], input[type=submit], input[type=reset] {
+    width: 30%;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: #4285f4;
+}
+
+input[type=text], input[type=password], input[type=email] {
+    width: 80%;
+    border: 2px solid #4285f4 ;
+    padding: 16px 5px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button{
+    text-align: center;
+    width: 30%;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: #4285f4;
+}
+
+.hr-heading{
+    display: none;
+}
+
+body{
+    background-color: #e6f2ff;
+}
+
+.container{
+	margin-top: 8%;
+}
+
+.card {
+	padding: 40px 0px 20px;
+	background-color: #0084ff;
+	box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+	-webkit-box-shadow:2px 2px 5px rgba(0,0,0,0.5);
+	-moz-box-shadow:2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.signin-image{
+	padding: 0 2rem 2rem;
+	margin: auto;
+	display: block;
+	width: 60%;
+}
+
+#loginbutton{
+    color: #ffffff;
+	width: 30rem;
+	background-color: #0275d8;
+    margin-left: 12%;
+}
+
+#username{
+    width: 100%;
+    height: auto;
+    margin-left: 25%;
+}
+
+#password{
+    width: 100%;
+    height: auto;
+    margin-left: 25%;
+}
+
+#logout{
+    width: 30rem;
+    height: auto;
+    margin-left: 10%;
+    background-color: #0275d8;
+}
+
