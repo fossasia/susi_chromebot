@@ -18,7 +18,17 @@ var upCount = 0;
 var shouldSpeak = true;
 var storageItems= [];
 var storageArr = [];
+var backgroundChange = document.getElementById("background_change");
+        var backgroundUrl = document.getElementById("background_url");
+        var box = document.getElementById("box");
+        
+        backgroundChange.addEventListener("submit",function(e){
 
+     box.style.backgroundImage = "url("+backgroundUrl.value+")";
+    box.style.backgroundRepeat = "no-repeat";
+            box.style.backgroundSize = "cover";
+    e.preventDefault();
+});
 function handleScroll(){
     var scrollIcon = scrollIconElement;
     var end=messages.scrollHeight - messages.scrollTop === messages.clientHeight;
