@@ -80,7 +80,7 @@ function loading(condition=true){
 function restoreMessages(storageItems){
     if(!storageItems){
         var htmlMsg="<div class='empty-history'> Start by saying \"Hi\"</div>";
- 			$(htmlMsg).appendTo(messages);
+  		    $(htmlMsg).appendTo(messages);
         return;
     }
     storageItems.map((item) => {

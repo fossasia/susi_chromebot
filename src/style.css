@@ -483,14 +483,15 @@ th {
 }
 
 .empty-history{
-   background-color: #dbdbdb;
-   margin: 15px;
-   margin-left: 60px;
-   margin-right: 60px;
-   padding: 6px;
-   border-radius: 40px;
-   text-align: center;
-}
+    background-color: #dbdbdb;
+    margin: 15px;
+    margin-left: 60px;
+    margin-right: 60px;
+    padding: 6px;
+    border-radius: 40px;
+    text-align: center;
+ }
+
 
 /* Scrollbar style */
 
