@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" id="doc">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,35 +12,48 @@
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
+
 <body id="body">
     <div class="surroundbox" id="surroundbox">
         <header class="headerbox" id="headerbox">
-                <a href="javascript: void(0)" id="setting"></a>
-        <div class="dropdown">
-            <div id="dropdown"><img src="images/dots.png" style="width: auto; height: 20px;"></div>
-            <div class="dropdown-content">
-                <a href="https://chat.susi.ai/overview" target="_blank"><li>About<img src="images/about.png" style="margin-left: 40px; height: 30px; width: auto; padding-top: 10px;"></li></a>
-                <a href="https://chat.susi.ai/" target="_blank"><li>Chat<img src="images/chat.png" style="margin-left: 52px; height: 30px; width: auto; padding-top: 10px;"></li></a>
-                <a href="https://skills.susi.ai/" target="_blank"><li>Skills<img src="images/skills.png" style="margin-left: 42.5px; margin-bottom: -10px; height: 40px; width: auto; padding-top: 10px;"></li></a>
-                <a id="settings" target="_blank"><li>Settings<img src="images/settings.png" style="margin-left: 29px; height: 15px; margin-top: 15px; width: auto;"></li></a>
-                <a href="" id="clear"><li>Clear Chat<img src="images/clearAll.png" style="height: 20px; width: auto; padding-top: 1px; margin-left: 5px; margin-top: 10px;" style="margin-left: "></li></a>
-                <a href="settings.html" target="_blank"><li>Login<img src="images/login.png" style="height: 14px; width: auto; margin-left: 48px; margin-top: 10px; "> </li></a>
+            <a href="javascript: void(0)" id="setting"></a>
+            <div class="dropdown">
+                <div id="dropdown"><img src="images/dots.png" style="width: auto; height: 20px;"></div>
+                <div class="dropdown-content">
+                    <a href="https://chat.susi.ai/overview" target="_blank">
+                        <li>About<img src="images/about.png" style="margin-left: 40px; height: 30px; width: auto; padding-top: 10px;"></li>
+                    </a>
+                    <a href="https://chat.susi.ai/" target="_blank">
+                        <li>Chat<img src="images/chat.png" style="margin-left: 52px; height: 30px; width: auto; padding-top: 10px;"></li>
+                    </a>
+                    <a href="https://skills.susi.ai/" target="_blank">
+                        <li>Skills<img src="images/skills.png" style="margin-left: 42.5px; margin-bottom: -10px; height: 40px; width: auto; padding-top: 10px;"></li>
+                    </a>
+                    <a id="settings" target="_blank">
+                        <li>Settings<img src="images/settings.png" style="margin-left: 29px; height: 15px; margin-top: 15px; width: auto;"></li>
+                    </a>
+                    <a href="" id="clear">
+                        <li>Clear Chat<img src="images/clearAll.png" style="height: 20px; width: auto; padding-top: 1px; margin-left: 5px; margin-top: 10px;" style="margin-left: "></li>
+                    </a>
+                    <a href="settings.html" target="_blank">
+                        <li>Login<img src="images/login.png" style="height: 14px; width: auto; margin-left: 48px; margin-top: 10px; "> </li>
+                    </a>
+                </div>
             </div>
-        </div>
-          <a href="https://chat.susi.ai/overview" target="_blank">  <img id="susi-logo" src="images/susi-logo.png" > </a>
-          <a href="javascript: void(0)" id="speak" style="color:white;"><i class="material-icons" id="speak-icon">volume_up</i></a>
-          <div class="theme">
-          <label class="switch">
+            <a href="https://chat.susi.ai/overview" target="_blank">  <img id="susi-logo" src="images/susi-logo.png" > </a>
+            <a href="javascript: void(0)" id="speak" style="color:white;"><i class="material-icons" id="speak-icon">volume_up</i></a>
+            <div class="theme">
+                <label class="switch">
           <input type="checkbox" id="check">
           <span class="slider round"></span>
           </label>
-          </div>
+            </div>
         </header>
-        
+
         <div id="micmodal" class="micmodal">
             <div class="micmodal-content">
-                    <span><h1>Speak now</h1></span>
-                    <img id="micimg" src="images/mic.gif" alt="speak now" />
+                <span><h1>Speak now</h1></span>
+                <img id="micimg" src="images/mic.gif" alt="speak now" />
             </div>
         </div>
 
@@ -53,7 +67,7 @@
         <form id="formid">
             <div class="field has-addons" id="field">
                 <div class="control" id="micdiv">
-                        <button id="mic" class="button icon"><i class="material-icons" id="icon">keyboard_voice</i></button>
+                    <button id="mic" class="button icon"><i class="material-icons" id="icon">keyboard_voice</i></button>
                 </div>
                 <div class="control" id="textareadiv">
                     <textarea class="textarea" placeholder="Enter message" name="text" id="textarea" cols="20" rows="1" autofocus></textarea>
@@ -67,4 +81,5 @@
     <script src="jquery/jquery-3.2.1.min.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

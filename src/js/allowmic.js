@@ -1,7 +1,7 @@
 navigator.webkitGetUserMedia({
     audio: true
-}, function(stream) {
+}, function (stream) {
     stream.stop();
 }, function () {
     console.log('no access');
-});     
+});
