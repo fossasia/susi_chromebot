@@ -16,101 +16,99 @@ var scrollIconElement = document.getElementById("scrollIcon");
 var dark = false;
 var upCount = 0;
 var shouldSpeak = true;
-var storageItems= [];
+var storageItems = [];
 var storageArr = [];
 
-function handleScroll(){
+function handleScroll() {
     var scrollIcon = scrollIconElement;
-    var end=messages.scrollHeight - messages.scrollTop === messages.clientHeight;
-    if(end){
+    var end = messages.scrollHeight - messages.scrollTop === messages.clientHeight;
+    if (end) {
         //hide icon
-        scrollIcon.style.display="none";
-    }
-    else{
+        scrollIcon.style.display = "none";
+    } else {
         //show icon
-        scrollIcon.style.display="block";
+        scrollIcon.style.display = "block";
     }
 }
 
-messages.addEventListener("scroll",handleScroll);
+messages.addEventListener("scroll", handleScroll);
 
 function getCurrentTime() {
-    var ap="AM";
-    var currDate=new Date();
-    var hours=currDate.getHours();
-    var minutes=currDate.getMinutes();
-    var time="";
-    if(hours>12){
-        ap="PM";
-        hours-=12;
+    var ap = "AM";
+    var currDate = new Date();
+    var hours = currDate.getHours();
+    var minutes = currDate.getMinutes();
+    var time = "";
+    if (hours > 12) {
+        ap = "PM";
+        hours -= 12;
     }
-    if(hours===12){
-        ap="PM";
+    if (hours === 12) {
+        ap = "PM";
     }
-    if(minutes<10){
-        minutes="0"+minutes;
+    if (minutes < 10) {
+        minutes = "0" + minutes;
     }
-    time=hours+":"+minutes+" "+ap;
+    time = hours + ":" + minutes + " " + ap;
     return time;
 }
 
 
-function loading(condition=true){
-    if(condition === true){
+function loading(condition = true) {
+    if (condition === true) {
         var newDiv = document.createElement("div");
         var newImg = document.createElement("img");
-        newImg.setAttribute("src","images/loading.gif");
-        newImg.setAttribute("style","height:10px;width:auto");
+        newImg.setAttribute("src", "images/loading.gif");
+        newImg.setAttribute("style", "height:10px;width:auto");
         newDiv.appendChild(newImg);
-        if(dark === true)
-        {
-            newDiv.setAttribute("class","susinewmessage message-dark");
-        }
-        else{
-            newDiv.setAttribute("class","susinewmessage");
+        if (dark === true) {
+            newDiv.setAttribute("class", "susinewmessage message-dark");
+        } else {
+            newDiv.setAttribute("class", "susinewmessage");
         }
         messages.appendChild(newDiv);
         messages.scrollTop = messages.scrollHeight;
-    }
-    else{
+    } else {
         messages.childNodes[messages.childElementCount].innerHTML = "";
     }
 }
 
-function restoreMessages(storageItems){
-    if(!storageItems){
-        var htmlMsg="<div class='empty-history'> Start by saying \"Hi\"</div>";
-  		    $(htmlMsg).appendTo(messages);
+function restoreMessages(storageItems) {
+    if (!storageItems) {
+        var htmlMsg = "<div class='empty-history'> Start by saying \"Hi\"</div>";
+        $(htmlMsg).appendTo(messages);
         return;
     }
     storageItems.map((item) => {
         loading(true);
         loading(false);
-        var newDiv =  messages.childNodes[messages.childElementCount];
-        newDiv.setAttribute("class",item.senderClass);
+        var newDiv = messages.childNodes[messages.childElementCount];
+        newDiv.setAttribute("class", item.senderClass);
         newDiv.innerHTML = item.content;
     });
-    chrome.storage.local.get("askSusiQuery",(items) => {
-        if(items.askSusiQuery){
-            var query = items.askSusiQuery ;
-            textarea.value=query;
+    chrome.storage.local.get("askSusiQuery", (items) => {
+        if (items.askSusiQuery) {
+            var query = items.askSusiQuery;
+            textarea.value = query;
             document.getElementById("but").click();
             chrome.storage.local.remove("askSusiQuery");
-            chrome.browserAction.setBadgeText({text: ""});
-     }
+            chrome.browserAction.setBadgeText({
+                text: ""
+            });
+        }
     });
 }
 
-chrome.storage.sync.get("message",(items) => {
-    if(items){
-     storageItems=items.message;
-     restoreMessages(storageItems);
+chrome.storage.sync.get("message", (items) => {
+    if (items) {
+        storageItems = items.message;
+        restoreMessages(storageItems);
 
- }
+    }
 });
 
-function speakOutput(msg,speak=false){
-    if(speak){
+function speakOutput(msg, speak = false) {
+    if (speak) {
         var voiceMsg = new SpeechSynthesisUtterance(msg);
         window.speechSynthesis.speak(voiceMsg);
     }
@@ -132,19 +130,19 @@ function composeLink(link) {
     return newA;
 }
 
-function composeReplyAnswer(response,replyData){
+function composeReplyAnswer(response, replyData) {
     response.reply = replyData;
-    if(replyData.startsWith("https")) {
+    if (replyData.startsWith("https")) {
         response.image = true;
     }
     return response;
 }
 
-function composeReplyTable(response,columns,data) {
+function composeReplyTable(response, columns, data) {
     var keys = Object.keys(columns);
     var table = document.createElement("table");
-    table.setAttribute("class","table-response");
-    table.setAttribute("id","table-res");
+    table.setAttribute("class", "table-response");
+    table.setAttribute("id", "table-res");
     var tableHead = document.createElement("thead");
     var trHead = document.createElement("tr");
     keys.map((key) => {
@@ -159,21 +157,20 @@ function composeReplyTable(response,columns,data) {
         var trItem = document.createElement("tr");
         var flag = false;
         keys.map((key) => {
-            if(item[key]){
-                flag=true;
+            if (item[key]) {
+                flag = true;
                 var tdItem = document.createElement("td");
-                if(item[key].startsWith("http")) {
+                if (item[key].startsWith("http")) {
                     var linkItem = composeLink(item[key]);
                     tdItem.appendChild(linkItem);
                     trItem.appendChild(tdItem);
-                }
-                else {
-                tdItem.appendChild(document.createTextNode(item[key]));
-                trItem.appendChild(tdItem);
+                } else {
+                    tdItem.appendChild(document.createTextNode(item[key]));
+                    trItem.appendChild(tdItem);
                 }
             }
         });
-        if(flag) {
+        if (flag) {
             tableBody.appendChild(trItem);
         }
     });
@@ -185,50 +182,42 @@ function composeReplyTable(response,columns,data) {
 
 function composeSusiMessage(response) {
     var newP = document.createElement("p");
-    var newDiv =  messages.childNodes[messages.childElementCount];
+    var newDiv = messages.childNodes[messages.childElementCount];
     newDiv.setAttribute("class", "susinewmessage");
-    if(dark === true)
-    {
+    if (dark === true) {
         newDiv.setAttribute("class", "message-susi-dark susinewmessage");
     }
     var t = getCurrentTime();
     var currtime = document.createElement("p");
-    currtime.setAttribute("class","time");
+    currtime.setAttribute("class", "time");
     var time = document.createTextNode(t);
     currtime.append(time);
     var susiTextNode;
-    if(response.error===true){
+    if (response.error === true) {
         susiTextNode = document.createTextNode(response.errorText);
         newP.appendChild(susiTextNode);
         newDiv.appendChild(newP);
-        speakOutput(response.errorText,shouldSpeak);
-    }
-    else {
-            if (response.reply && !response.image) {
-                susiTextNode = document.createTextNode(response.reply);
-                newP.appendChild(susiTextNode);
-                newDiv.appendChild(newP);
-                speakOutput(response.reply,shouldSpeak);
+        speakOutput(response.errorText, shouldSpeak);
+    } else {
+        if (response.reply && !response.image) {
+            susiTextNode = document.createTextNode(response.reply);
+            newP.appendChild(susiTextNode);
+            newDiv.appendChild(newP);
+            speakOutput(response.reply, shouldSpeak);
+        } else if (response.image) {
+            var newImg = composeImage(response.reply);
+            newDiv.appendChild(document.createElement("br"));
+            newDiv.appendChild(newImg);
+        } else if (response.tableType) {
+            newDiv.appendChild(response.table);
+            if (dark === true) {
+                newDiv.setAttribute("class", "table-height susinewmessage message-susi-dark");
+            } else {
+                newDiv.setAttribute("class", "table-height susinewmessage");
             }
-            else if(response.image) {
-                var newImg = composeImage(response.reply);
-                newDiv.appendChild(document.createElement("br"));
-                newDiv.appendChild(newImg);
-            }
-            else if(response.tableType) {
-                    newDiv.appendChild(response.table);
-                    if(dark === true)
-                    {
-                        newDiv.setAttribute("class", "table-height susinewmessage message-susi-dark");
-                    }
-                    else
-                    {
-                        newDiv.setAttribute("class", "table-height susinewmessage");
-                    }
-            }
-            else {
-                console.log("could not make response");
-            }
+        } else {
+            console.log("could not make response");
+        }
     }
     newDiv.appendChild(document.createElement("br"));
     newDiv.appendChild(currtime);
@@ -236,38 +225,43 @@ function composeSusiMessage(response) {
     var storageObj = {
         senderClass: "",
         content: ""
-        };
+    };
     var susimessage = newDiv.innerHTML;
     storageObj.content = susimessage;
     storageObj.senderClass = "susinewmessage";
-    chrome.storage.sync.get("message",(items) => {
-        if(items.message){
+    chrome.storage.sync.get("message", (items) => {
+        if (items.message) {
             storageArr = items.message;
             console.log("this was true");
         }
         storageArr.push(storageObj);
-        chrome.storage.sync.set({"message":storageArr},() => {
+        chrome.storage.sync.set({
+            "message": storageArr
+        }, () => {
             console.log("saved");
         });
     });
     messages.scrollTop = messages.scrollHeight;
 }
 
-function composeResponse(action,data) {
+function composeResponse(action, data) {
     var response = {
         error: false,
         reply: "",
         image: false,
         tableType: false
     };
-    switch(action.type){
-        case "answer" : response = composeReplyAnswer(response,action.expression);
-                        break;
-        case "table" :  response = composeReplyTable(response,action.columns,data);
-                        break;
-        default :       response.error = true;
-                        response.errorText = "No matching action type";
-                        break;
+    switch (action.type) {
+        case "answer":
+            response = composeReplyAnswer(response, action.expression);
+            break;
+        case "table":
+            response = composeReplyTable(response, action.columns, data);
+            break;
+        default:
+            response.error = true;
+            response.errorText = "No matching action type";
+            break;
     }
     return response;
 }
@@ -278,11 +272,11 @@ function getResponse(query) {
         dataType: "jsonp",
         type: "GET",
         url: "https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=" + query,
-        error: function(xhr,textStatus,errorThrown) {
-                console.log(xhr);
-                console.log(textStatus);
-                console.log(errorThrown);
-                loading(false);
+        error: function (xhr, textStatus, errorThrown) {
+            console.log(xhr);
+            console.log(textStatus);
+            console.log(errorThrown);
+            loading(false);
             var response = {
                 error: true,
                 errorText: "Sorry! request could not be made"
@@ -291,12 +285,12 @@ function getResponse(query) {
         },
         success: function (data) {
             data.answers[0].actions.map((action) => {
-            var response = composeResponse(action,data.answers[0].data);
-            loading(false);
-            composeSusiMessage(response);
-            if(action.type !== data.answers[0].actions[data.answers[0].actions.length-1].type){
-                loading(); //if not last action then create another loading box for susi response
-            }
+                var response = composeResponse(action, data.answers[0].data);
+                loading(false);
+                composeSusiMessage(response);
+                if (action.type !== data.answers[0].actions[data.answers[0].actions.length - 1].type) {
+                    loading(); //if not last action then create another loading box for susi response
+                }
             });
         }
     });
@@ -307,8 +301,7 @@ function composeMyMessage(text) {
     var newP = document.createElement("p");
     var newDiv = document.createElement("div");
     newDiv.setAttribute("class", "mynewmessage");
-    if(dark === true)
-    {
+    if (dark === true) {
         newDiv.setAttribute("class", "message-dark mynewmessage");
     }
     var myTextNode = document.createTextNode(text);
@@ -316,7 +309,7 @@ function composeMyMessage(text) {
     newDiv.appendChild(newP);
     var t = getCurrentTime();
     var currtime = document.createElement("p");
-    currtime.setAttribute("class","time");
+    currtime.setAttribute("class", "time");
     var time = document.createTextNode(t);
     currtime.append(time);
     newDiv.appendChild(document.createElement("br"));
@@ -327,16 +320,18 @@ function composeMyMessage(text) {
     var storageObj = {
         senderClass: "",
         content: ""
-        };
+    };
     var mymessage = newDiv.innerHTML;
     storageObj.content = mymessage;
     storageObj.senderClass = "mynewmessage";
-    chrome.storage.sync.get("message",(items) => {
-        if(items.message){
+    chrome.storage.sync.get("message", (items) => {
+        if (items.message) {
             storageArr = items.message;
         }
         storageArr.push(storageObj);
-        chrome.storage.sync.set({"message":storageArr},() => {
+        chrome.storage.sync.set({
+            "message": storageArr
+        }, () => {
             console.log("saved");
         });
     });
@@ -349,10 +344,9 @@ function submitForm() {
         return console.log("Empty Query!");
     }
     composeMyMessage(text);
-    if(window.navigator.onLine){
+    if (window.navigator.onLine) {
         getResponse(text);
-    }
-    else {
+    } else {
         loading();
         var response = {
             error: true,
@@ -371,52 +365,54 @@ function reset() {
 }
 
 var recognition = new webkitSpeechRecognition();
-recognition.onerror = function(e){
+recognition.onerror = function (e) {
     console.log(e.error);
 };
 
 recognition.onstart = function () {
-    micimg.setAttribute("src","images/mic-animate.gif");
+    micimg.setAttribute("src", "images/mic-animate.gif");
 };
 
 reset();
 
-recognition.onend = function(){
+recognition.onend = function () {
     reset();
     micmodal.classList.remove("active");
-    micimg.setAttribute("src","images/mic.gif");
+    micimg.setAttribute("src", "images/mic.gif");
 };
 
 recognition.onresult = function (event) {
-    var interimText=" ";
-  for (var i = event.resultIndex; i < event.results.length; ++i) {
-    if (event.results[i].isFinal) {
-      textarea.value = event.results[i][0].transcript;
-      submitForm();
+    var interimText = " ";
+    for (var i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+            textarea.value = event.results[i][0].transcript;
+            submitForm();
+        } else {
+            interimText += event.results[i][0].transcript;
+            textarea.value += interimText;
+        }
     }
-    else {
-        interimText += event.results[i][0].transcript;
-        textarea.value += interimText;
-    }
-  }
 };
 
 
 function toggleStartStop() {
-  navigator.getUserMedia({ audio:true },
-  function(){
-  if (recognizing) {
-        recognition.stop();
-        reset();
-        micmodal.classList.remove("active");
-  } else {
-        recognition.start();
-        recognizing = true;
-        micmodal.className += " active";
-  }
-} , function () {
-        alert("Please Enable Mic by setting option(Note: If you have blocked the mic before you have to remove it from chrome settings and then enable from extension)");
-    });
+    navigator.getUserMedia({
+            audio: true
+        },
+        function () {
+            if (recognizing) {
+                recognition.stop();
+                reset();
+                micmodal.classList.remove("active");
+            } else {
+                recognition.start();
+                recognizing = true;
+                micmodal.className += " active";
+            }
+        },
+        function () {
+            alert("Please Enable Mic by setting option(Note: If you have blocked the mic before you have to remove it from chrome settings and then enable from extension)");
+        });
 }
 
 mic.addEventListener("click", function () {
@@ -429,7 +425,7 @@ setting.addEventListener("click", function () {
     });
 });
 
-clear.addEventListener("click", function() {
+clear.addEventListener("click", function () {
     chrome.storage.sync.clear();
 });
 
@@ -438,15 +434,15 @@ settings.addEventListener("click", function () {
 });
 
 textarea.onkeyup = function (e) {
-    var prevMessages,myQuery;
-    try{
-        if (e.which === 38){
+    var prevMessages, myQuery;
+    try {
+        if (e.which === 38) {
             upCount = upCount + 1;
             prevMessages = document.getElementsByClassName("mynewmessage");
             myQuery = prevMessages[prevMessages.length - upCount].getElementsByTagName("p")[0].textContent;
             textarea.value = myQuery;
         }
-        if (e.which === 40){
+        if (e.which === 40) {
             upCount = upCount - 1;
             prevMessages = document.getElementsByClassName("mynewmessage");
             myQuery = prevMessages[prevMessages.length - upCount].getElementsByTagName("p")[0].textContent;
@@ -457,9 +453,7 @@ textarea.onkeyup = function (e) {
             e.preventDefault();
             submitForm();
         }
-    }
-    catch(excep){
-    }
+    } catch (excep) {}
 };
 
 formid.addEventListener("submit", function (e) {
@@ -469,25 +463,24 @@ formid.addEventListener("submit", function (e) {
 
 
 chrome.storage.sync.get("darktheme", (obj) => {
-    if(obj.darktheme === true ){
-    console.log("Dark theme state true");
-    document.getElementById("check").click();
+    if (obj.darktheme === true) {
+        console.log("Dark theme state true");
+        document.getElementById("check").click();
     }
 });
 
-function check(){
+function check() {
 
-    if(dark === false)
-    {
+    if (dark === false) {
         dark = true;
-        chrome.storage.sync.set({"darktheme": true}, () => {
-        });
-    }
-    else
-    {
+        chrome.storage.sync.set({
+            "darktheme": true
+        }, () => {});
+    } else {
         dark = false;
-        chrome.storage.sync.set({"darktheme": false}, () => {
-        });
+        chrome.storage.sync.set({
+            "darktheme": false
+        }, () => {});
     }
 
     var box = document.getElementById("box");
@@ -519,23 +512,23 @@ function check(){
     $(".mynewmessage").toggleClass("message-dark");
 }
 
-function changeSpeak(){
+function changeSpeak() {
     shouldSpeak = !shouldSpeak;
     var SpeakIcon = document.getElementById("speak-icon");
-    if(!shouldSpeak){
+    if (!shouldSpeak) {
         SpeakIcon.innerText = "volume_off";
-    }else{
+    } else {
         SpeakIcon.innerText = "volume_up";
     }
     console.log("Should be speaking? " + shouldSpeak);
 }
 
-scrollIconElement.addEventListener("click",function(e){
+scrollIconElement.addEventListener("click", function (e) {
     $(messages).stop().animate({
         scrollTop: $(messages)[0].scrollHeight
     }, 800);
     e.preventDefault();
- });
+});
 
 document.getElementById("check").addEventListener("click", check);
-document.getElementById("speak").addEventListener("click",changeSpeak);
+document.getElementById("speak").addEventListener("click", changeSpeak);
