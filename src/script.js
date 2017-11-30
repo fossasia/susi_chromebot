@@ -18,6 +18,15 @@ var upCount = 0;
 var shouldSpeak = true;
 var storageItems= [];
 var storageArr = [];
+var backUrl = localStorage.getItem("theValue");
+var box = document.getElementById("box");
+
+window.onload = function (){
+    box.style.backgroundImage = "url("+backUrl+")";
+    box.style.backgroundRepeat = "no-repeat";
+    box.style.backgroundSize = "cover";
+};
+
 
 function handleScroll(){
     var scrollIcon = scrollIconElement;

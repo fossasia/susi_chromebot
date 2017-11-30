@@ -1,60 +1,45 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">   
-    <title>Allow mic access</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: #272727;
-        }
-
-        .box {
-            color:white;
-            width: 80%;
-            margin: auto;
-            text-align: center;
-            margin-top: 5%; 
-        }
-
-        .susi, .microphone {
-            color:rgb(66, 133, 244);
-            font-size: 3em; 
-        }
-
-        footer{
-            text-align: center;
-            position: fixed;
-            bottom: 2px;
-            width:100%;
-        }
-        .credits {
-            text-align: center;
-            margin: auto; 
-        }
-
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Settings page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="settings_page.css">
 </head>
+
 <body>
-        <div class="box">
-            <img src="images/microphone.png" />
-            <h1>Please Allow <span class="microphone">Microphone</span> Access to speak with <span class="susi">SUSI</span></h1>
-            <h2>To able to record your voice, we require microphone access.</h2>
-        </div>
-    <footer>
-            <div class="credits">Icons made by
-                 <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a>
-                  from 
-                  <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-                   is licensed by 
-                   <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">
-                    CC 3.0 BY
-                </a>
+    <div class="container">
+        <div class="card">
+            <div class="card-block">
+                <div class="heading">
+                    <h3>Susi Settings Page</h3>
+                    <span>Customise Susi The way you like it</span>
+                </div>
+                <hr>
+                <div class="micAccess">
+                    <h4>Mic Access</h4>
+                    <span>Please Allow mic access</span>
+                    <input type="button" id="micAccess" value="Allow" style="color: #fff; background-color: #2d75d1 ">
+                </div>
+                <hr>
+                <div class="customBackground">
+                    <form id="backgroundChange">
+                        <h4>Background Settings</h4>
+                        <p>Enter the url to add Custom Background</p>
+                        <input type="text" id="backUrl">
+                        <input type="submit" style="color: #fff; background-color: #2d75d1" >
+                    </form>
+                </div>
             </div>
-    </footer>
+        </div>
+    </div>
     <script src="allowmic.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
 </body>
+
 </html>
