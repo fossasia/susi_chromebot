@@ -152,9 +152,6 @@ function composeReplyTable(response,columns,data) {
         th.appendChild(document.createTextNode(columns[key]));
         trHead.appendChild(th);
     });
-    if(keys.indexOf("web_page")!==-1){
-        keys[keys.indexOf("web_page")]="web_pages";
-    }
     tableHead.appendChild(trHead);
     table.appendChild(tableHead);
     var tableBody = document.createElement("tbody");
@@ -165,14 +162,14 @@ function composeReplyTable(response,columns,data) {
             if(item[key]){
                 flag=true;
                 var tdItem = document.createElement("td");
-                if(key==="web_pages") {
-                    var linkItem = composeLink(item[key][0]);
+                if(item[key].startsWith("http")) {
+                    var linkItem = composeLink(item[key]);
                     tdItem.appendChild(linkItem);
                     trItem.appendChild(tdItem);
                 }
                 else {
-                    tdItem.appendChild(document.createTextNode(item[key]));
-                    trItem.appendChild(tdItem);
+                tdItem.appendChild(document.createTextNode(item[key]));
+                trItem.appendChild(tdItem);
                 }
             }
         });
