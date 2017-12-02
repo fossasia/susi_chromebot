@@ -24,7 +24,7 @@ $ cd src
 
 ## Working GIF
 
-![SUSI_CHROMEBOT_GIF](https://github.com/fossasia/susi_chromebot/blob/master/susi_chromebot.gif)
+![SUSI_CHROMEBOT_GIF](susi_chromebot.gif)
 
 
 # Want to Contribute?
