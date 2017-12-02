@@ -377,6 +377,10 @@ input:checked+.slider:before {
     border-radius: 50%;
 }
 
+#micimg {
+    height: 72px;
+    width: 72px;
+}
 .micmodal {
     width: 100%;
     z-index: 1;
@@ -391,6 +395,11 @@ input:checked+.slider:before {
 
 .micmodal-content {
     text-align: center;
+}
+
+.micmodal-modified {
+    background-color: #19455a;
+    color: #0cd5ba;
 }
 
 #dropdown{
@@ -472,6 +481,16 @@ th {
     height: 75%;
     overflow: auto;
 }
+
+.empty-history{
+    background-color: #dbdbdb;
+    margin: 15px;
+    margin-left: 60px;
+    margin-right: 60px;
+    padding: 6px;
+    border-radius: 40px;
+    text-align: center;
+ }
 
 
 /* Scrollbar style */

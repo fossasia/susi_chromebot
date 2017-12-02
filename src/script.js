@@ -20,16 +20,16 @@ var storageItems= [];
 var storageArr = [];
 
 function handleScroll(){
- 	var scrollIcon = scrollIconElement;
- 	var end=messages.scrollHeight - messages.scrollTop === messages.clientHeight;
- 	if(end){
- 		//hide icon
- 		scrollIcon.style.display="none";
- 	}
- 	else{
- 		//show icon
- 		scrollIcon.style.display="block";
- 	}
+    var scrollIcon = scrollIconElement;
+    var end=messages.scrollHeight - messages.scrollTop === messages.clientHeight;
+    if(end){
+        //hide icon
+        scrollIcon.style.display="none";
+    }
+    else{
+        //show icon
+        scrollIcon.style.display="block";
+    }
 }
 
 messages.addEventListener("scroll",handleScroll);
@@ -79,6 +79,8 @@ function loading(condition=true){
 
 function restoreMessages(storageItems){
     if(!storageItems){
+        var htmlMsg="<div class='empty-history'> Start by saying \"Hi\"</div>";
+  		    $(htmlMsg).appendTo(messages);
         return;
     }
     storageItems.map((item) => {
@@ -91,9 +93,9 @@ function restoreMessages(storageItems){
     chrome.storage.local.get("askSusiQuery",(items) => {
         if(items.askSusiQuery){
             var query = items.askSusiQuery ;
-			textarea.value=query;
-			document.getElementById("but").click();
-			chrome.storage.local.remove("askSusiQuery");
+            textarea.value=query;
+            document.getElementById("but").click();
+            chrome.storage.local.remove("askSusiQuery");
             chrome.browserAction.setBadgeText({text: ""});
      }
     });
@@ -150,6 +152,9 @@ function composeReplyTable(response,columns,data) {
         th.appendChild(document.createTextNode(columns[key]));
         trHead.appendChild(th);
     });
+    if(keys.indexOf("web_page")!==-1){
+        keys[keys.indexOf("web_page")]="web_pages";
+    }
     tableHead.appendChild(trHead);
     table.appendChild(tableHead);
     var tableBody = document.createElement("tbody");
@@ -160,14 +165,14 @@ function composeReplyTable(response,columns,data) {
             if(item[key]){
                 flag=true;
                 var tdItem = document.createElement("td");
-                if(item[key].startsWith("http")) {
-                    var linkItem = composeLink(item[key]);
+                if(key==="web_pages") {
+                    var linkItem = composeLink(item[key][0]);
                     tdItem.appendChild(linkItem);
                     trItem.appendChild(tdItem);
                 }
                 else {
-                tdItem.appendChild(document.createTextNode(item[key]));
-                trItem.appendChild(tdItem);
+                    tdItem.appendChild(document.createTextNode(item[key]));
+                    trItem.appendChild(tdItem);
                 }
             }
         });
@@ -217,12 +222,12 @@ function composeSusiMessage(response) {
                     newDiv.appendChild(response.table);
                     if(dark === true)
                     {
-                    	newDiv.setAttribute("class", "table-height susinewmessage message-susi-dark");
-                	}
+                        newDiv.setAttribute("class", "table-height susinewmessage message-susi-dark");
+                    }
                     else
                     {
-                  	  	newDiv.setAttribute("class", "table-height susinewmessage");
-              	  	}
+                        newDiv.setAttribute("class", "table-height susinewmessage");
+                    }
             }
             else {
                 console.log("could not make response");
@@ -310,6 +315,7 @@ function getResponse(query) {
 }
 
 function composeMyMessage(text) {
+    $(".empty-history").remove();
     var newP = document.createElement("p");
     var newDiv = document.createElement("div");
     newDiv.setAttribute("class", "mynewmessage");
@@ -412,17 +418,17 @@ function toggleStartStop() {
   navigator.getUserMedia({ audio:true },
   function(){
   if (recognizing) {
-    	recognition.stop();
-    	reset();
-    	micmodal.classList.remove("active");
+        recognition.stop();
+        reset();
+        micmodal.classList.remove("active");
   } else {
-		recognition.start();
-		recognizing = true;
-		micmodal.className += " active";
+        recognition.start();
+        recognizing = true;
+        micmodal.className += " active";
   }
 } , function () {
-		alert("Please Enable Mic by setting option(Note: If you have blocked the mic before you have to remove it from chrome settings and then enable from extension)");
-	});
+        alert("Please Enable Mic by setting option(Note: If you have blocked the mic before you have to remove it from chrome settings and then enable from extension)");
+    });
 }
 
 mic.addEventListener("click", function () {
@@ -436,7 +442,7 @@ setting.addEventListener("click", function () {
 });
 
 clear.addEventListener("click", function() {
-	chrome.storage.sync.clear();
+    chrome.storage.sync.clear();
 });
 
 settings.addEventListener("click", function () {
@@ -519,6 +525,8 @@ function check(){
     doc.classList.toggle("dark");
     var dropdown = document.getElementById("dropdown");
     dropdown.classList.toggle("drop-dark");
+    var micmodal = document.getElementById("micmodal");
+    micmodal.classList.toggle("micmodal-modified");
     $(".susinewmessage").toggleClass("message-susi-dark");
     $(".mynewmessage").toggleClass("message-dark");
 }
@@ -535,10 +543,10 @@ function changeSpeak(){
 }
 
 scrollIconElement.addEventListener("click",function(e){
- 	$(messages).stop().animate({
- 		scrollTop: $(messages)[0].scrollHeight
- 	}, 800);
- 	e.preventDefault();
+    $(messages).stop().animate({
+        scrollTop: $(messages)[0].scrollHeight
+    }, 800);
+    e.preventDefault();
  });
 
 document.getElementById("check").addEventListener("click", check);
