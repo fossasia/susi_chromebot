@@ -405,7 +405,7 @@ input:checked+.slider:before {
 #dropdown{
     position: relative;
     display: inline-block;
-    right: 80px;
+    right: 15px;
     top: 7px;
     
 }
@@ -419,9 +419,9 @@ input:checked+.slider:before {
     z-index: 1;
     color: grey;
     list-style: none;
-    text-align: left;
+    text-align: right;
     top:30px;
-    right: -60px;
+    right: -15px;
 }
 .dropdown:hover .dropdown-content{
     display: block;
