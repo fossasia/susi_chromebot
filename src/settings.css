@@ -64,22 +64,25 @@ body{
     color: #ffffff;
 	width: 30rem;
 	background-color: #0275d8;
-    margin-left: 23%;
+    margin-left: 12%;
 }
 
 #username{
     width: 100%;
     height: auto;
+    margin-left: 25%;
 }
 
 #password{
     width: 100%;
     height: auto;
+    margin-left: 25%;
 }
 
 #logout{
-    width: 100%;
+    width: 30rem;
     height: auto;
+    margin-left: 10%;
     background-color: #0275d8;
 }
 
