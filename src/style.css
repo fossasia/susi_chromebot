@@ -225,6 +225,7 @@ body {
     /* max-width: 125%; */
     width: 118%;
     margin-bottom: 5px;
+    resize: none;
 }
 
 .textarea-mod {
