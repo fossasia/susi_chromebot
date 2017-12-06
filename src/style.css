@@ -426,7 +426,7 @@ input:checked+.slider:before {
     z-index: 5;
     color: grey;
     list-style: none;
-    text-align: left;
+    text-align: right;
     top:30px;
     right: 10px;
 }
