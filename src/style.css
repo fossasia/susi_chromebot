@@ -23,7 +23,7 @@ body {
     color: white;
 }
 
-#micdiv {
+/* #micdiv {
     position: absolute;
     left: -10px;
     bottom: -28px;
@@ -38,7 +38,7 @@ body {
     position: absolute;
     right: -10px;
     bottom: -28px;
-}
+} */
 
 .dark {
     background: rgb(25, 50, 76);
@@ -57,7 +57,7 @@ body {
      right: 20px;
      cursor: pointer;
      z-index: 99;
-     bottom: 40px;
+     bottom: 85px;
      background-color: #ffffff;
      padding: 0px 8px;
      border-radius: 50%;
@@ -222,9 +222,10 @@ body {
 }
 
 .textarea {
-    max-width: 125%;
+    /* max-width: 125%; */
     width: 118%;
     margin-bottom: 5px;
+    resize: none;
 }
 
 .textarea-mod {
@@ -337,7 +338,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: #14224a;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -405,27 +406,34 @@ input:checked+.slider:before {
 #dropdown{
     position: relative;
     display: inline-block;
-    right: 15px;
+    right: 10px;
     top: 7px;
     
 }
+
+.dropdown-content{
+    display: flex;
+    flex-direction: column;
+}
+
 .dropdown-content{
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 150px;
     box-shadow: 0px 8px 16px 0px rgb(0,0,0,0.2);
-    padding: 12px 16px;
-    z-index: 1;
+    padding: 12px 0;
+    z-index: 5;
     color: grey;
     list-style: none;
     text-align: right;
     top:30px;
-    right: -15px;
+    right: 10px;
 }
 .dropdown:hover .dropdown-content{
-    display: block;
+    display: flex;
 }
+
 #ddown{
     background-color: rgb(66,133,244);
     color: white;
@@ -435,19 +443,24 @@ input:checked+.slider:before {
 }
 .dropdown-content li:hover{
     background-color: #e5e5e5;
-    border-radius: 5px;
-    margin: 3px;
 }
 .dropdown-content li{
     letter-spacing: 0.5px;
-    border-radius: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0;
+    padding: 0 16px;
+}
+.dropdown-content a li img {
+    height: 30px;
 }
 .dropdown-content a{
-    color: grey;
+    color: #676767;
 }
 .dropdown-content a:hover{
     background-color: #e5e5e5;
-        border-radius:5px;}
+}
 .table-response {
     table-layout: fixed;
     width: 100%;
@@ -511,4 +524,21 @@ th {
 
 .dark ::-webkit-scrollbar-thumb {
     background-color: #009688;
+}
+
+.field.has-addons {
+    display: flex;
+    align-items: center;
+}
+
+#textareadiv {
+    flex: 1;
+}
+
+.icon {
+    height: auto;
+}
+
+.button.is-hovered, .button:hover {
+    transition: all .2s;
 }
