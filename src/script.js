@@ -529,6 +529,7 @@ function check(){
     micmodal.classList.toggle("micmodal-modified");
     $(".susinewmessage").toggleClass("message-susi-dark");
     $(".mynewmessage").toggleClass("message-dark");
+    $("#scrollIcon").toggleClass("scroll-dark");
 }
 
 function changeSpeak(){

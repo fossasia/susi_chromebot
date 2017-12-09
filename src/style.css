@@ -542,3 +542,7 @@ th {
 .button.is-hovered, .button:hover {
     transition: all .2s;
 }
+
+.scroll-dark {
+    background-color: rgba(25, 147, 147, .8);
+}
