@@ -11,3 +11,11 @@ body {
 .heading {
     text-align: center;
 }
+
+.theme {
+    border-radius: 80%;
+}
+ .theme:active,.theme:focus 
+ {
+     border:3px solid #fff;
+  }

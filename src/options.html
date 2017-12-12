@@ -21,7 +21,7 @@
                 <div class="micAccess">
                     <h4>Mic Access</h4>
                     <span>Please Allow mic access</span>
-                    <input type="button" id="micAccess" value="Allow" style="color: #fff; background-color: #2d75d1 ">
+                    <input type="button" id="micAccess" class="btn btn-primary" value="Allow" style="color: #fff; background-color: #2d75d1 ">
                 </div>
                 <hr>
                 <div class="customBackground">
@@ -29,9 +29,21 @@
                         <h4>Background Settings</h4>
                         <p>Enter the url to add Custom Background</p>
                         <input type="text" id="backUrl">
-                        <input type="submit" style="color: #fff; background-color: #2d75d1" >
+                        <input type="submit" class="btn btn-primary" style="color: #fff; background-color: #2d75d1">
                     </form>
                 </div>
+                <hr>
+                <div class="themes" style="display: inline;">
+                    <h4>Predefined Themes</h4>
+                    <div class="themeSelectors" id="preDefThemes">
+                        <input type="button" id="black" class="btn theme" style="background-color: black;">
+                        <input type="button" id="deeppink" class="btn theme" style="background-color: deeppink;">
+                        <input type="button" id="chartreuse" class="btn theme" style="background-color: chartreuse;">
+                        <input type="button" id="brown" class="btn theme" style="background-color: brown;">
+                        <input type="button" id="submit" class="btn btn-primary" value="Submit">
+                    </div>
+                </div>
+                <hr>
             </div>
         </div>
     </div>
