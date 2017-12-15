@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SUSI Login Portal</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <img src="images/susi-logo.png" class="img-fluid signin-image">
+                    <div class="nologgedin" id="nologgedin">
+                        <form id="login">
+                            <div class="form-group">
+                                <label for="email">Email address:</label>
+                                <input type="email" class="form-control" id="username" placeholder="Email">
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" class="form-control" id="password" placeholder="Password">
+                            </div>
+                            <br />
+                            <button type="submit" class="btn btn-success" name="Login" id="loginbutton">Login</button>
+                            <br>
+                            <p style="text-align: center;">
+                                <a href="https://chat.susi.ai/" style="color: #fff; ">New User? Visit our website to sign up.</a>
+                            </p>
+                        </form>
+                    </div>
+                    <div class="loggedin" id="loggedin">
+                        <button class="btn btn-success" name="Logout" onClick="logout(this)" id="logout">Logout</button>
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+    </div>
+    <script src="jquery/jquery-3.2.1.min.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>
