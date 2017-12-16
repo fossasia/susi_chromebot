@@ -1,0 +1,46 @@
+body {
+    background-color: #e8f2fe;
+    color: #fff;
+}
+
+.container{
+    margin-top: 8%;
+}
+
+.card {
+    background-color: #0084ff;
+    padding: 40px 0px 20px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.heading {
+    text-align: center;
+}
+
+.sub-heading {
+    font-size: 20px;
+}
+
+.logo{
+    padding: 0 1rem 0.5rem;
+    margin: auto;
+    display: block;
+    width: 20%;
+}
+
+.row {
+    padding: 1rem;
+}
+
+.row-label {
+    padding-top: 5px;
+}
+
+.theme {
+    border-radius: 100%;
+}
+
+.theme:active,.theme:focus
+{
+    border: 3px solid #fff;
+}

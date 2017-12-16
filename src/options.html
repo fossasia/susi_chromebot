@@ -5,53 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Settings page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/settings_page.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/options.css">
 </head>
-
 <body>
     <div class="container">
         <div class="card">
-            <div class="card-block">
-                <div class="heading">
-                    <h3>Susi Settings Page</h3>
-                    <span>Customise Susi The way you like it</span>
-                </div>
-                <hr>
-                <div class="micAccess">
-                    <h4>Mic Access</h4>
-                    <span>Please Allow mic access</span>
-                    <input type="button" id="micAccess" class="btn btn-primary" value="Allow" style="color: #fff; background-color: #2d75d1 ">
-                </div>
-                <hr>
-                <div class="customBackground">
-                    <form id="backgroundChange">
-                        <h4>Background Settings</h4>
-                        <p>Enter the url to add Custom Background</p>
-                        <input type="text" id="backUrl">
-                        <input type="submit" class="btn btn-primary" style="color: #fff; background-color: #2d75d1">
-                    </form>
-                </div>
-                <hr>
-                <div class="themes" style="display: inline;">
-                    <h4>Predefined Themes</h4>
-                    <div class="themeSelectors" id="preDefThemes">
-                        <input type="button" id="black" class="btn theme" style="background-color: black;">
-                        <input type="button" id="deeppink" class="btn theme" style="background-color: deeppink;">
-                        <input type="button" id="chartreuse" class="btn theme" style="background-color: chartreuse;">
-                        <input type="button" id="brown" class="btn theme" style="background-color: brown;">
-                        <input type="button" id="submit" class="btn btn-primary" value="Submit">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="images/susi-logo.png" class="img-fluid logo">
+                    <div class="heading">
+                        <h3>Settings Page</h3>
+                        <span>Your SUSI. Your way.</span>
                     </div>
                 </div>
-                <hr>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="micAccess">
+                        <div class="row">
+                           <div class="col-sm-12 sub-heading">
+                                <span class="glyphicon glyphicon-ice-lolly"></span>
+                                <span> Microphone Access</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 row-label">
+                                <span>Please Allow mic access</span>
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-success" id="micAccess" style="color: #fff;">Allow</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="customBackground">
+                        <form id="backgroundChange">
+                            <div class="row">
+                                <div class="col-sm-12 sub-heading">
+                                    <span class="glyphicon glyphicon-picture"></span>
+                                    <span> Background Settings</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-5 row-label">
+                                    <span>Enter the url to add Custom Background</span>
+                                </div>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control" placeholder="Background URL" id="backUrl">
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="submit" class="btn btn-success" style="color: #fff;">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12 sub-heading">
+                            <span class="glyphicon glyphicon-tint"></span>
+                            <span> Predefined Themes</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="themeSelectors" id="preDefThemes">
+                                <input type="button" id="black" class="btn theme" style="background-color: black;">
+                                <input type="button" id="deeppink" class="btn theme" style="background-color: deeppink;">
+                                <input type="button" id="chartreuse" class="btn theme" style="background-color: chartreuse;">
+                                <input type="button" id="brown" class="btn theme" style="background-color: brown;">
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <button type="submit" id="submit" class="btn btn-success" style="color: #fff; float: left;">Submit</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <script src="js/allowmic.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-
+    <script src="jquery/jquery-3.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
-
 </html>
