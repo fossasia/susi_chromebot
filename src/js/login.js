@@ -25,18 +25,16 @@ function showLoggedInBlock(show){
 	}
 }
 
-
-
 loginForm.addEventListener("submit", function login(event){
 	event.preventDefault();
 	var email=document.getElementById("username").value;
 	var password=document.getElementById("password").value;
 	if(!email){
-		alert("Email can't be blank");
+		alert("Email field cannot be empty");
 		return;
 	}
 	else if(!password){
-		alert("Password can't be blank");
+		alert("Password field cannot be empty");
 		return;
 	}
 	var loginEndPoint = BASE_URL+"/aaa/login.json?type=access-token&login="+ encodeURIComponent(email)+ "&password="+ encodeURIComponent(password);
@@ -55,7 +53,6 @@ loginForm.addEventListener("submit", function login(event){
 						accessToken: accessToken
 					}
 				});
-
 
 				time = response.validSeconds;
 				loginButton.innerHTML="Login";
@@ -85,6 +82,7 @@ loginForm.addEventListener("submit", function login(event){
 	});
 
 });
+
 logoutButton.addEventListener("click", function logout(e){
     e.preventDefault();
     window.location.reload();
