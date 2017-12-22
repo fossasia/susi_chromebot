@@ -20,11 +20,20 @@ var storageItems = [];
 var storageArr = [];
 var backUrl = localStorage.getItem("theValue");
 var box = document.getElementById("box");
+var headerbox = document.getElementById("headerbox");
+var theme = localStorage.getItem("theme");
+var but = document.getElementById("but");
+var backUrl = localStorage.getItem("theValue");
+var box = document.getElementById("box");
 
 window.onload = function () {
     box.style.backgroundImage = "url(" + backUrl + ")";
     box.style.backgroundRepeat = "no-repeat";
     box.style.backgroundSize = "cover";
+    headerbox.style.backgroundColor = theme;
+    mic.style.color = theme;
+    but.style.color = theme;
+    console.log(theme);
 };
 
 
