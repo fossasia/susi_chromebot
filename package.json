@@ -4,7 +4,7 @@
   "description": "Chrome Extension of SUSI AI",
   "dependencies": {},
   "devDependencies": {
-      "grunt": "^1.0.1",
+    "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-jshint": "^1.1.0",
     "jshint": "^2.9.5"
