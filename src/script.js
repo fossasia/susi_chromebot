@@ -29,13 +29,18 @@ var backUrl = localStorage.getItem("theValue");
 var box = document.getElementById("box");
 
 window.onload = function () {
-    box.style.backgroundImage = "url(" + backUrl + ")";
-    box.style.backgroundRepeat = "no-repeat";
-    box.style.backgroundSize = "cover";
-    headerbox.style.backgroundColor = theme;
-    mic.style.color = theme;
-    but.style.color = theme;
-    console.log(theme);
+
+    if(backUrl) {
+        box.style.backgroundImage = "url(" + backUrl + ")";
+        box.style.backgroundRepeat = "no-repeat";
+        box.style.backgroundSize = "cover";
+    }
+    if(theme) {
+        headerbox.style.backgroundColor = theme;
+        mic.style.color = theme;
+        but.style.color = theme;
+        console.log(theme);
+    }
 };
 
 
@@ -51,7 +56,9 @@ function handleScroll() {
     }
 }
 
-messages.addEventListener("scroll", handleScroll);
+if(messages) {
+    messages.addEventListener("scroll", handleScroll);
+}
 
 function getCurrentTime() {
     var ap = "AM";
