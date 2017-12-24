@@ -13,11 +13,13 @@ var setting = document.getElementById("setting");
 var clear = document.getElementById("clear");
 var settings = document.getElementById("settings");
 var scrollIconElement = document.getElementById("scrollIcon");
+var exportData = document.getElementById("export");
 var dark = false;
 var upCount = 0;
 var shouldSpeak = true;
 var storageItems = [];
 var storageArr = [];
+var exportArr = [];
 var backUrl = localStorage.getItem("theValue");
 var box = document.getElementById("box");
 var headerbox = document.getElementById("headerbox");
@@ -71,6 +73,16 @@ function getCurrentTime() {
     return time;
 }
 
+// to download file
+function download(filename, text) {
+  var element = document.createElement("a");
+  element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
+  element.setAttribute("download", filename);
+  element.style.display = "none";
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
 
 function loading(condition = true) {
     if (condition === true) {
@@ -240,6 +252,12 @@ function composeSusiMessage(response) {
             console.log("could not make response");
         }
     }
+    exportArr.push({
+            time:t,
+            message:response.reply,
+            image:response.image,
+            source:"susi"
+        });
     newDiv.appendChild(document.createElement("br"));
     newDiv.appendChild(currtime);
     messages.appendChild(newDiv);
@@ -345,6 +363,12 @@ function composeMyMessage(text) {
     var mymessage = newDiv.innerHTML;
     storageObj.content = mymessage;
     storageObj.senderClass = "mynewmessage";
+    exportArr.push({
+        time:t,
+        message:text,
+        image:false,
+        source:"user"
+    });
     chrome.storage.sync.get("message", (items) => {
         if (items.message) {
             storageArr = items.message;
@@ -452,6 +476,10 @@ clear.addEventListener("click", function () {
 
 settings.addEventListener("click", function () {
     window.open("options.html", "Popup", "location,status,scrollbars,resizable,width=800, height=800");
+});
+
+exportData.addEventListener("click",function(){
+    download("susiExport.json",JSON.stringify(exportArr));
 });
 
 textarea.onkeyup = function (e) {
