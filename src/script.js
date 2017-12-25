@@ -41,6 +41,18 @@ window.onload = function () {
         but.style.color = theme;
         console.log(theme);
     }
+
+    chrome.storage.sync.get("loggedUser",function(userDetails){
+        var log = document.getElementById("log");
+        if(userDetails.loggedUser.email){
+            log.innerHTML = log.innerHTML.replace("Login","Logout");
+            log.innerHTML = log.innerHTML.replace("login.svg","logout.png");
+        }
+        else{
+            log.innerHTML = log.innerHTML.replace("Logout","Login");
+            log.innerHTML = log.innerHTML.replace("logout.png","login.svg");
+        }
+    });
 };
 
 
