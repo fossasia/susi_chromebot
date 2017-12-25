@@ -2,6 +2,7 @@ var micAccess = document.getElementById("micAccess");
 var backgroundChange = document.getElementById("backgroundChange");
 var backUrl = document.getElementById("backUrl");
 var preDefThemes = document.getElementById("preDefThemes");
+var submit = document.getElementById("submit");
 var theme;
 var theValue;
 
@@ -24,6 +25,14 @@ preDefThemes.addEventListener("click",(e) => {
     }
     
     e.stopPropagation;
+    });
+}
+
+if(submit) {
+    submit.addEventListener("click",()=>{
+         localStorage.setItem("theme",theme);
+         console.log("success");
+         alert("success");
     });
 }
 
