@@ -16,6 +16,7 @@ if(micAccess) {
         });
     });
 }
+
 if(preDefThemes) {
 preDefThemes.addEventListener("click",(e) => {
     if(e.target!==e.currentTarget){
