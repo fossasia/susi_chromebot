@@ -9,17 +9,17 @@ var accessToken = "";
 var time = "";
 var BASE_URL = "https://api.susi.ai";
 
-window.onload = () => {
-        chrome.storage.sync.get("loggedUser", function (obj) {
-        if(obj.loggedUser)
-            {
-                showLoggedInBlock(true);
-            }
-        else {
-            showLoggedInBlock(false);
-            }    
-    });
-    
+
+window.onload = function(){
+	chrome.storage.sync.get("loggedUser",function(userDetails){
+		if(userDetails.loggedUser.email){
+			showLoggedInBlock(true);
+		}
+		else{
+			showLoggedInBlock(false);
+		}
+	});
+
 };
 
 function showLoggedInBlock(show){
