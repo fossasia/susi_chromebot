@@ -1,4 +1,3 @@
-cutable File  109 lines (100 sloc)  2.82 KB
 /* global $ */
 /* global chrome */
 var loginForm = document.getElementById("login");
@@ -51,6 +50,7 @@ loginForm.addEventListener("submit", function login(event){
 		alert("Password field cannot be empty");
 		return;
 	}
+	$("#loginbutton").button("loading");
 	var loginEndPoint = BASE_URL+"/aaa/login.json?type=access-token&login="+ encodeURIComponent(email)+ "&password="+ encodeURIComponent(password);
 	$.ajax({
 		url: loginEndPoint,
@@ -70,11 +70,13 @@ loginForm.addEventListener("submit", function login(event){
 
 				time = response.validSeconds;
 				loginButton.innerHTML="Login";
+				$("#loginbutton").button("reset");
 				alert(response.message);
 				showLoggedInBlock(true);
 
 			}
 			else {
+				$("#loginbutton").button("reset");
 				alert("Login Failed. Try Again");
 			}
 		},
@@ -91,10 +93,10 @@ loginForm.addEventListener("submit", function login(event){
 			if (status === "timeout") {
 				msg = "Please check your internet connection";
 			}
+			$("#loginbutton").button("reset");
 			alert(msg);
 		}
 	});
-
 });
 
 logoutButton.addEventListener("click", function logout(e){
