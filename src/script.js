@@ -44,7 +44,7 @@ window.onload = function () {
     }
   
     if(msgTheme) {
-      box.style.backgroundColor = msgTheme;
+        box.style.backgroundColor = msgTheme;
         console.log(msgTheme);
     }
 
