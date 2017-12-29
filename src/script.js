@@ -11,7 +11,6 @@ var micimg = document.getElementById("micimg");
 var micmodal = document.getElementById("micmodal");
 var setting = document.getElementById("setting");
 var clear = document.getElementById("clear");
-var settings = document.getElementById("settings");
 var scrollIconElement = document.getElementById("scrollIcon");
 var exportData = document.getElementById("export");
 var dark = false;
@@ -491,10 +490,6 @@ setting.addEventListener("click", function () {
 
 clear.addEventListener("click", function () {
     chrome.storage.sync.clear();
-});
-
-settings.addEventListener("click", function () {
-    window.open("options.html", "Popup", "location,status,scrollbars,resizable,width=800, height=800");
 });
 
 exportData.addEventListener("click",function(){
