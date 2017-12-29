@@ -1,3 +1,4 @@
+cutable File  109 lines (100 sloc)  2.82 KB
 /* global $ */
 /* global chrome */
 var loginForm = document.getElementById("login");
@@ -8,6 +9,19 @@ var loggedInBlock = document.getElementById("loggedin");
 var accessToken = "";
 var time = "";
 var BASE_URL = "https://api.susi.ai";
+
+
+window.onload = function(){
+	chrome.storage.sync.get("loggedUser",function(userDetails){
+		if(userDetails.loggedUser.email){
+			showLoggedInBlock(true);
+		}
+		else{
+			showLoggedInBlock(false);
+		}
+	});
+
+};
 
 function showLoggedInBlock(show){
 	if(show){
