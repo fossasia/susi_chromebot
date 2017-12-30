@@ -3,7 +3,6 @@
     margin: 0;
     padding: 0;
 }
-
 body {
     min-width: 350px;
     min-height: 300px;
@@ -60,7 +59,7 @@ body {
      bottom: 85px;
      background-color: #ffffff;
      padding: 0px 8px;
-     border-radius: 50%;
+     border-radius: 10%;
      padding-top: 5px;
      display: none;
  }
@@ -408,7 +407,7 @@ input:checked+.slider:before {
     display: inline-block;
     right: 10px;
     top: 7px;
-    
+
 }
 
 .dropdown-content{
