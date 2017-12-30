@@ -4,12 +4,14 @@ body {
 }
 
 .container{
-    margin-top: 8%;
+    margin-top: 2%;
+    padding-right: 2px;
+    padding-left: 2px;
 }
 
 .card {
     background-color: #0084ff;
-    padding: 40px 0px 20px;
+    padding: 30px 30px 30px;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
 }
 

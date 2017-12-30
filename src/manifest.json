@@ -3,7 +3,6 @@
     "name" : "SUSI-AI",
     "description":"Extension for SUSI.AI",
     "version" : "1.0.0",
-    "options_page" : "options.html",
     "browser_action" : {
        "default_icon" : {
         "16" : "images/icon.png"
