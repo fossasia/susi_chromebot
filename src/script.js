@@ -23,6 +23,7 @@ var backUrl = localStorage.getItem("theValue");
 var box = document.getElementById("box");
 var headerbox = document.getElementById("headerbox");
 var theme = localStorage.getItem("theme");
+var msgTheme = localStorage.getItem("msgTheme");
 var but = document.getElementById("but");
 var backUrl = localStorage.getItem("theValue");
 var box = document.getElementById("box");
@@ -39,6 +40,11 @@ window.onload = function () {
         mic.style.color = theme;
         but.style.color = theme;
         console.log(theme);
+    }
+  
+    if(msgTheme) {
+        box.style.backgroundColor = msgTheme;
+        console.log(msgTheme);
     }
 
     chrome.storage.sync.get("loggedUser",function(userDetails){
