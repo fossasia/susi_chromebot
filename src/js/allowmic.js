@@ -2,8 +2,11 @@ var micAccess = document.getElementById("micAccess");
 var backgroundChange = document.getElementById("backgroundChange");
 var backUrl = document.getElementById("backUrl");
 var preDefThemes = document.getElementById("preDefThemes");
-var submit = document.getElementById("submit");
+var msgPaneThemes = document.getElementById("msgPaneThemes");
+var submit1 = document.getElementById("submit1");
+var submit2 = document.getElementById("submit2");
 var theme;
+var msgTheme;
 var theValue;
 
 if(micAccess) {
@@ -29,14 +32,33 @@ preDefThemes.addEventListener("click",(e) => {
     });
 }
 
-if(submit) {
-    submit.addEventListener("click",()=>{
-         localStorage.setItem("theme",theme);
-         console.log("success");
-         alert("success");
-    });
-}
+if(msgPaneThemes) {
+ msgPaneThemes.addEventListener("click",(e) => {
+     if(e.target!==e.currentTarget){
+         msgTheme= e.target.id;
+       console.log(msgTheme);
+    }
+ 
+      e.stopPropagation;
+      });
+  }
 
+if(submit1) {
+			submit1.addEventListener("click",()=>{
+			localStorage.setItem("theme",theme);
+			console.log("success");
+			alert("success");
+      });
+  }
+
+if(submit2) {
+			submit2.addEventListener("click",()=>{
+			localStorage.setItem("msgTheme",msgTheme);
+			console.log("success");
+			alert("success");
+     });
+ }
+ 
 if(backgroundChange) {
     backgroundChange.addEventListener("submit", (e) => {
         e.preventDefault();
