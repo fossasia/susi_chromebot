@@ -11,7 +11,7 @@ window.onload = ()=>{
         $(".micAccess").css("display" , "none");
         $("#preDefThemes").css("display" , "none");
         $(".customBackground").css("display" , "none");
-}
+    };
 
 nav.addEventListener("click", (e)=>{
     var currVal;
