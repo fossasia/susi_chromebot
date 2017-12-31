@@ -46,7 +46,6 @@ if(msgPaneThemes) {
 if(submit1) {
 			submit1.addEventListener("click",()=>{
 			localStorage.setItem("theme",theme);
-			console.log("success");
 			alert("success");
       });
   }
@@ -54,7 +53,6 @@ if(submit1) {
 if(submit2) {
 			submit2.addEventListener("click",()=>{
 			localStorage.setItem("msgTheme",msgTheme);
-			console.log("success");
 			alert("success");
      });
  }
