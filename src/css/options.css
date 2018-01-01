@@ -4,14 +4,17 @@ body {
 }
 
 .container{
-    margin-top: 8%;
-}
+    margin-top: 5px;
+    padding-right: 2px;
+    padding-left: 2px;
+  }
 
-.card {
-    background-color: #0084ff;
-    padding: 40px 0px 20px;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-}
+ .card {
+     background-color: #0084ff;
+     padding: 30px 30px 30px;
+     box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+     margin-bottom: 5px;
+  }
 
 .heading {
     text-align: center;
