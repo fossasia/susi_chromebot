@@ -3,7 +3,6 @@ var backgroundChange = document.getElementById("backgroundChange");
 var backUrl = document.getElementById("backUrl");
 var preDefThemes = document.getElementById("preDefThemes");
 var nav = document.getElementById("nav");
-var submit = document.getElementById("submit");
 var msgPaneThemes = document.getElementById("msgPaneThemes");
 var submit1 = document.getElementById("submit1");
 var submit2 = document.getElementById("submit2");
