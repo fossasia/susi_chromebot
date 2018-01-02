@@ -5,6 +5,11 @@ var logoutButton = document.getElementById("logout");
 var loginButton = document.getElementById("loginbutton");
 var noLoggedInBlock = document.getElementById("nologgedin");
 var loggedInBlock = document.getElementById("loggedin");
+var pass = document.getElementById("pass");
+var cPass = document.getElementById("cPass");
+var cemail = document.getElementById("cemail");
+var cpassword = document.getElementById("cpassword");
+var newPassword = document.getElementById("newPassword");
 var accessToken = "";
 var time = "";
 var BASE_URL = "https://api.susi.ai";
@@ -22,6 +27,9 @@ window.onload = function(){
 
 };
 
+pass.addEventListener("click", ()=>{
+$("#cPass").toggle();
+});
 
 window.onload = function(){
 	chrome.storage.sync.get("loggedUser",function(userDetails){
@@ -35,13 +43,33 @@ window.onload = function(){
 
 };
 
+cPass.addEventListener("submit", (e)=>{
+	e.stopPropagation();
+							
+		    var loginEP = BASE_URL+"/aaa/changepassword.json?"+"changepassword="+ cemail.value + "&password="+ cpassword.value + "&newpassword=" + newPassword.value + "&access_token=" + accessToken ;
+		    
+		    $.ajax({
+		    	url:loginEP,
+		        dataType: "jsonp",
+				jsonp: "callback",
+				crossDomain: true,
+				crossDomain: true,
+		        
+		        success: function (response) {
+					alert(response.message);
+					cPass.style.display = "none";
+		        },
+		        error : function() {
+		            console.log(loginEP);
+		        }
+		    });
+		});	
+
+	
 function showLoggedInBlock(show){
 	if(show){
 		noLoggedInBlock.style.display="none";
 		loggedInBlock.style.display="block";
-		document.getElementById("passwordchange").value="";
-		document.getElementById("passwordnewconfirm").value = "";
-		document.getElementById("passwordnew").value = "";
 	}
 	else{
 		noLoggedInBlock.style.display="block";
@@ -73,8 +101,7 @@ loginForm.addEventListener("submit", function login(event){
 		crossDomain: true,
 		success: function (response) {
 			if(response.accepted){
-
-				accessToken = response.accessToken;
+				accessToken = response.access_token;
 
 				checkLogin = "true";
 				localStorage.setItem("checkLogin",checkLogin);
