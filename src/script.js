@@ -294,7 +294,12 @@ function composeSusiMessage(response) {
     chrome.storage.sync.get("message", (items) => {
         if (items.message) {
             storageArr = items.message;
+            var temp = storageArr.map(x => $.parseHTML(x.content) );
+            var messageTest = temp.map((x,i) => "message =" + x[0].innerHTML  + ", time= " + x[2].innerHTML + ((i%2 ===0)?"message by user":" message by susi") );
             console.log("this was true");
+            exportArr.push({
+                oldmessages: messageTest
+              });
         }
         storageArr.push(storageObj);
         chrome.storage.sync.set({

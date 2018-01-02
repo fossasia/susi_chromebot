@@ -8,6 +8,19 @@ var loggedInBlock = document.getElementById("loggedin");
 var accessToken = "";
 var time = "";
 var BASE_URL = "https://api.susi.ai";
+var checkLogin ;
+
+window.onload = function(){
+	chrome.storage.sync.get("loggedUser",function(userDetails){
+		if(userDetails.loggedUser.email){
+			showLoggedInBlock(true);
+		}
+		else{
+			showLoggedInBlock(false);
+		}
+	});
+
+};
 
 
 window.onload = function(){
@@ -60,7 +73,12 @@ loginForm.addEventListener("submit", function login(event){
 		crossDomain: true,
 		success: function (response) {
 			if(response.accepted){
-				accessToken = response.accessTken;
+
+				accessToken = response.accessToken;
+
+				checkLogin = "true";
+				localStorage.setItem("checkLogin",checkLogin);
+
 				chrome.storage.sync.set({
 					loggedUser:{
 						email:email,
@@ -102,6 +120,8 @@ loginForm.addEventListener("submit", function login(event){
 logoutButton.addEventListener("click", function logout(e){
     e.preventDefault();
     window.location.reload();
+    checkLogin="false";
+    localStorage.setItem("checkLogin",checkLogin);
 	chrome.storage.sync.remove("messagesHistory");
 	chrome.storage.sync.remove("loggedUser");
 });

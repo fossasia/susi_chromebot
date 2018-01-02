@@ -9,6 +9,42 @@ var submit2 = document.getElementById("submit2");
 var theme;
 var msgTheme;
 var theValue;
+var warning = document.getElementById("warning");
+var customBackground = document.getElementById("customBackground");
+var checkLogin = localStorage.getItem("checkLogin");
+
+
+window.onload = () => {
+    if(checkLogin === "true") {
+        customBackground.style.display = "block";
+    }
+    else {
+        warning.innerHTML = "Please login for some useful features";
+        customBackground.style.display = "none";
+    }
+};
+
+if(micAccess) {
+    micAccess.addEventListener("click", () => {
+        navigator.webkitGetUserMedia({
+            audio: true
+        }, function (stream) {
+            stream.stop();
+        }, function () {
+            console.log("no access");
+        });
+    });
+}
+if(preDefThemes) {
+preDefThemes.addEventListener("click",(e) => {
+    if(e.target!==e.currentTarget){
+        theme= e.target.id;
+        console.log(theme);
+    }
+    
+    e.stopPropagation;
+    });
+}
 
 window.onload = ()=>{
         $(".micAccess").css("display" , "none");
