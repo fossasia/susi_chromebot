@@ -402,13 +402,23 @@ input:checked+.slider:before {
     background-color: #19455a;
     color: #0cd5ba;
 }
+.dropdown{
+  float:right;
+  padding-left: 25px;
+  padding-bottom: 7px;
+}
+
+.theme{
+  float:left;
+  padding-right: 30px;
+}
 
 #dropdown{
     position: relative;
     display: inline-block;
     right: 10px;
     top: 7px;
-    
+
 }
 
 .dropdown-content{
@@ -440,6 +450,9 @@ input:checked+.slider:before {
     border:none;
     margin-top: 2px;
     height: 40px;
+    float:right;
+    padding-left: 25px;
+    padding-bottom: 7px;
 }
 .dropdown-content li:hover{
     background-color: #e5e5e5;
