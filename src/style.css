@@ -450,9 +450,6 @@ input:checked+.slider:before {
     border:none;
     margin-top: 2px;
     height: 40px;
-    float:right;
-    padding-left: 25px;
-    padding-bottom: 7px;
 }
 .dropdown-content li:hover{
     background-color: #e5e5e5;
