@@ -1,0 +1,46 @@
+.hr-heading{
+    display: none;
+}
+
+body{
+    background-color: #e6f2ff;
+}
+
+.container{
+	margin-top: 8%;
+}
+
+label {
+    color : #FFFFFF;
+}
+
+.form-group {
+    margin: 0 3.5rem;
+
+}
+
+.card {
+	padding: 40px 0px 20px;
+	background-color: #0084ff;
+	box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+	-webkit-box-shadow:2px 2px 5px rgba(0,0,0,0.5);
+	-moz-box-shadow:2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.signin-image{
+	padding: 0 2rem 2rem;
+	margin: auto;
+	display: block;
+	width: 60%;
+}
+
+#resetbutton {
+    color: #ffffff;
+    width : 20rem;
+    display: block;
+    margin : auto;
+}
+
+#email{
+    width: 100%;
+}

@@ -3,7 +3,7 @@
 <head>
     <title>SUSI Login Portal</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" type="text/css" href="css/recover.css">
 </head>
 <body>
     <div class="container">
@@ -13,30 +13,27 @@
             <div class="col-md-8">
                 <div class="card">
                     <img src="images/susi-logo.png" class="img-fluid signin-image">
-                    <div class="nologgedin" id="nologgedin">
-                        <form id="login">
+                    <div id="notreset">
+                        <form id="resetForm">
                             <div class="form-group">
                                 <label for="email">Email address:</label>
-                                <input type="email" class="form-control" id="username" placeholder="Email">
+                                <input type="email" class="form-control" id="email" placeholder="Email">
                             </div>
                             <br />
-                            <div class="form-group">
-                                <label for="password">Password:</label>
-                                <input type="password" class="form-control" id="password" placeholder="Password">
-                            </div>
-                            <br />
-                            <button type="submit" class="btn btn-success" name="Login" id="loginbutton" data-loading-text="Please wait">Login</button>
+                            <button type="submit" class="btn btn-success" id="resetbutton">Reset</button>
                             <br>
                             <p style="text-align: center;">
                                 <a href="https://chat.susi.ai/" style="color: #fff; ">New User? Visit our website to sign up.</a>
                             </p>
                             <p style="text-align: center;">
-                                <a href="recover.html" style="color: #fff; ">Forgot Password?</a>
+                                <a href="login.html" style="color: #fff; ">Want to Login?</a>
                             </p>
                         </form>
                     </div>
-                    <div class="loggedin" id="loggedin">
-                        <button class="btn btn-success" name="Logout" onClick="logout(this)" id="logout">Logout</button>
+                    <div id="reset">
+                        <p style="text-align: center;color:#fff;">
+                            There is nothing here!! Recovery link is sent to your email.
+                        </p>
                         <br />
                     </div>
                 </div>
@@ -47,6 +44,6 @@
     </div>
     <script src="jquery/jquery-3.2.1.min.js"></script>
     <script src="bootstrap/bootstrap.min.js"></script>
-    <script src="js/login.js"></script>
+    <script src="js/reset.js"></script>
 </body>
 </html>
