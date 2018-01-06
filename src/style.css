@@ -408,7 +408,18 @@ input:checked+.slider:before {
     display: inline-block;
     right: 10px;
     top: 7px;
-    
+
+}
+
+.dropdown{
+  float:right;
+  padding-left: 25px;
+  padding-bottom: 7px;
+}
+
+.theme{
+  float:left;
+  padding-right: 30px;
 }
 
 .dropdown-content{
