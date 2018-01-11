@@ -143,8 +143,34 @@ loginForm.addEventListener("submit", function login(event) {
                                         }, () => {});
                                     }
                                 }
+                            }
+                        }
+                    }
+                });
 
-<<<<<<< HEAD
+                showLoggedInBlock(true);
+            } else {
+                $("#loginbutton").button("reset");
+                alert("Login Failed. Try Again");
+            }
+        },
+        error: function(jqXHR) {
+            loginButton.innerHTML = "Login";
+            var msg = "";
+            var jsonValue = jqXHR.status;
+            if (jsonValue === 404) {
+                msg = "Login Failed. Try Again";
+            } else {
+                msg = "Some error occurred. Try Again";
+            }
+            if (status === "timeout") {
+                msg = "Please check your internet connection";
+            }
+            $("#loginbutton").button("reset");
+            alert(msg);
+        }
+    });
+
 loginForm.addEventListener("submit", function login(event){
 	event.preventDefault();
 	var email=document.getElementById("username").value;
@@ -208,35 +234,6 @@ loginForm.addEventListener("submit", function login(event){
 			alert(msg);
 		}
 	});
-=======
-                            }
-                        }
-                    }
-                });
-
-                showLoggedInBlock(true);
-            } else {
-                $("#loginbutton").button("reset");
-                alert("Login Failed. Try Again");
-            }
-        },
-        error: function(jqXHR) {
-            loginButton.innerHTML = "Login";
-            var msg = "";
-            var jsonValue = jqXHR.status;
-            if (jsonValue === 404) {
-                msg = "Login Failed. Try Again";
-            } else {
-                msg = "Some error occurred. Try Again";
-            }
-            if (status === "timeout") {
-                msg = "Please check your internet connection";
-            }
-            $("#loginbutton").button("reset");
-            alert(msg);
-        }
-    });
->>>>>>> 829db41ec605b264d9b49d9c6ae2875a4d15ba82
 });
 logoutButton.addEventListener("click", function logout(e) {
     e.preventDefault();
