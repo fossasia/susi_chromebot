@@ -3,7 +3,7 @@
 <head>
     <title>SUSI Login Portal</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/recover.css">
+    <link rel="stylesheet" type="text/css" href="css/signup.css">
 </head>
 <body>
     <div class="container">
@@ -13,26 +13,28 @@
             <div class="col-md-8">
                 <div class="card">
                     <img src="images/susi-logo.png" class="img-fluid signin-image">
-                    <div id="notreset">
-                        <form id="resetForm">
+                    <div id="notsignup">
+                        <form id="signupForm">
                             <div class="form-group">
                                 <label for="email">Email address:</label>
                                 <input type="email" class="form-control" id="email" placeholder="Email">
                             </div>
                             <br />
-                            <button type="submit" class="btn btn-success" id="resetbutton">Reset</button>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                            </div>
+                            <br />
+                            <button type="submit" class="btn btn-success" id="signupbutton">Signup</button>
                             <br>
                             <p style="text-align: center;">
-                                <a href="signup.html" style="color: #fff; ">New User? Visit here to sign up.</a>
-                            </p>
-                            <p style="text-align: center;">
-                                <a href="login.html" style="color: #fff; ">Want to Login?</a>
+                                <a href="login.html" style="color: #fff; ">Already Registered? Want to Login</a>
                             </p>
                         </form>
                     </div>
-                    <div id="reset">
+                    <div id="signedup">
                         <p style="text-align: center;color:#fff;">
-                            There is nothing here!! Recovery link is sent to your email.
+                            Violla! You are signed up.
                         </p>
                         <br />
                     </div>
@@ -44,6 +46,6 @@
     </div>
     <script src="jquery/jquery-3.2.1.min.js"></script>
     <script src="bootstrap/bootstrap.min.js"></script>
-    <script src="js/reset.js"></script>
+    <script src="js/signup.js"></script>
 </body>
 </html>
