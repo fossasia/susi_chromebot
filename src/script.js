@@ -27,83 +27,14 @@ var but = document.getElementById("but");
 var backUrl = localStorage.getItem("theValue");
 var box = document.getElementById("box");
 var BASE_URL = "https://api.susi.ai";
-var accessToken = null;
-window.onload = function() {
+var queryAnswerData = JSON.parse(localStorage.getItem("messages"));
+var accessToken = "";
 
-    if (backUrl) {
-        box.style.backgroundImage = "url(" + backUrl + ")";
-        box.style.backgroundRepeat = "no-repeat";
-        box.style.backgroundSize = "cover";
+function speakOutput(msg, speak = false) {
+    if (speak) {
+        var voiceMsg = new SpeechSynthesisUtterance(msg);
+        window.speechSynthesis.speak(voiceMsg);
     }
-    if (theme) {
-        headerbox.style.backgroundColor = theme;
-        mic.style.color = theme;
-        but.style.color = theme;
-        console.log(theme);
-    }
-    if (msgTheme) {
-        box.style.backgroundColor = msgTheme;
-        console.log(msgTheme);
-    }
-
-    chrome.storage.sync.get("loggedUser", function(userDetails) {
-        var log = document.getElementById("log");
-        if (userDetails.loggedUser.email) {
-            log.innerHTML = log.innerHTML.replace("Login", "Logout");
-            log.innerHTML = log.innerHTML.replace("login.svg", "logout.png");
-        } else {
-            log.innerHTML = log.innerHTML.replace("Logout", "Login");
-            log.innerHTML = log.innerHTML.replace("logout.png", "login.svg");
-        }
-    });
-};
-
-
-function handleScroll() {
-    var scrollIcon = scrollIconElement;
-    var end = messages.scrollHeight - messages.scrollTop === messages.clientHeight;
-    if (end) {
-        //hide icon
-        scrollIcon.style.display = "none";
-    } else {
-        //show icon
-        scrollIcon.style.display = "block";
-    }
-}
-
-if (messages) {
-    messages.addEventListener("scroll", handleScroll);
-}
-
-function getCurrentTime() {
-    var ap = "AM";
-    var currDate = new Date();
-    var hours = currDate.getHours();
-    var minutes = currDate.getMinutes();
-    var time = "";
-    if (hours > 12) {
-        ap = "PM";
-        hours -= 12;
-    }
-    if (hours === 12) {
-        ap = "PM";
-    }
-    if (minutes < 10) {
-        minutes = "0" + minutes;
-    }
-    time = hours + ":" + minutes + " " + ap;
-    return time;
-}
-
-// to download file
-function download(filename, text) {
-    var element = document.createElement("a");
-    element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
-    element.setAttribute("download", filename);
-    element.style.display = "none";
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
 }
 
 function loading(condition = true) {
@@ -125,46 +56,28 @@ function loading(condition = true) {
     }
 }
 
-function restoreMessages(storageItems) {
-    if (!storageItems) {
-        var htmlMsg = "<div class='empty-history'> Start by saying \"Hi\"</div>";
-        $(htmlMsg).appendTo(messages);
-        return;
+
+function getCurrentTime() {
+    var ap = "AM";
+    var currDate = new Date();
+    var hours = currDate.getHours();
+    var minutes = currDate.getMinutes();
+    var time = "";
+    if (hours > 12) {
+        ap = "PM";
+        hours -= 12;
     }
-    storageItems.map((item) => {
-        loading(true);
-        loading(false);
-        var newDiv = messages.childNodes[messages.childElementCount];
-        newDiv.setAttribute("class", item.senderClass);
-        newDiv.innerHTML = item.content;
-    });
-    chrome.storage.local.get("askSusiQuery", (items) => {
-        if (items.askSusiQuery) {
-            var query = items.askSusiQuery;
-            textarea.value = query;
-            document.getElementById("but").click();
-            chrome.storage.local.remove("askSusiQuery");
-            chrome.browserAction.setBadgeText({
-                text: ""
-            });
-        }
-    });
+    if (hours === 12) {
+        ap = "PM";
+    }
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    time = hours + ":" + minutes + " " + ap;
+    return time;
 }
 
-chrome.storage.sync.get("message", (items) => {
-    if (items) {
-        storageItems = items.message;
-        restoreMessages(storageItems);
 
-    }
-});
-
-function speakOutput(msg, speak = false) {
-    if (speak) {
-        var voiceMsg = new SpeechSynthesisUtterance(msg);
-        window.speechSynthesis.speak(voiceMsg);
-    }
-}
 
 function composeImage(image) {
     var newImg = document.createElement("img");
@@ -310,6 +223,7 @@ function composeSusiMessage(response) {
     messages.scrollTop = messages.scrollHeight;
 }
 
+
 function composeResponse(action, data) {
     var response = {
         error: false,
@@ -332,12 +246,34 @@ function composeResponse(action, data) {
     return response;
 }
 
+
+function successResponse(data) {
+    data.answers[0].actions.map((action) => {
+        var response = composeResponse(action, data.answers[0].data);
+        loading(false);
+        composeSusiMessage(response);
+        if (action.type !== data.answers[0].actions[data.answers[0].actions.length - 1].type) {
+            loading(); //if not last action then create another loading box for susi response
+        }
+    });
+}
+
+
+let queryUrl = "";
+let baseUrl = "https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=";
+
 function getResponse(query) {
     loading();
+    if (accessToken) {
+        queryUrl = `${baseUrl}${query}&access_token=${accessToken}`;
+    } else {
+        queryUrl = `${baseUrl}${query}`;
+    }
+
     $.ajax({
         dataType: "jsonp",
         type: "GET",
-        url: "https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=" + query,
+        url: queryUrl,
         error: function(xhr, textStatus, errorThrown) {
             console.log(xhr);
             console.log(textStatus);
@@ -350,16 +286,10 @@ function getResponse(query) {
             composeSusiMessage(response);
         },
         success: function(data) {
-            data.answers[0].actions.map((action) => {
-                var response = composeResponse(action, data.answers[0].data);
-                loading(false);
-                composeSusiMessage(response);
-                if (action.type !== data.answers[0].actions[data.answers[0].actions.length - 1].type) {
-                    loading(); //if not last action then create another loading box for susi response
-                }
-            });
+            successResponse(data);
         }
     });
+
 }
 
 function composeMyMessage(text) {
@@ -403,11 +333,128 @@ function composeMyMessage(text) {
         storageArr.push(storageObj);
         chrome.storage.sync.set({
             "message": storageArr
-        }, () => {
-            console.log("saved");
-        });
+        }, () => {});
     });
 }
+
+function restoreMessages(storageItems) {
+    if (!storageItems && !accessToken) {
+        var htmlMsg = "<div class='empty-history'> Start by saying \"Hi\"</div>";
+        $(htmlMsg).appendTo(messages);
+        return;
+    }
+    storageItems.map((item) => {
+        loading(true);
+        loading(false);
+        var newDiv = messages.childNodes[messages.childElementCount];
+        newDiv.setAttribute("class", item.senderClass);
+        newDiv.innerHTML = item.content;
+    });
+    chrome.storage.local.get("askSusiQuery", (items) => {
+        if (items.askSusiQuery) {
+            var query = items.askSusiQuery;
+            textarea.value = query;
+            document.getElementById("but").click();
+            chrome.storage.local.remove("askSusiQuery");
+            chrome.browserAction.setBadgeText({
+                text: ""
+            });
+        }
+    });
+}
+
+function syncMessagesFromServer() {
+
+    if (queryAnswerData !== null) {
+        chrome.storage.sync.remove("message");
+        for (var i = 0; i < queryAnswerData.length; i++) {
+            var query = queryAnswerData[i].query;
+            var answer = queryAnswerData[i].answer;
+            composeMyMessage(query);
+            var garbageElement = `<div class="mynewmessage"><p></p><br><p class="time"></p></div>`;
+            $(".empty-history").remove();
+            messages.insertAdjacentHTML("beforeend", garbageElement);
+            successResponse(answer);
+
+        }
+        queryAnswerData = null;
+        localStorage.setItem("messages", null);
+        $(".empty-history").remove();
+    }
+}
+
+
+window.onload = function() {
+
+
+    if (backUrl) {
+        box.style.backgroundImage = "url(" + backUrl + ")";
+        box.style.backgroundRepeat = "no-repeat";
+        box.style.backgroundSize = "cover";
+    }
+    if (theme) {
+        headerbox.style.backgroundColor = theme;
+        mic.style.color = theme;
+        but.style.color = theme;
+        console.log(theme);
+    }
+    if (msgTheme) {
+        box.style.backgroundColor = msgTheme;
+        console.log(msgTheme);
+    }
+
+    chrome.storage.sync.get("loggedUser", function(userDetails) {
+        var log = document.getElementById("log");
+        if (userDetails.loggedUser.email) {
+            accessToken = userDetails.loggedUser.accessToken;
+            log.innerHTML = log.innerHTML.replace("Login", "Logout");
+            log.innerHTML = log.innerHTML.replace("login.svg", "logout.png");
+        } else {
+            log.innerHTML = log.innerHTML.replace("Logout", "Login");
+            log.innerHTML = log.innerHTML.replace("logout.png", "login.svg");
+        }
+    });
+    syncMessagesFromServer();
+   
+    chrome.storage.sync.get("message", (items) => {
+    if (items) {
+        storageItems = items.message;
+        restoreMessages(storageItems);
+
+    }
+});
+
+
+};
+
+
+function handleScroll() {
+    var scrollIcon = scrollIconElement;
+    var end = messages.scrollHeight - messages.scrollTop === messages.clientHeight;
+    if (end) {
+        //hide icon
+        scrollIcon.style.display = "none";
+    } else {
+        //show icon
+        scrollIcon.style.display = "block";
+    }
+}
+
+if (messages) {
+    messages.addEventListener("scroll", handleScroll);
+}
+// to download file
+function download(filename, text) {
+    var element = document.createElement("a");
+    element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
+    element.setAttribute("download", filename);
+    element.style.display = "none";
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+
+
 
 function submitForm() {
     var text = textarea.value;
@@ -619,6 +666,8 @@ function changeSpeak() {
     }
     console.log("Should be speaking? " + shouldSpeak);
 }
+
+
 
 scrollIconElement.addEventListener("click", function(e) {
     $(messages).stop().animate({

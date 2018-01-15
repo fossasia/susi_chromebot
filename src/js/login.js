@@ -21,15 +21,7 @@ window.onload = function() {
     chrome.storage.sync.get("loggedUser", function(userDetails) {
         if (userDetails.loggedUser.email) {
             showLoggedInBlock(true);
-        } else {
-            showLoggedInBlock(false);
-        }
-    });
-};
-window.onload = function() {
-    chrome.storage.sync.get("loggedUser", function(userDetails) {
-        if (userDetails.loggedUser.email) {
-            showLoggedInBlock(true);
+
         } else {
             showLoggedInBlock(false);
         }
@@ -49,6 +41,66 @@ function showLoggedInBlock(show) {
         document.getElementById("username").value = "";
         document.getElementById("password").value = "";
     }
+}
+
+function syncUserSettings() {
+    var listUserSettings = BASE_URL + "/aaa/listUserSettings.json?access_token=" + accessToken;
+    $.ajax({
+        url: listUserSettings,
+        dataType: "jsonp",
+        jsonpCallback: "p",
+        jsonp: "callback",
+        crossDomain: "true",
+        success: function(response) {
+            if (response.accepted) {
+                if (response.settings.theme != null) {
+                    var userThemeValue = response.settings.theme;
+                    if (defaultThemeValue !== userThemeValue) {
+                        defaultThemeValue = userThemeValue;
+                        if (defaultThemeValue === "dark") {
+                            chrome.storage.sync.set({
+                                "darktheme": true
+                            }, () => {});
+                        } else {
+                            chrome.storage.sync.set({
+                                "darktheme": false
+                            }, () => {});
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+function retrieveChatHistory() {
+    var serverHistoryEndpoint = BASE_URL + "/susi/memory.json?access_token=" + accessToken;
+    $.ajax({
+        url: serverHistoryEndpoint,
+        dataType: "jsonp",
+        jsonpCallback: "u",
+        jsonp: "callback",
+        crossDomain: "true",
+        success: function(response) {
+            var messages = [];
+            for (var i = response.cognitions.length - 1; i >= 0; i--) {
+                var queryAnswerPair = response.cognitions[i];
+                var queryTimes = new Date(Date.parse(queryAnswerPair.query_date));
+                var answerTimes = new Date(Date.parse(queryAnswerPair.answer_date));
+                var queryInside = queryAnswerPair.query;
+                var answerInside = queryAnswerPair;
+                var msgObj = {
+                    query: queryInside,
+                    answer: answerInside,
+                    queryTime: queryTimes,
+                    answerTime: answerTimes
+                }
+                messages.push(msgObj);
+                localStorage.setItem("messages", JSON.stringify(messages));
+            }
+        }
+
+    });
 }
 loginForm.addEventListener("submit", function login(event) {
     event.preventDefault();
@@ -72,9 +124,9 @@ loginForm.addEventListener("submit", function login(event) {
         success: function(response) {
             if (response.accepted) {
                 accessToken = response.access_token;
-                var listUserSettings = BASE_URL + "/aaa/listUserSettings.json?access_token=" + accessToken;
                 checkLogin = "true";
                 localStorage.setItem("checkLogin", checkLogin);
+
                 chrome.storage.sync.set({
                     loggedUser: {
                         email: email,
@@ -85,34 +137,8 @@ loginForm.addEventListener("submit", function login(event) {
                 loginButton.innerHTML = "Login";
                 $("#loginbutton").button("reset");
                 alert(response.message);
-                $.ajax({
-                    url: listUserSettings,
-                    dataType: "jsonp",
-                    jsonpCallback: "p",
-                    jsonp: "callback",
-                    crossDomain: "true",
-                    success: function(response) {
-                        if (response.accepted) {
-                            if (response.settings.theme != null) {
-                                var userThemeValue = response.settings.theme;
-                                if (defaultThemeValue !== userThemeValue) {
-                                    defaultThemeValue = userThemeValue;
-                                    if (defaultThemeValue === "dark") {
-                                        chrome.storage.sync.set({
-                                            "darktheme": true
-                                        }, () => {});
-                                    } else {
-                                        chrome.storage.sync.set({
-                                            "darktheme": false
-                                        }, () => {});
-                                    }
-                                }
-
-                            }
-                        }
-                    }
-                });
-
+                syncUserSettings();
+                retrieveChatHistory();
                 showLoggedInBlock(true);
             } else {
                 $("#loginbutton").button("reset");
