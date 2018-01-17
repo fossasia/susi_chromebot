@@ -58,7 +58,7 @@ body {
      cursor: pointer;
      z-index: 99;
      bottom: 85px;
-     background-color: #ffffff;
+     background-color: rgb(66, 133, 244);
      padding: 0px 8px;
      border-radius: 50%;
      padding-top: 5px;
@@ -408,7 +408,7 @@ input:checked+.slider:before {
     display: inline-block;
     right: 10px;
     top: 7px;
-    
+
 }
 
 .dropdown-content{
