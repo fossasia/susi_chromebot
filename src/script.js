@@ -148,12 +148,67 @@ function composeReplyTable(response, columns, data) {
     return response;
 }
 
+function createNewButton(name){
+    var but = document.createElement("button");
+    but.setAttribute("id", name);
+    var likeB = document.createElement("i"); 
+    likeB.setAttribute("class", "material-icons");
+    likeB.setAttribute("id", name);
+    likeB.innerHTML = name;
+    but.appendChild(likeB);
+    var token="";
+    chrome.storage.sync.get("loggedUser", function (obj) {
+        token = obj.accessToken;
+    });
+    but.addEventListener("click",(e)=>{
+        if(e.target.id === "thumb_up"){
+            likeB.style.color = "deepskyblue";
+            $.ajax({
+                type:"POST",
+                url:BASE_URL+"/aaa/listUserSettings.json?access_token="+token,
+                data:{
+                    "settings": {
+                        "Response": "Like"
+                   }
+                },
+                success: function(){
+                    console.log("success");
+                },
+                error: function(){
+                    console.log("fail");
+                }
+            });
+        }
+        else {
+        likeB.style.color = "red";
+        $.ajax({
+            type:"POST",
+            url:BASE_URL+"/aaa/listUserSettings.json?access_token="+token,
+            data:{
+                "settings": {
+                    "Response": "Dislike"
+               }
+            },
+            success: function(){
+                console.log("success");
+            },
+            error: function(){
+                console.log("fail");
+            }
+        });}
+    });
+    return but; 
+    }
+
 function composeSusiMessage(response) {
     var newP = document.createElement("p");
     var newDiv = messages.childNodes[messages.childElementCount];
+    var thumbUp = createNewButton("thumb_up");
+    var thumbDown = createNewButton("thumb_down");
     newDiv.setAttribute("class", "susinewmessage");
     if (dark === true) {
         newDiv.setAttribute("class", "message-susi-dark susinewmessage");
+        newDiv.appendChild(thumbDown);
     }
     var t = getCurrentTime();
     var currtime = document.createElement("p");
@@ -195,6 +250,8 @@ function composeSusiMessage(response) {
     });
     newDiv.appendChild(document.createElement("br"));
     newDiv.appendChild(currtime);
+    newDiv.appendChild(thumbUp);
+    newDiv.appendChild(thumbDown);
     messages.appendChild(newDiv);
     var storageObj = {
         senderClass: "",
