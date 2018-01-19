@@ -279,6 +279,30 @@ function composeResponse(action, data) {
     return response;
 }
 
+function composeReplyMap(response, action){
+    var newDiv = messages.childNodes[messages.childElementCount];
+    var mapDiv = document.createElement('div');
+    var mapDivId = Date.now().toString();
+    mapDiv.setAttribute("id", mapDivId);
+    mapDiv.setAttribute("class", "mapClass");
+    newDiv.appendChild(mapDiv);
+    messages.appendChild(newDiv);
+    var newMap = L.map(mapDivId).setView([Number(action.latitude), Number(action.longitude)], 13);
+
+    L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: mapAccessToken
+    }).addTo(newMap);
+
+    console.log(mapDiv);
+
+    response.isMap = true;
+    response.newMap = mapDiv;
+    return response;
+
+}
 
 function successResponse(data) {
     data.answers[0].actions.map((action) => {
