@@ -29,6 +29,7 @@ var box = document.getElementById("box");
 var BASE_URL = "https://api.susi.ai";
 var queryAnswerData = JSON.parse(localStorage.getItem("messages"));
 var accessToken = "";
+var mapAccessToken = "pk.eyJ1IjoiZ2FicnUtbWQiLCJhIjoiY2pja285N2g0M3cyOTJxbnR1aTJ5aWU0ayJ9.YkpBlvuHFgd2V9DGHOElVA";
 
 function speakOutput(msg, speak = false) {
     if (speak) {
@@ -183,7 +184,10 @@ function composeSusiMessage(response) {
             } else {
                 newDiv.setAttribute("class", "table-height susinewmessage");
             }
-        } else {
+        } else if (response.isMap){
+            newDiv.appendChild(response.newMap);
+        }
+        else {
             console.log("could not make response");
         }
     }
@@ -191,6 +195,7 @@ function composeSusiMessage(response) {
         time: t,
         message: response.reply,
         image: response.image,
+        map: response.newMap,
         source: "susi"
     });
     newDiv.appendChild(document.createElement("br"));
@@ -229,7 +234,8 @@ function composeResponse(action, data) {
         error: false,
         reply: "",
         image: false,
-        tableType: false
+        tableType: false,
+        isMap: false
     };
     switch (action.type) {
         case "answer":
@@ -237,6 +243,9 @@ function composeResponse(action, data) {
             break;
         case "table":
             response = composeReplyTable(response, action.columns, data);
+            break;
+        case "map":
+            response = composeReplyMap(response, action);
             break;
         default:
             response.error = true;
@@ -246,6 +255,30 @@ function composeResponse(action, data) {
     return response;
 }
 
+function composeReplyMap(response, action){
+    var newDiv = messages.childNodes[messages.childElementCount];
+    var mapDiv = document.createElement('div');
+    var mapDivId = Date.now().toString();
+    mapDiv.setAttribute("id", mapDivId);
+    mapDiv.setAttribute("class", "mapClass");
+    newDiv.appendChild(mapDiv);
+    messages.appendChild(newDiv);
+    var newMap = L.map(mapDivId).setView([Number(action.latitude), Number(action.longitude)], 13);
+
+    L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: mapAccessToken
+    }).addTo(newMap);
+
+    console.log(mapDiv);
+
+    response.isMap = true;
+    response.newMap = mapDiv;
+    return response;
+
+}
 
 function successResponse(data) {
     data.answers[0].actions.map((action) => {
@@ -415,7 +448,7 @@ window.onload = function() {
         }
     });
     syncMessagesFromServer();
-   
+
     chrome.storage.sync.get("message", (items) => {
     if (items) {
         storageItems = items.message;
@@ -624,7 +657,7 @@ function check() {
         if (userDetails.loggedUser.accessToken) {
             accessToken = userDetails.loggedUser.accessToken;
         }
-        sendUserSettingsToServer(dark, accessToken); // Sends the theme settings to server 
+        sendUserSettingsToServer(dark, accessToken); // Sends the theme settings to server
     });
     var box = document.getElementById("box");
     box.classList.toggle("box-modified");
