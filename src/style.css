@@ -546,3 +546,7 @@ th {
 .scroll-dark {
     background-color: rgba(25, 147, 147, .8);
 }
+.mapClass{
+    height: 200px;
+    width: 200px;
+}
