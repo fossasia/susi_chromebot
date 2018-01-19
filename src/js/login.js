@@ -5,6 +5,7 @@ var logoutButton = document.getElementById("logout");
 var loginButton = document.getElementById("loginbutton");
 var noLoggedInBlock = document.getElementById("nologgedin");
 var loggedInBlock = document.getElementById("loggedin");
+var statusBlock=document.getElementById("error");
 var accessToken = "";
 var time = "";
 var BASE_URL = "https://api.susi.ai";
@@ -20,13 +21,23 @@ chrome.storage.sync.get("darktheme", (obj) => {
 window.onload = function() {
     chrome.storage.sync.get("loggedUser", function(userDetails) {
         if (userDetails.loggedUser.email) {
+            var msg="You are logged in as"+userDetails.loggedUser.email;
+            showStatus(msg,false);
             showLoggedInBlock(true);
-
         } else {
             showLoggedInBlock(false);
         }
     });
 };
+
+function showStatus(msg,isError){
+    if(!isError){
+        statusBlock.classList.remove('alert-danger');
+        statusBlock.classList.add('alert-success');
+    }
+    statusBlock.style.visibility="visible";
+    statusBlock.innerHTML=msg;
+}
 
 function showLoggedInBlock(show) {
     if (show) {
@@ -107,10 +118,10 @@ loginForm.addEventListener("submit", function login(event) {
     var email = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     if (!email) {
-        alert("Email field cannot be empty");
+        showStatus("Email field cannot be empty",true);
         return;
     } else if (!password) {
-        alert("Password field cannot be empty");
+        showStatus("Password field cannot be empty",true);
         return;
     }
     $("#loginbutton").button("loading");
@@ -126,7 +137,7 @@ loginForm.addEventListener("submit", function login(event) {
                 accessToken = response.access_token;
                 checkLogin = "true";
                 localStorage.setItem("checkLogin", checkLogin);
-
+                
                 chrome.storage.sync.set({
                     loggedUser: {
                         email: email,
@@ -136,13 +147,13 @@ loginForm.addEventListener("submit", function login(event) {
                 time = response.validSeconds;
                 loginButton.innerHTML = "Login";
                 $("#loginbutton").button("reset");
-                alert(response.message);
+                showStatus(response.message,false);
                 syncUserSettings();
                 retrieveChatHistory();
                 showLoggedInBlock(true);
             } else {
                 $("#loginbutton").button("reset");
-                alert("Login Failed. Try Again");
+                showStatus("Log In Failed",true);
             }
         },
         error: function(jqXHR) {
@@ -158,7 +169,7 @@ loginForm.addEventListener("submit", function login(event) {
                 msg = "Please check your internet connection";
             }
             $("#loginbutton").button("reset");
-            alert(msg);
+            showStatus(msg,true);
         }
     });
 });

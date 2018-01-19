@@ -48,3 +48,14 @@ label {
 #password{
     width: 100%;
 }
+
+#loggedin{
+    margin-top: 15px;
+}
+
+.error{
+    visibility:hidden;
+    margin:auto;
+    padding:7px;
+    text-align: center;
+  }
