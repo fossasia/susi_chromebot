@@ -411,6 +411,17 @@ input:checked+.slider:before {
 
 }
 
+.dropdown {
+   float: right;
+   padding-left: 25px;
+   padding-bottom: 7px;
+}
+
+ .theme {
+   float: left;
+   padding-right: 30px;
+}
+
 .dropdown-content{
     display: flex;
     flex-direction: column;
