@@ -31,6 +31,15 @@ signupForm.addEventListener("submit", function reset(event){
 		alert("Password field cannot be empty");
 		return;
 	}
+	var cpassword=document.getElementById("cpassword").value;
+	if(!cpassword){
+		alert("Confirm password field cannot be empty");
+		return;
+	}
+	if(password != cpassword){
+		alert("Confirm password should be exactly the same as your password");
+		return;
+	}
 	var signupEndPoint = BASE_URL+"/aaa/signup.json?signup="+ encodeURIComponent(email)+"&password="+encodeURIComponent(password);
 	$.ajax({
 		url: signupEndPoint,
