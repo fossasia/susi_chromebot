@@ -32,7 +32,8 @@ signupForm.addEventListener("submit", function reset(event){
 		return;
 	}
 	var signupEndPoint = BASE_URL+"/aaa/signup.json?signup="+ encodeURIComponent(email)+"&password="+encodeURIComponent(password);
-	$.ajax({
+	if(document.getElementById("cpassword").value===document.getElementById("password").value) {
+		$.ajax({
 		url: signupEndPoint,
 		dataType: "jsonp",
 		jsonpCallback: "p",
@@ -54,4 +55,6 @@ signupForm.addEventListener("submit", function reset(event){
 			alert(msg);
 		}
 	});
+}
+else { alert("Passwords do not match"); }
 });
