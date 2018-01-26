@@ -11,6 +11,12 @@ var time = "";
 var BASE_URL = "https://api.susi.ai";
 var checkLogin;
 var defaultThemeValue = "";
+var password = document.getElementById("password");
+
+password.addEventListener("keypress",()=>{
+    document.getElementById("showpassword").value = password.value;
+});
+
 chrome.storage.sync.get("darktheme", (obj) => {
     if (obj.darktheme === true) {
         defaultThemeValue = "dark";
@@ -18,6 +24,11 @@ chrome.storage.sync.get("darktheme", (obj) => {
         defaultThemeValue = "light";
     }
 });
+
+document.getElementById("toggle").addEventListener("click", ()=>{
+    $("#showPass").toggle();
+});
+
 window.onload = function() {
     chrome.storage.sync.get("loggedUser", function(userDetails) {
         if (userDetails.loggedUser.email) {
@@ -29,6 +40,7 @@ window.onload = function() {
         }
     });
 };
+
 
 function showStatus(msg,isError){
     if(!isError){
