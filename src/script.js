@@ -40,7 +40,7 @@ function speakOutput(msg, speak = false) {
         var voices = synth.getVoices();
         if (voice === null){
 			voice = 5; // default male voice
-		}	
+		}
         voiceMsg.voice = voices[voice];
         window.speechSynthesis.speak(voiceMsg);
     }
@@ -194,6 +194,8 @@ function composeSusiMessage(response) {
             }
         } else if (response.isMap){
             newDiv.appendChild(response.newMap);
+        } else if (response.isAnchor){
+            newDiv.appendChild(response.anchor);
         }
         else {
             console.log("could not make response");
@@ -261,13 +263,36 @@ function composeReplyMap(response, action){
 
 }
 
+function composeReplyAnchor(response, action){
+    var newDiv = messages.childNodes[messages.childElementCount];
+    var anchorDiv = document.createElement("div");
+    var actionText = document.createElement("p");
+    actionText.innerText = action.text;
+    var actionAnchor = document.createElement("a");
+    actionAnchor.href = action.link;
+    actionAnchor.text = action.link;
+
+    anchorDiv.appendChild(actionText);
+    anchorDiv.appendChild(document.createElement("br"));
+    anchorDiv.appendChild(actionAnchor);
+
+    newDiv.appendChild(anchorDiv);
+
+    response.isAnchor = true;
+    response.anchor = anchorDiv;
+
+    return response;
+
+}
+
 function composeResponse(action, data) {
     var response = {
         error: false,
         reply: "",
         image: false,
         tableType: false,
-        isMap: false
+        isMap: false,
+        isAnchor: false
     };
     switch (action.type) {
         case "answer":
@@ -278,6 +303,9 @@ function composeResponse(action, data) {
             break;
         case "map":
             response = composeReplyMap(response, action);
+            break;
+        case "anchor":
+            response = composeReplyAnchor(response, action);
             break;
         default:
             response.error = true;
