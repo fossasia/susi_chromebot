@@ -31,10 +31,17 @@ var BASE_URL = "https://api.susi.ai";
 var queryAnswerData = JSON.parse(localStorage.getItem("messages"));
 var accessToken = "";
 var mapAccessToken = "pk.eyJ1IjoiZ2FicnUtbWQiLCJhIjoiY2pja285N2g0M3cyOTJxbnR1aTJ5aWU0ayJ9.YkpBlvuHFgd2V9DGHOElVA";
+var synth = window.speechSynthesis;
+var voice = localStorage.getItem("voice");
 
 function speakOutput(msg, speak = false) {
     if (speak) {
         var voiceMsg = new SpeechSynthesisUtterance(msg);
+        var voices = synth.getVoices();
+        if (voice === null){
+			voice = 5; // default male voice
+		}	
+        voiceMsg.voice = voices[voice];
         window.speechSynthesis.speak(voiceMsg);
     }
 }
@@ -438,7 +445,7 @@ window.onload = function() {
 
     chrome.storage.sync.get("loggedUser", function(userDetails) {
         var log = document.getElementById("log");
-        if (userDetails.loggedUser.email) {
+        if (accessToken && userDetails.loggedUser.email) {
             accessToken = userDetails.loggedUser.accessToken;
             log.innerHTML = log.innerHTML.replace("Login", "Logout");
             log.innerHTML = log.innerHTML.replace("login.svg", "logout.png");

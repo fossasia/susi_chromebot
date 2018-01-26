@@ -7,6 +7,7 @@ body {
     margin-top: 5px;
     padding-right: 2px;
     padding-left: 2px;
+    margin-top: 10px;
   }
 
  .card {
@@ -14,6 +15,8 @@ body {
      padding: 30px 30px 30px;
      box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
      margin-bottom: 5px;
+     padding-bottom: 10px;
+     padding-top: 10px;
   }
 
 .heading {
