@@ -12,6 +12,11 @@ var BASE_URL = "https://api.susi.ai";
 var checkLogin;
 var defaultThemeValue = "";
 var password = document.getElementById("password");
+var pass = document.getElementById("pass");
+var cPass = document.getElementById("cPass");
+var cemail = document.getElementById("cemail");
+var cpassword = document.getElementById("cpassword");
+var newPassword = document.getElementById("newPassword");
 
 password.addEventListener("keypress",()=>{
     document.getElementById("showpassword").value = password.value;
@@ -28,6 +33,30 @@ chrome.storage.sync.get("darktheme", (obj) => {
 document.getElementById("toggle").addEventListener("click", ()=>{
     $("#showPass").toggle();
 });
+
+pass.addEventListener("click", ()=>{
+$("#cPass").toggle();
+});
+
+
+cPass.addEventListener("submit", (e)=>{
+	e.stopPropagation();
+		var loginEP = BASE_URL+"/aaa/changepassword.json?"+"changepassword="+ cemail.value + "&password="+ cpassword.value + "&newpassword=" + newPassword.value + "&access_token=" + accessToken ;		    
+		  $.ajax({
+		    	url:loginEP,
+		        dataType: "jsonp",
+				jsonp: "callback",
+				crossDomain: true,		        
+		        success: function (response) {
+					alert(response.message);
+					cPass.style.display = "none";
+		        },
+		        error : function() {
+		            console.log(loginEP);
+		        }
+		    });
+		});	
+
 
 window.onload = function() {
     chrome.storage.sync.get("loggedUser", function(userDetails) {
