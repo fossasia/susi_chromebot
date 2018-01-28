@@ -23,6 +23,24 @@ body {
     color: white;
 }
 
+#thumb_up{
+    font-size: 15px;
+}
+    
+#thumb_up:hover {
+    color: deepskyblue;
+    cursor: pointer;
+}
+    
+#thumb_down {
+    font-size: 15px;
+} 
+    
+#thumb_down:hover {
+    color: orangered;
+    cursor: pointer;
+} 
+   
 /* #micdiv {
     position: absolute;
     left: -10px;
