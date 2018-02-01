@@ -598,7 +598,11 @@ function toggleStartStop() {
             }
         },
         function() {
-            alert("Please Enable Mic by setting option(Note: If you have blocked the mic before you have to remove it from chrome settings and then enable from extension)");
+            $("body").overhang({
+                type:"error",
+                message: "Please Enable Mic by setting option(Note: If you have blocked the mic before you have to remove it from chrome settings and then enable from extension)",
+                duration: 3
+            });
         });
 }
 
