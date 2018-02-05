@@ -66,9 +66,8 @@ function loading(condition = true) {
 }
 
 
-function getCurrentTime() {
+function getCurrentTime( currDate = new Date() ) {
     var ap = "AM";
-    var currDate = new Date();
     var hours = currDate.getHours();
     var minutes = currDate.getMinutes();
     var time = "";
@@ -157,14 +156,13 @@ function composeReplyTable(response, columns, data) {
     return response;
 }
 
-function composeSusiMessage(response) {
+function composeSusiMessage(response, t) {
     var newP = document.createElement("p");
     var newDiv = messages.childNodes[messages.childElementCount];
     newDiv.setAttribute("class", "susinewmessage");
     if (dark === true) {
         newDiv.setAttribute("class", "message-susi-dark susinewmessage");
     }
-    var t = getCurrentTime();
     var currtime = document.createElement("p");
     currtime.setAttribute("class", "time");
     var time = document.createTextNode(t);
@@ -315,11 +313,11 @@ function composeResponse(action, data) {
     return response;
 }
 
-function successResponse(data) {
+function successResponse(data , timestamp = getCurrentTime()) {
     data.answers[0].actions.map((action) => {
         var response = composeResponse(action, data.answers[0].data);
         loading(false);
-        composeSusiMessage(response);
+        composeSusiMessage(response, timestamp);
         if (action.type !== data.answers[0].actions[data.answers[0].actions.length - 1].type) {
             loading(); //if not last action then create another loading box for susi response
         }
@@ -360,7 +358,7 @@ function getResponse(query) {
 
 }
 
-function composeMyMessage(text) {
+function composeMyMessage(text, t= getCurrentTime()) {
     $(".empty-history").remove();
     var newP = document.createElement("p");
     var newDiv = document.createElement("div");
@@ -371,7 +369,6 @@ function composeMyMessage(text) {
     var myTextNode = document.createTextNode(text);
     newP.appendChild(myTextNode);
     newDiv.appendChild(newP);
-    var t = getCurrentTime();
     var currtime = document.createElement("p");
     currtime.setAttribute("class", "time");
     var time = document.createTextNode(t);
@@ -437,13 +434,18 @@ function syncMessagesFromServer() {
         chrome.storage.sync.remove("message");
         for (var i = 0; i < queryAnswerData.length; i++) {
             var query = queryAnswerData[i].query;
+            var queryTime = queryAnswerData[i].queryTime;
+            queryTime = new Date(Date.parse(queryAnswerData[i].queryTime));
+            queryTime = getCurrentTime(queryTime);
+            var answerTime = queryAnswerData[i].answerTime;
+			 answerTime = new Date(Date.parse(queryAnswerData[i].answerTime));
+			 answerTime = getCurrentTime(answerTime);
             var answer = queryAnswerData[i].answer;
-            composeMyMessage(query);
+            composeMyMessage(query, queryTime);
             var garbageElement = `<div class="mynewmessage"><p></p><br><p class="time"></p></div>`;
             $(".empty-history").remove();
             messages.insertAdjacentHTML("beforeend", garbageElement);
-            successResponse(answer);
-
+            successResponse(answer, answerTime);
         }
         queryAnswerData = null;
         localStorage.setItem("messages", null);
@@ -483,16 +485,17 @@ window.onload = function() {
         }
     });
     syncMessagesFromServer();
-
     chrome.storage.sync.get("message", (items) => {
     if (items) {
         storageItems = items.message;
         restoreMessages(storageItems);
 
     }
-});
-
-
+    else
+    {
+	  		$(".empty-history").remove();
+	 }
+	});
 };
 
 
