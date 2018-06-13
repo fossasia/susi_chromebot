@@ -33,6 +33,8 @@ var accessToken = "";
 var mapAccessToken = "pk.eyJ1IjoiZ2FicnUtbWQiLCJhIjoiY2pja285N2g0M3cyOTJxbnR1aTJ5aWU0ayJ9.YkpBlvuHFgd2V9DGHOElVA";
 var synth = window.speechSynthesis;
 var voice = localStorage.getItem("voice");
+var ticks = "✓";
+// var sentTicks = "✔✔";
 
 function speakOutput(msg, speak = false) {
     if (speak) {
@@ -81,7 +83,7 @@ function getCurrentTime( currDate = new Date() ) {
     if (minutes < 10) {
         minutes = "0" + minutes;
     }
-    time = hours + ":" + minutes + " " + ap;
+    time = hours + ":" + minutes + " " + ap + " " + ticks;
     return time;
 }
 
