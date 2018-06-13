@@ -50,3 +50,12 @@ body {
 {
     border: 3px solid #fff;
 }
+
+#nav p a{
+    color: white;
+}
+
+#nav p {
+    margin-left: 4%;
+}
+

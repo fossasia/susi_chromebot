@@ -2,6 +2,7 @@ var micAccess = document.getElementById("micAccess");
 var backgroundChange = document.getElementById("backgroundChange");
 var backUrl = document.getElementById("backUrl");
 var preDefThemes = document.getElementById("preDefThemes");
+var nav = document.getElementById("nav");
 var msgPaneThemes = document.getElementById("msgPaneThemes");
 var getVoice = document.getElementById("getVoice");
 var submit1 = document.getElementById("submit1");
@@ -48,6 +49,50 @@ preDefThemes.addEventListener("click",(e) => {
     e.stopPropagation;
     });
 }
+
+window.onload = ()=>{
+        $(".micAccess").css("display" , "none");
+        $("#preDefThemes").css("display" , "none");
+        $(".customBackground").css("display" , "none");
+    };
+
+nav.addEventListener("click", (e)=>{
+    var currVal;
+    if(e.target!==e.currentTarget) {
+        currVal = e.target.id;
+        if (currVal === "micAccess")
+        {$(".micAccess").css("display" , "block");
+        $("#preDefThemes").css("display" , "none");
+        $(".customBackground").css("display" , "none");
+        }
+        else if(currVal === "customBackground")
+        {$(".customBackground").css("display" , "block");
+        $(".micAccess").css("display" , "none");
+        $("#preDefThemes").css("display" , "none");
+    }
+        else if(currVal === "themes")
+        {
+            $("#preDefThemes").css("display" , "block");
+            $(".micAccess").css("display" , "none");
+            $(".customBackground").css("display" , "none");
+        }
+
+        else if (currVal === "all")
+        {
+            $("#preDefThemes").css("display" , "block");
+            $(".micAccess").css("display" , "block");
+            $(".customBackground").css("display" , "block");
+        }
+
+
+        else { 
+        console.log("error");
+        } 
+       e.stopPropagation();
+    }
+
+
+});
 
 if(micAccess) {
     micAccess.addEventListener("click", () => {
