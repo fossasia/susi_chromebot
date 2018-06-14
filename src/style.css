@@ -413,6 +413,7 @@ input:checked+.slider:before {
 
 .dropdown {
    float: right;
+   cursor: pointer;
    padding-left: 25px;
    padding-bottom: 7px;
 }
