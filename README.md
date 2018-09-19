@@ -4,8 +4,9 @@
 [![Build Status](https://travis-ci.org/fossasia/susi_chromebot.svg?branch=master)](https://travis-ci.org/fossasia/susi_chromebot)
 [![Join the chat at https://gitter.im/fossasia/susi_server](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/fossasia/susi_server)
 
-Hi. This is a chrome extension to access SUSI.AI.
-Why? We have the SUSI web client, however certain situations we don't want to leave the current browsing tab, and to access SUSI we would have to move to the next tab. But with SUSI.AI chrome extension, access SUSI.AI from any tabs while browsing without having to leave the tab.
+This is a chrome extension to access SUSI.AI.
+
+In certain situations the user wants to access certain functionalities of SUSI.AI without leaving the tab they are currently browsing. In those situations, using a chrome extension could turn out to be a viable option, and that is exactly what we're trying to accomplish.
 
 ## Installation
 
@@ -29,10 +30,10 @@ $ cd src
 
 # Want to Contribute?
 
-Check Issues [here](https://github.com/fossasia/susi_chromebot/issues)
+Check Issues [here](https://github.com/fossasia/susi_chromebot/issues).
 
-Read `CONTRIBUTING.md` [here](https://github.com/fossasia/susi_chromebot/blob/master/.github/CONTRIBUTING.md)
+Read `CONTRIBUTING.md` [here](https://github.com/fossasia/susi_chromebot/blob/master/.github/CONTRIBUTING.md).
 
 # Communication
 
-Our chat channel is on gitter [here](https://gitter.im/fossasia/susi_server)
+Our chat channel on gitter can be found [here](https://gitter.im/fossasia/susi_server).
