@@ -49,29 +49,6 @@ preDefThemes.addEventListener("click",(e) => {
     });
 }
 
-if(micAccess) {
-    micAccess.addEventListener("click", () => {
-        navigator.webkitGetUserMedia({
-            audio: true
-        }, function (stream) {
-            stream.stop();
-        }, function () {
-            console.log("no access");
-        });
-    });
-}
-
-if(preDefThemes) {
-preDefThemes.addEventListener("click",(e) => {
-    if(e.target!==e.currentTarget){
-        theme= e.target.id;
-        console.log(theme);
-    }
-
-    e.stopPropagation;
-    });
-}
-
 if(msgPaneThemes) {
  msgPaneThemes.addEventListener("click",(e) => {
      if(e.target!==e.currentTarget){
