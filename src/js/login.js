@@ -27,8 +27,8 @@ chrome.storage.sync.get("darktheme", (obj) => {
 });
 
 document.getElementById("toggle").addEventListener("change", ()=>{
-    var isChecked = document.getElementById("toggle").checked
-    document.getElementById('password').type = isChecked ? 'text' : 'password';
+    var isChecked = document.getElementById("toggle").checked;
+    document.getElementById("password").type = isChecked ? "text" : "password";
 });
 
 pass.addEventListener("click", ()=>{
@@ -58,7 +58,7 @@ cPass.addEventListener("submit", (e)=>{
 window.onload = function() {
     chrome.storage.sync.get("loggedUser", function(userDetails) {
         if (userDetails.loggedUser.email) {
-            var msg="You are logged in as"+userDetails.loggedUser.email;
+            var msg="You are logged in as "+userDetails.loggedUser.email;
             showStatus(msg,false);
             showLoggedInBlock(true);
         } else {
