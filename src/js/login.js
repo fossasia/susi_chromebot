@@ -18,10 +18,6 @@ var cemail = document.getElementById("cemail");
 var cpassword = document.getElementById("cpassword");
 var newPassword = document.getElementById("newPassword");
 
-password.addEventListener("keyup",()=>{
-    document.getElementById("showpassword").value = password.value;
-});
-
 chrome.storage.sync.get("darktheme", (obj) => {
     if (obj.darktheme === true) {
         defaultThemeValue = "dark";
@@ -30,8 +26,9 @@ chrome.storage.sync.get("darktheme", (obj) => {
     }
 });
 
-document.getElementById("toggle").addEventListener("click", ()=>{
-    $("#showPass").toggle();
+document.getElementById("toggle").addEventListener("change", ()=>{
+    var isChecked = document.getElementById("toggle").checked
+    document.getElementById('password').type = isChecked ? 'text' : 'password';
 });
 
 pass.addEventListener("click", ()=>{
