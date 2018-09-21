@@ -18,7 +18,7 @@ var cemail = document.getElementById("cemail");
 var cpassword = document.getElementById("cpassword");
 var newPassword = document.getElementById("newPassword");
 
-password.addEventListener("keypress",()=>{
+password.addEventListener("keyup",()=>{
     document.getElementById("showpassword").value = password.value;
 });
 
