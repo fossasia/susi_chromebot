@@ -1,5 +1,5 @@
 **Commits**
-* Follow the template of while creating issues and before making a PR.
+* Follow this template while creating issues and before making a PR.
 * Write clear meaningful git commit messages (Do read http://chris.beams.io/posts/git-commit/)
 * Make sure your PR's description contains GitHub's special keyword references that automatically close the related issue when the PR is merged. (More info at https://github.com/blog/1506-closing-issues-via-pull-requests )
 * When you make very very minor changes to a PR of yours (like for example fixing a failing travis build or some small style corrections or minor changes requested by reviewers) make sure you squash your commits afterwards so that you don't have an absurd number of commits for a very small fix. (Learn how to squash at https://davidwalsh.name/squash-commits-git )
