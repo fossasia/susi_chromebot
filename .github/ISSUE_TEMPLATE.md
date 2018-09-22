@@ -23,7 +23,7 @@ insert any relevant code here else remove this section
 
 **System information:**
 
-<!-- Add information about the system your facing this bug on. If you think this is irrelevant or if it's a UI bug or a feature request, please remove this section -->
+<!-- Add information about the system you're facing this bug on. If you think this is irrelevant or if it's a UI bug or a feature request, please remove this section -->
 
 ```
 Your operating system
