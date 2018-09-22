@@ -22,10 +22,6 @@ function showResetBlock(show){
 resetForm.addEventListener("submit", function reset(event){
 	event.preventDefault();
 	var email=document.getElementById("email").value;
-	if(!email){
-		alert("Email field cannot be empty");
-		return;
-	}
 	$("#resetbutton").button("Loading...");
 	var resetPasswordEndPoint = BASE_URL+"/aaa/recoverpassword.json?forgotemail="+ encodeURIComponent(email);
 	$.ajax({
