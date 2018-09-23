@@ -17,10 +17,7 @@ var cPass = document.getElementById("cPass");
 var cemail = document.getElementById("cemail");
 var cpassword = document.getElementById("cpassword");
 var newPassword = document.getElementById("newPassword");
-
-password.addEventListener("keypress",()=>{
-    document.getElementById("showpassword").value = password.value;
-});
+var toggle = document.getElementById("toggle");
 
 chrome.storage.sync.get("darktheme", (obj) => {
     if (obj.darktheme === true) {
@@ -30,14 +27,19 @@ chrome.storage.sync.get("darktheme", (obj) => {
     }
 });
 
-document.getElementById("toggle").addEventListener("click", ()=>{
-    $("#showPass").toggle();
+toggle.addEventListener("click", ()=>{
+    toggle.classList.toggle("fa-eye");
+    toggle.classList.toggle("fa-eye-slash");
+    if (toggle.classList.contains("fa-eye")) {
+        document.getElementById("password").type = "password";
+    } else {
+        document.getElementById("password").type = "text";
+    }
 });
 
 pass.addEventListener("click", ()=>{
 $("#cPass").toggle();
 });
-
 
 cPass.addEventListener("submit", (e)=>{
 	e.stopPropagation();
@@ -61,7 +63,7 @@ cPass.addEventListener("submit", (e)=>{
 window.onload = function() {
     chrome.storage.sync.get("loggedUser", function(userDetails) {
         if (userDetails.loggedUser.email) {
-            var msg="You are logged in as"+userDetails.loggedUser.email;
+            var msg="You are logged in as "+userDetails.loggedUser.email;
             showStatus(msg,false);
             showLoggedInBlock(true);
         } else {

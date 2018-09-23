@@ -10,6 +10,13 @@ body{
 	margin-top: 8%;
 }
 
+.field-icon{
+    float: right;
+    font-size:24px;
+    display: flex;
+    align-items: center;
+}
+
 label {
     color : #FFFFFF;
 }
@@ -47,6 +54,7 @@ label {
 
 #password{
     width: 100%;
+    margin-right: 10px;
 }
 
 #loggedin{
