@@ -17,6 +17,7 @@ var cPass = document.getElementById("cPass");
 var cemail = document.getElementById("cemail");
 var cpassword = document.getElementById("cpassword");
 var newPassword = document.getElementById("newPassword");
+var toggle = document.getElementById("toggle");
 
 chrome.storage.sync.get("darktheme", (obj) => {
     if (obj.darktheme === true) {
@@ -26,15 +27,19 @@ chrome.storage.sync.get("darktheme", (obj) => {
     }
 });
 
-document.getElementById("toggle").addEventListener("change", ()=>{
-    var isChecked = document.getElementById("toggle").checked;
-    document.getElementById("password").type = isChecked ? "text" : "password";
+toggle.addEventListener("click", ()=>{
+    toggle.classList.toggle("fa-eye");
+    toggle.classList.toggle("fa-eye-slash");
+    if (toggle.classList.contains("fa-eye")) {
+        document.getElementById("password").type = "password";
+    } else {
+        document.getElementById("password").type = "text";
+    }
 });
 
 pass.addEventListener("click", ()=>{
 $("#cPass").toggle();
 });
-
 
 cPass.addEventListener("submit", (e)=>{
 	e.stopPropagation();

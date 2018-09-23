@@ -4,6 +4,7 @@
     <title>SUSI Login Portal</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 </head>
 <body>
     <div class="container">
@@ -24,12 +25,13 @@
                             </div>
                             <br />
                             <div class="form-group">
-                                <label for="password">Password:</label>
+                                <label class="form-control-label" for="password">Password:</label>
+                                <div class="input-group">
                                 <input type="password" class="form-control" id="password" placeholder="Password">
-                            </div>
-                            <div style="text-align: center;">
-                            	<label>Show password</label>
-                            	<input type="checkbox" id="toggle">
+                                    <span class="field-icon">
+                                        <i class="fa fa-eye" id="toggle"></i>
+                                    </span>
+                                </div>
                             </div>
                             <br />
                             <button type="submit" class="btn btn-success" name="Login" id="loginbutton" data-loading-text="Please wait">Login</button>
