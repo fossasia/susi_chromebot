@@ -229,7 +229,7 @@ function composeSusiMessage(response, t) {
             });
         }
         storageArr.push(storageObj);
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             "message": storageArr
         }, () => {
             console.log("saved");
@@ -316,14 +316,16 @@ function composeResponse(action, data) {
 }
 
 function successResponse(data , timestamp = getCurrentTime()) {
-    data.answers[0].actions.map((action) => {
-        var response = composeResponse(action, data.answers[0].data);
-        loading(false);
-        composeSusiMessage(response, timestamp);
-        if (action.type !== data.answers[0].actions[data.answers[0].actions.length - 1].type) {
-            loading(); //if not last action then create another loading box for susi response
-        }
-    });
+    if(data.answers[0]){
+        data.answers[0].actions.map((action) => {
+            var response = composeResponse(action, data.answers[0].data);
+            loading(false);
+            composeSusiMessage(response, timestamp);
+            if (action.type !== data.answers[0].actions[data.answers[0].actions.length - 1].type) {
+                loading(); //if not last action then create another loading box for susi response
+            }
+        });
+    }
 }
 
 
@@ -398,13 +400,13 @@ function composeMyMessage(text, t= getCurrentTime()) {
             storageArr = items.message;
         }
         storageArr.push(storageObj);
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             "message": storageArr
         }, () => {});
     });
 }
 
-function restoreMessages(storageItems) {
+function restoreMessages(storageItems = []) {
     if (!storageItems && !accessToken) {
         var htmlMsg = "<div class='empty-history'> Start by saying \"Hi\"</div>";
         $(htmlMsg).appendTo(messages);
@@ -477,7 +479,7 @@ window.onload = function() {
 
     chrome.storage.sync.get("loggedUser", function(userDetails) {
         var log = document.getElementById("log");
-        if (userDetails.loggedUser.email) {
+        if (userDetails.loggedUser && userDetails.loggedUser.email) {
             accessToken = userDetails.loggedUser.accessToken;
             log.innerHTML = log.innerHTML.replace("Login", "Logout");
             log.innerHTML = log.innerHTML.replace("login.svg", "logout.png");

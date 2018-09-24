@@ -62,7 +62,7 @@ cPass.addEventListener("submit", (e)=>{
 
 window.onload = function() {
     chrome.storage.sync.get("loggedUser", function(userDetails) {
-        if (userDetails.loggedUser.email) {
+        if (userDetails.loggedUser && userDetails.loggedUser.email) {
             var msg="You are logged in as "+userDetails.loggedUser.email;
             showStatus(msg,false);
             showLoggedInBlock(true);
@@ -86,9 +86,15 @@ function showLoggedInBlock(show) {
     if (show) {
         noLoggedInBlock.style.display = "none";
         loggedInBlock.style.display = "block";
-        document.getElementById("passwordchange").value = "";
-        document.getElementById("passwordnewconfirm").value = "";
-        document.getElementById("passwordnew").value = "";
+        if (document.getElementById("passwordchange") != null) {
+            document.getElementById("passwordchange").value = "";
+        }
+        if (document.getElementById("passwordnewconfirm") != null) {
+            document.getElementById("passwordnewconfirm").value = "";
+        }
+        if (document.getElementById("passwordnew") != null) {
+            document.getElementById("passwordnew").value = "";
+        }
     } else {
         noLoggedInBlock.style.display = "block";
         loggedInBlock.style.display = "none";
