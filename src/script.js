@@ -476,7 +476,7 @@ window.onload = function() {
 
     chrome.storage.sync.get("loggedUser", function(userDetails) {
         var log = document.getElementById("log");
-        if (accessToken && userDetails.loggedUser.email) {
+        if (userDetails.loggedUser.email) {
             accessToken = userDetails.loggedUser.accessToken;
             log.innerHTML = log.innerHTML.replace("Login", "Logout");
             log.innerHTML = log.innerHTML.replace("login.svg", "logout.png");

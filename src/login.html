@@ -46,19 +46,26 @@
                     </div>
                     <div class="loggedin" id="loggedin">
                         <button class="btn btn-success" name="Logout" onClick="logout(this)" id="logout">Logout</button>
-                        <br />
-                        <a  style="margin-left:35%; color:#fff;"  id="pass" href="#" >Click here to change password</a>
+                        <br/>
+                        <div style="text-align: center">
+                            <a style="color:#fff;"  id="pass" href="#" >Click here to change password</a>
+                        </div>
                     </div>
                      
-                    <div style="margin-left: 27%; margin-top: 3%;" >
                     <form id="cPass" style="display:none;">
-                        <input type="email" id="cemail" placeholder="Email" class="fmargin" required>
-                        <input type="password" id="cpassword" placeholder="Password" class="fmargin" required>
-                        <input type="password" id="newPassword" placeholder="NewPassword" class="fmargin" required>                    
-                        <input type="submit" class="btn btn-success fmargin" style="width:330px;">
-
+                        <div class="form-group">
+                            <input type="email" class="form-control fmargin" id="cemail" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control fmargin" id="cpassword" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control fmargin" id="newPassword" placeholder="New Password">
+                        </div>
+                        <div style="text-align: center">
+                            <input type="submit" style="width: 20rem;" class="btn btn-success fmargin">
+                        </div>
                     </form>
-                </div>
             </div>
             <div class="col-md-2">
             </div>
