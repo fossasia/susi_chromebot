@@ -52,18 +52,31 @@ body {
     background-color: rgb(25, 50, 76);
 }
 
-.scroll-icon{
-     position: absolute;
-     right: 20px;
-     cursor: pointer;
-     z-index: 99;
-     bottom: 85px;
-     background-color: rgb(66, 133, 244);
-     padding: 0px 8px;
-     border-radius: 50%;
-     padding-top: 5px;
-     display: none;
- }
+.scroll-icon-top{
+    position: absolute;
+    cursor: pointer;
+    z-index: 99;
+    background-color: rgb(66, 133, 244);
+    padding: 0px 8px;
+    border-radius: 50%;
+    padding-top: 5px;
+    display: none;
+    left: 20px;
+    top: 45px;
+}
+
+.scroll-icon-bottom{
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+    z-index: 99;
+    bottom: 85px;
+    background-color: rgb(66, 133, 244);
+    padding: 0px 8px;
+    border-radius: 50%;
+    padding-top: 5px;
+    display: none;
+}
 
 .surroundbox {
     min-width: 300px;
