@@ -11,7 +11,8 @@ var micimg = document.getElementById("micimg");
 var micmodal = document.getElementById("micmodal");
 var setting = document.getElementById("setting");
 var clear = document.getElementById("clear");
-var scrollIconElement = document.getElementById("scrollIcon");
+let scrollIconBottomElement = document.getElementById("scrollIconBottom");
+let scrollIconTopElement = document.getElementById("scrollIconTop");
 var exportData = document.getElementById("export");
 var dark = false;
 var upCount = 0;
@@ -326,7 +327,6 @@ function successResponse(data , timestamp = getCurrentTime()) {
     });
 }
 
-
 let queryUrl = "";
 let baseUrl = "https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=";
 
@@ -440,8 +440,8 @@ function syncMessagesFromServer() {
             queryTime = new Date(Date.parse(queryAnswerData[i].queryTime));
             queryTime = getCurrentTime(queryTime);
             var answerTime = queryAnswerData[i].answerTime;
-			 answerTime = new Date(Date.parse(queryAnswerData[i].answerTime));
-			 answerTime = getCurrentTime(answerTime);
+			answerTime = new Date(Date.parse(queryAnswerData[i].answerTime));
+			answerTime = getCurrentTime(answerTime);
             var answer = queryAnswerData[i].answer;
             composeMyMessage(query, queryTime);
             var garbageElement = `<div class="mynewmessage"><p></p><br><p class="time"></p></div>`;
@@ -454,7 +454,6 @@ function syncMessagesFromServer() {
         $(".empty-history").remove();
     }
 }
-
 
 window.onload = function() {
 
@@ -493,24 +492,26 @@ window.onload = function() {
         restoreMessages(storageItems);
 
     }
-    else
-    {
-	  		$(".empty-history").remove();
-	 }
+    else {
+	    $(".empty-history").remove();
+	}
 	});
 };
 
+var lastScrollTop = 0;
 
 function handleScroll() {
-    var scrollIcon = scrollIconElement;
-    var end = messages.scrollHeight - messages.scrollTop === messages.clientHeight;
-    if (end) {
-        //hide icon
-        scrollIcon.style.display = "none";
-    } else {
-        //show icon
-        scrollIcon.style.display = "block";
+    let scrollIconTop = scrollIconTopElement;
+    let scrollIconBottom = scrollIconBottomElement;
+    let st = $(this).scrollTop();
+    scrollIconTop.style.display = "none";
+    scrollIconBottom.style.display = "none";
+    if (st > lastScrollTop){ // downscroll
+        (messages.scrollHeight - messages.scrollTop === messages.clientHeight)?(scrollIconTop.style.display = "block") : (scrollIconBottom.style.display = "block");
+    } else { // upscroll
+        (messages.scrollTop === 0) ? (scrollIconBottom.style.display = "block") : (scrollIconTop.style.display = "block");
     }
+    lastScrollTop = st;
 }
 
 if (messages) {
@@ -526,8 +527,6 @@ function download(filename, text) {
     element.click();
     document.body.removeChild(element);
 }
-
-
 
 function submitForm() {
     var text = textarea.value;
@@ -548,7 +547,6 @@ function submitForm() {
         composeSusiMessage(response);
     }
 }
-
 
 var recognizing;
 
@@ -585,7 +583,6 @@ recognition.onresult = function(event) {
         }
     }
 };
-
 
 function toggleStartStop() {
     navigator.getUserMedia({
@@ -744,9 +741,14 @@ function changeSpeak() {
     console.log("Should be speaking? " + shouldSpeak);
 }
 
+scrollIconTopElement.addEventListener("click", e => {
+    $(messages).stop().animate({
+        scrollTop: 0
+    }, 800);
+    e.preventDefault();
+});
 
-
-scrollIconElement.addEventListener("click", function(e) {
+scrollIconBottomElement.addEventListener("click", function(e) {
     $(messages).stop().animate({
         scrollTop: $(messages)[0].scrollHeight
     }, 800);
