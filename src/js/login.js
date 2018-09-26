@@ -45,8 +45,10 @@ $("#cPass").toggle();
 newPassword.addEventListener("keyup", ()=>{
     if(newPassword.value.length<6){
         passwordlim.removeAttribute("hidden");
+        document.getElementById("csubmit").setAttribute("disabled", "true");        
     } else {
         passwordlim.setAttribute("hidden", "true");
+        document.getElementById("csubmit").removeAttribute("disabled");
     }
 });
 

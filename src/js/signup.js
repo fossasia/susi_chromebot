@@ -22,9 +22,11 @@ function showsignupBlock(show){
 
 cpassword.addEventListener("keyup", ()=>{
     if(cpassword.value.length<6){
-        passwordlim.removeAttribute("hidden");
+		passwordlim.removeAttribute("hidden");
+		document.getElementById("signupbutton").setAttribute("disabled", "true");
     } else {
-        passwordlim.setAttribute("hidden", "true");
+		passwordlim.setAttribute("hidden", "true");
+		document.getElementById("signupbutton").removeAttribute("disabled");	
     }
 });
 
