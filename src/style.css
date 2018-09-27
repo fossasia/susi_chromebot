@@ -562,3 +562,10 @@ th {
     height: 200px;
     width: 200px;
 }
+
+.table-tweet-response{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    width: 80px;
+}

@@ -144,6 +144,7 @@ function composeReplyTable(response, columns, data) {
                     trItem.appendChild(tdItem);
                 } else {
                     tdItem.appendChild(document.createTextNode(item[key]));
+                    tdItem.setAttribute("class", "table-tweet-response");
                     trItem.appendChild(tdItem);
                 }
             }
@@ -331,6 +332,18 @@ let queryUrl = "";
 let baseUrl = "https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=";
 
 function getResponse(query) {
+    var errorResponse = {
+        error: true,
+        errorText: "Sorry! request could not be made"
+    };
+
+    var noResponse = {
+        error: true,
+        errorText: "Hmm... I'm not sure if i understand you correctly."
+    };
+
+    var timestamp = getCurrentTime();
+
     loading();
     if (accessToken) {
         queryUrl = `${baseUrl}${query}&access_token=${accessToken}`;
@@ -347,17 +360,19 @@ function getResponse(query) {
             console.log(textStatus);
             console.log(errorThrown);
             loading(false);
-            var response = {
-                error: true,
-                errorText: "Sorry! request could not be made"
-            };
-            composeSusiMessage(response);
+            composeSusiMessage(errorResponse);
         },
         success: function(data) {
-            successResponse(data);
+            if(!data.answers[0]){
+                loading(false);
+                composeSusiMessage(noResponse, timestamp);
+            }
+            else {
+                successResponse(data);
+            }
+            
         }
     });
-
 }
 
 function composeMyMessage(text, t= getCurrentTime()) {
