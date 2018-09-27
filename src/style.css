@@ -76,6 +76,7 @@ body {
 .box {
     background-color: rgb(243, 242, 244);
     padding-right: 10px;
+    margin-bottom: 6px !important;
 }
 
 .messages {
