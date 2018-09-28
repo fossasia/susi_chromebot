@@ -76,7 +76,10 @@ body {
 .box {
     background-color: rgb(243, 242, 244);
     padding-right: 10px;
-    margin-bottom: 6px !important;
+}
+
+.box:not(:last-child) {
+    margin-bottom: 6px;
 }
 
 .messages {
