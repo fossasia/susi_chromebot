@@ -477,7 +477,7 @@ window.onload = function() {
 
     chrome.storage.sync.get("loggedUser", function(userDetails) {
         var log = document.getElementById("log");
-        if (userDetails.loggedUser.email) {
+        if (userDetails.loggedUser && userDetails.loggedUser.email) {
             accessToken = userDetails.loggedUser.accessToken;
             log.innerHTML = log.innerHTML.replace("Login", "Logout");
             log.innerHTML = log.innerHTML.replace("login.svg", "logout.png");
@@ -698,8 +698,10 @@ function check() {
         }, () => {});
     }
     chrome.storage.sync.get("loggedUser", (userDetails) => { // checks if the user is loggedin or not
-        if (userDetails.loggedUser.accessToken) {
-            accessToken = userDetails.loggedUser.accessToken;
+        if(userDetails.loggedUser){
+            if (userDetails.loggedUser.accessToken) {
+                accessToken = userDetails.loggedUser.accessToken;
+            }
         }
         sendUserSettingsToServer(dark, accessToken); // Sends the theme settings to server
     });
