@@ -562,3 +562,7 @@ th {
     height: 200px;
     width: 200px;
 }
+
+iframe#youtube-video {
+    width: 260px;
+}
