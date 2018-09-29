@@ -16,6 +16,7 @@ var pass = document.getElementById("pass");
 var cPass = document.getElementById("cPass");
 var cemail = document.getElementById("cemail");
 var cpassword = document.getElementById("cpassword");
+var passwordlim = document.getElementById("passwordlim");
 var newPassword = document.getElementById("newPassword");
 var toggle = document.getElementById("toggle");
 
@@ -39,6 +40,16 @@ toggle.addEventListener("click", ()=>{
 
 pass.addEventListener("click", ()=>{
 $("#cPass").toggle();
+});
+
+newPassword.addEventListener("keyup", ()=>{
+    if(newPassword.value.length<6){
+        passwordlim.removeAttribute("hidden");
+        document.getElementById("csubmit").setAttribute("disabled", "true");        
+    } else {
+        passwordlim.setAttribute("hidden", "true");
+        document.getElementById("csubmit").removeAttribute("disabled");
+    }
 });
 
 cPass.addEventListener("submit", (e)=>{
