@@ -700,8 +700,10 @@ function check() {
         }, () => {});
     }
     chrome.storage.sync.get("loggedUser", (userDetails) => { // checks if the user is loggedin or not
-        if (userDetails.loggedUser.accessToken) {
-            accessToken = userDetails.loggedUser.accessToken;
+        if(userDetails.loggedUser){
+            if (userDetails.loggedUser.accessToken) {
+                accessToken = userDetails.loggedUser.accessToken;
+            }
         }
         sendUserSettingsToServer(dark, accessToken); // Sends the theme settings to server
     });
