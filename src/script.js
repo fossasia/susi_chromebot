@@ -48,6 +48,51 @@ function speakOutput(msg, speak = false) {
     }
 }
 
+function feedback(isPositive, skill) {
+    let apiUrl = "https://api.susi.ai";
+    let rating = "negative";
+    if (isPositive) {
+        rating = "positive";
+    }
+    if (skill !== null){
+        let rateEndPoint =
+        apiUrl +
+        "cms/rateSkill.json?model="+
+        skill.model +
+        "group="+
+        skill.group +
+        "language="+
+        skill.language +
+        "skill="+
+        skill.skill +
+        "rating="+
+        rating;
+
+        $.ajax({
+            url: rateEndPoint,
+            dataType: "jsonp",
+            jsonpCallback: "p",
+            jsonp: "callback",
+            crossDomain: "true",
+            success: function(response) {
+                if (response.accepted) {
+                    console.log("Skill rated successfully");
+                } else {
+                    console.log("Skill rating failed. Try Again");
+                }
+            },
+            error: function(jqXHR) {
+                let jsonValue = jqXHR.status;
+                if (jsonValue === 404) {
+                    console.log("Skill rating failed. Try Again");
+                } else {
+                    console.log("Some error occurred. Try Again");
+                }
+            },
+        });
+    }
+}
+
 function loading(condition = true) {
     if (condition === true) {
         var newDiv = document.createElement("div");
@@ -158,8 +203,33 @@ function composeReplyTable(response, columns, data) {
     return response;
 }
 
-function composeSusiMessage(response, t) {
+function composeSusiMessage(response, t, rating) {
     var newP = document.createElement("p");
+    var thumbsUp = document.createElement("span");
+    var thumbsDown = document.createElement("span");
+    
+    thumbsUp.setAttribute("class", "fa fa-thumbs-up");
+    thumbsUp.addEventListener("click", function(){
+        if (thumbsUp.hasAttribute("style")) {
+            thumbsUp.removeAttribute("style");
+        } else {
+            thumbsDown.removeAttribute("style");
+            thumbsUp.style.color = "blue";
+        }
+        feedback(true, rating);
+    });
+    
+    thumbsDown.setAttribute("class", "fa fa-thumbs-down");
+    thumbsDown.addEventListener("click", function(){
+        if (thumbsDown.hasAttribute("style")) {
+            thumbsDown.removeAttribute("style");
+        } else {
+            thumbsUp.removeAttribute("style");
+            thumbsDown.style.color = "red";
+        }
+        feedback(false, rating);
+    });
+    
     var newDiv = messages.childNodes[messages.childElementCount];
     newDiv.setAttribute("class", "susinewmessage");
     if (dark === true) {
@@ -210,6 +280,9 @@ function composeSusiMessage(response, t) {
     });
     newDiv.appendChild(document.createElement("br"));
     newDiv.appendChild(currtime);
+    newDiv.appendChild(thumbsUp);
+    newDiv.appendChild(document.createTextNode(" "));
+    newDiv.appendChild(thumbsDown);
     messages.appendChild(newDiv);
     var storageObj = {
         senderClass: "",
@@ -315,11 +388,26 @@ function composeResponse(action, data) {
     return response;
 }
 
+function generateRating(skill) {
+    let parsed = skill.split("/");
+    let rating = {};
+    if (parsed.length === 7) {
+        rating.model = parsed[3];
+        rating.group = parsed[4];
+        rating.language = parsed[5];
+        rating.skill = parsed[6].slice(0, -4);
+        return rating;
+    }
+    return null;
+}
+
 function successResponse(data , timestamp = getCurrentTime()) {
     data.answers[0].actions.map((action) => {
         var response = composeResponse(action, data.answers[0].data);
+        let skill = data.answers[0].skills[0];
+        let rating = generateRating(skill);
         loading(false);
-        composeSusiMessage(response, timestamp);
+        composeSusiMessage(response, timestamp, rating);
         if (action.type !== data.answers[0].actions[data.answers[0].actions.length - 1].type) {
             loading(); //if not last action then create another loading box for susi response
         }
