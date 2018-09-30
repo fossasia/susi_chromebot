@@ -1,6 +1,7 @@
 body {
-    background-color: #e8f2fe;
-    color: #fff;
+    background-color: #F2F2F2;
+    color: rgba(0, 0, 0, 0.6);
+
 }
 
 .container{
@@ -8,23 +9,26 @@ body {
     padding-right: 2px;
     padding-left: 2px;
     margin-top: 10px;
-  }
+    width: 65%;
+}
 
- .card {
-     background-color: #0084ff;
-     padding: 30px 30px 30px;
-     box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-     margin-bottom: 5px;
-     padding-bottom: 10px;
-     padding-top: 10px;
-  }
+.card {
+    padding: 30px 30px 30px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    background-color: #ffff;
+}
 
 .heading {
     text-align: center;
+    color: #ffff;
 }
 
 .sub-heading {
-    font-size: 20px;
+    font-size: 18px;
+    color: #272727;
 }
 
 .logo{
@@ -35,18 +39,63 @@ body {
 }
 
 .row {
-    padding: 1rem;
-}
-
-.row-label {
-    padding-top: 5px;
+    padding: 0.8rem;
 }
 
 .theme {
-    border-radius: 100%;
+    width: 23px;
+    height: 23px;
+    border-radius: 3px;
+    border: 1px solid #0000006e;
+    cursor: pointer;
+    margin-right: 5px;
 }
 
 .theme:active,.theme:focus
 {
     border: 3px solid #fff;
+}
+
+.save-btn{
+    float: right;
+}
+
+.blue-container{
+    background-color: #0084ff;
+    padding: 30px 30px 30px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.btn-success, .btn-success:hover, .btn-success:active{
+    background-color: #0084ff;
+    border: none;
+    border-radius: 2px;
+}
+
+.color-box-picker{
+    padding: 0px;
+    position: relative;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0.87);
+    cursor: inherit;
+    font: inherit;
+    opacity: 1;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.color-picker{
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: #E0E0E0;
+    width: 100px;
+}
+
+.theme-picker-container{
+    display: inline;
 }
