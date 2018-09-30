@@ -19,7 +19,7 @@
      "trailing": true,
      "maxparams": 3, 
      "maxdepth": 4, 
-     "maxstatements": 50, 
+     "maxstatements": 60,
      "jquery": true, 
      "browser": true, 
      "devel": true, 

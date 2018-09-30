@@ -16,6 +16,7 @@ var exportData = document.getElementById("export");
 var dark = false;
 var upCount = 0;
 var shouldSpeak = true;
+var isOlderMessage = false;
 var storageItems = [];
 var storageArr = [];
 var exportArr = [];
@@ -245,13 +246,13 @@ function composeSusiMessage(response, t, rating) {
         susiTextNode = document.createTextNode(response.errorText);
         newP.appendChild(susiTextNode);
         newDiv.appendChild(newP);
-        speakOutput(response.errorText, shouldSpeak);
+        speakOutput(response.errorText, shouldSpeak && !isOlderMessage);
     } else {
         if (response.reply && !response.image) {
             susiTextNode = document.createTextNode(response.reply);
             newP.appendChild(susiTextNode);
             newDiv.appendChild(newP);
-            speakOutput(response.reply, shouldSpeak);
+            speakOutput(response.reply, shouldSpeak && !isOlderMessage);
         } else if (response.image) {
             var newImg = composeImage(response.reply);
             newDiv.appendChild(document.createElement("br"));
@@ -271,6 +272,10 @@ function composeSusiMessage(response, t, rating) {
         else {
             console.log("could not make response");
         }
+    }
+    if (isOlderMessage) {
+        // reset isOlderMessage
+        isOlderMessage = false;
     }
     exportArr.push({
         time: t,
@@ -402,12 +407,13 @@ function generateRating(skill) {
     return null;
 }
 
-function successResponse(data , timestamp = getCurrentTime()) {
+function successResponse(data , timestamp = getCurrentTime(), speak = true) {
     data.answers[0].actions.map((action) => {
         var response = composeResponse(action, data.answers[0].data);
         let skill = data.answers[0].skills[0];
         let rating = generateRating(skill);
         loading(false);
+        isOlderMessage = !speak;
         composeSusiMessage(response, timestamp, rating);
         if (action.type !== data.answers[0].actions[data.answers[0].actions.length - 1].type) {
             loading(); //if not last action then create another loading box for susi response
@@ -550,7 +556,7 @@ function syncMessagesFromServer() {
             var garbageElement = `<div class="mynewmessage"><p></p><br><p class="time"></p></div>`;
             $(".empty-history").remove();
             messages.insertAdjacentHTML("beforeend", garbageElement);
-            successResponse(answer, answerTime);
+            successResponse(answer, answerTime, false);
         }
         queryAnswerData = null;
         localStorage.setItem("messages", null);
@@ -591,15 +597,12 @@ window.onload = function() {
     });
     syncMessagesFromServer();
     chrome.storage.sync.get("message", (items) => {
-    if (items) {
-        storageItems = items.message;
-        restoreMessages(storageItems);
-
-    }
-    else
-    {
-	  		$(".empty-history").remove();
-	 }
+        if (items) {
+            storageItems = items.message;
+            restoreMessages(storageItems);
+        } else {
+            $(".empty-history").remove();
+        }
 	});
 };
 
