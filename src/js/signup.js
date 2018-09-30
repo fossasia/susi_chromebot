@@ -4,6 +4,7 @@ var notsignupBlock = document.getElementById("notsignup");
 var signupBlock = document.getElementById("signedup");
 var BASE_URL = "https://api.susi.ai";
 var passwordlim = document.getElementById("passwordlim");
+var password = document.getElementById("password");
 
 window.onload = function(){
 	showsignupBlock(true);
@@ -20,8 +21,8 @@ function showsignupBlock(show){
 	}
 }
 
-cpassword.addEventListener("keyup", ()=>{
-    if(cpassword.value.length<6){
+password.addEventListener("keyup", ()=>{
+    if(password.value.length<6){
 		passwordlim.removeAttribute("hidden");
 		document.getElementById("signupbutton").setAttribute("disabled", "true");
     } else {
