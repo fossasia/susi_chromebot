@@ -78,6 +78,10 @@ body {
     padding-right: 10px;
 }
 
+.box:not(:last-child) {
+    margin-bottom: 6px;
+}
+
 .messages {
     overflow-y: auto;
     height: 250px;
