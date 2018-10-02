@@ -4,9 +4,9 @@ var backUrl = document.getElementById("backUrl");
 var preDefThemes = document.getElementById("preDefThemes");
 var msgPaneThemes = document.getElementById("msgPaneThemes");
 var getVoice = document.getElementById("getVoice");
-var submit1 = document.getElementById("submit1");
-var submit2 = document.getElementById("submit2");
-var submit3 = document.getElementById("submit3");
+var submitThemeColor = document.getElementById("submit-themecolor");
+var submitMsgPaneColor = document.getElementById("submit-panecolor");
+var submitSusiVoice = document.getElementById("submit-susivoice");
 var theme;
 var msgTheme;
 var theValue;
@@ -14,6 +14,7 @@ var warning = document.getElementById("warning");
 var customBackground = document.getElementById("customBackground");
 var checkLogin = localStorage.getItem("checkLogin");
 var getVoice = document.getElementById("getVoice");
+var restore = document.getElementById("restore");
 var voice;
 
 
@@ -70,23 +71,23 @@ if(getVoice) {
      });
 }
 
-if(submit1) {
-			submit1.addEventListener("click",()=>{
+if(submitThemeColor) {
+    submitThemeColor.addEventListener("click",()=>{
 			localStorage.setItem("theme",theme);
-			alert("success");
+			alert("Success");
       });
 }
 
-if(submit2) {
-			submit2.addEventListener("click",()=>{
+if(submitMsgPaneColor) {
+    submitMsgPaneColor.addEventListener("click",()=>{
 			localStorage.setItem("msgTheme",msgTheme);
-			alert("success");
+			alert("Success");
       });
 }
-if(submit3) {
- 			submit3.addEventListener("click",()=>{
+if(submitSusiVoice) {
+    submitSusiVoice.addEventListener("click",()=>{
  			localStorage.setItem("voice",voice);
- 			alert("success");
+ 			alert("Success");
       });
 }
 if(backgroundChange) {
@@ -98,6 +99,17 @@ if(backgroundChange) {
         } else {
             localStorage.setItem("theValue", theValue);
             alert("Successfully stored");
+        }
+    });
+}
+
+if(restore){
+    restore.addEventListener("click", ()=>{
+        if(confirm("This will remove your customized settings. This action is irreversible.")){
+            userItems = ["theValue", "voice", "msgTheme", "theme"];
+            userItems.forEach(item => {
+                localStorage.removeItem(item);
+            });
         }
     });
 }

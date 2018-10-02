@@ -33,6 +33,8 @@ var accessToken = "";
 var mapAccessToken = "pk.eyJ1IjoiZ2FicnUtbWQiLCJhIjoiY2pja285N2g0M3cyOTJxbnR1aTJ5aWU0ayJ9.YkpBlvuHFgd2V9DGHOElVA";
 var synth = window.speechSynthesis;
 var voice = localStorage.getItem("voice");
+var micDiv = document.getElementById("micdiv");
+var sendDiv = document.getElementById("senddiv");
 var ticks = "✓";
 // var sentTicks = "✔✔";
 
@@ -877,3 +879,16 @@ scrollIconElement.addEventListener("click", function(e) {
 
 document.getElementById("check").addEventListener("click", check);
 document.getElementById("speak").addEventListener("click", changeSpeak);
+
+sendDiv.style.display = "none";
+
+textarea.addEventListener("input", function(e){
+    if(e.target.value) {
+        micDiv.style.display = "none";
+        sendDiv.style.display = "block";
+    }
+    else {
+        micDiv.style.display = "block";
+        sendDiv.style.display = "none";
+    }
+});

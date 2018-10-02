@@ -40,6 +40,10 @@ body {
     bottom: -28px;
 } */
 
+#senddiv {
+    display: none;
+}
+
 .dark {
     background: rgb(25, 50, 76);
 }
@@ -230,6 +234,7 @@ body {
     width: 118%;
     margin-bottom: 5px;
     resize: none;
+    border-radius: 7px;
 }
 
 .textarea-mod {
