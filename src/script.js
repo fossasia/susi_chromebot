@@ -267,6 +267,8 @@ function composeSusiMessage(response, t, rating) {
             newDiv.appendChild(response.newMap);
         } else if (response.isAnchor){
             newDiv.appendChild(response.anchor);
+        } else if (response.isVideo){
+            newDiv.appendChild(response.video);
         }
         else {
             console.log("could not make response");
@@ -334,7 +336,17 @@ function composeReplyMap(response, action){
     response.isMap = true;
     response.newMap = mapDiv;
     return response;
+}
 
+function composeReplyVideo(response, identifier) {
+    var newDiv = messages.childNodes[messages.childElementCount];
+    var iframeDiv = document.createElement("iframe");
+    iframeDiv.setAttribute("id", "youtube-video");
+    iframeDiv.setAttribute("src", `https://www.youtube.com/embed/${identifier}?rel=0&enablejsapi=1&origin=*`);
+    newDiv.appendChild(iframeDiv);
+    response.isVideo = true;
+    response.video = iframeDiv;
+    return response;
 }
 
 function composeReplyAnchor(response, action){
@@ -366,7 +378,9 @@ function composeResponse(action, data) {
         image: false,
         tableType: false,
         isMap: false,
-        isAnchor: false
+        isAnchor: false,
+        isVideo: false,
+        video: ""
     };
     switch (action.type) {
         case "answer":
@@ -380,6 +394,9 @@ function composeResponse(action, data) {
             break;
         case "anchor":
             response = composeReplyAnchor(response, action);
+            break;
+        case "video_play":
+            response = composeReplyVideo(response, action.identifier);
             break;
         default:
             response.error = true;

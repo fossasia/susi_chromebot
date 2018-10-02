@@ -567,6 +567,9 @@ th {
     width: 200px;
 }
 
+iframe#youtube-video {
+    width: 260px;
+
 .table-tweet-response{
     overflow: hidden;
     text-overflow: ellipsis;
