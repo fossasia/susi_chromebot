@@ -310,7 +310,7 @@ function composeSusiMessage(response, t, rating) {
             });
         }
         storageArr.push(storageObj);
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             "message": storageArr
         }, () => {
             console.log("saved");
@@ -524,13 +524,13 @@ function composeMyMessage(text, t= getCurrentTime()) {
             storageArr = items.message;
         }
         storageArr.push(storageObj);
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             "message": storageArr
         }, () => {});
     });
 }
 
-function restoreMessages(storageItems) {
+function restoreMessages(storageItems = []) {
     if (!storageItems && !accessToken) {
         var htmlMsg = "<div class='empty-history'> Start by saying \"Hi\"</div>";
         $(htmlMsg).appendTo(messages);
