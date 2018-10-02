@@ -33,8 +33,6 @@ var accessToken = "";
 var mapAccessToken = "pk.eyJ1IjoiZ2FicnUtbWQiLCJhIjoiY2pja285N2g0M3cyOTJxbnR1aTJ5aWU0ayJ9.YkpBlvuHFgd2V9DGHOElVA";
 var synth = window.speechSynthesis;
 var voice = localStorage.getItem("voice");
-var ticks = "✓";
-// var sentTicks = "✔✔";
 
 function speakOutput(msg, speak = false) {
     if (speak) {
@@ -128,7 +126,7 @@ function getCurrentTime( currDate = new Date() ) {
     if (minutes < 10) {
         minutes = "0" + minutes;
     }
-    time = hours + ":" + minutes + " " + ap + " " + ticks;
+    time = hours + ":" + minutes + " " + ap + " ";
     return time;
 }
 
@@ -206,8 +204,13 @@ function composeReplyTable(response, columns, data) {
 
 function composeSusiMessage(response, t, rating) {
     var newP = document.createElement("p");
+    newP.setAttribute("class", "susi-text-container");
     var thumbsUp = document.createElement("span");
     var thumbsDown = document.createElement("span");
+    var shareOnTwitter = document.createElement("span");
+    var messageFooter = document.createElement("li");
+
+    messageFooter.setAttribute("class", "susimessage-footer");
     
     thumbsUp.setAttribute("class", "fa fa-thumbs-up");
     thumbsUp.addEventListener("click", function(){
@@ -229,6 +232,18 @@ function composeSusiMessage(response, t, rating) {
             thumbsDown.style.color = "red";
         }
         feedback(false, rating);
+    });
+
+    let shareMessageSUSI = response.reply === undefined ? "" : response.reply;
+    shareMessageSUSI = encodeURIComponent(shareMessageSUSI.trim());
+    let shareTag = " #SUSI.AI";
+    shareTag = encodeURIComponent(shareTag);
+    let twitterShare =
+        "https://twitter.com/intent/tweet?text=" + shareMessageSUSI + shareTag;
+
+    shareOnTwitter.setAttribute("class", "fa fa-share-alt");
+    shareOnTwitter.addEventListener("click", function(){
+        window.open(twitterShare, "_blank");
     });
     
     var newDiv = messages.childNodes[messages.childElementCount];
@@ -256,6 +271,7 @@ function composeSusiMessage(response, t, rating) {
             var newImg = composeImage(response.reply);
             newDiv.appendChild(document.createElement("br"));
             newDiv.appendChild(newImg);
+
         } else if (response.tableType) {
             newDiv.appendChild(response.table);
             if (dark === true) {
@@ -281,11 +297,14 @@ function composeSusiMessage(response, t, rating) {
         map: response.newMap,
         source: "susi"
     });
-    newDiv.appendChild(document.createElement("br"));
-    newDiv.appendChild(currtime);
-    newDiv.appendChild(thumbsUp);
-    newDiv.appendChild(document.createTextNode(" "));
-    newDiv.appendChild(thumbsDown);
+
+    messageFooter.appendChild(currtime);
+    messageFooter.appendChild(thumbsUp);
+    messageFooter.appendChild(document.createTextNode(" "));
+    messageFooter.appendChild(thumbsDown);
+    messageFooter.appendChild(document.createTextNode(" "));
+    messageFooter.appendChild(shareOnTwitter);
+    newDiv.appendChild(messageFooter);
     messages.appendChild(newDiv);
     var storageObj = {
         senderClass: "",
@@ -465,7 +484,7 @@ function getResponse(query) {
             console.log(textStatus);
             console.log(errorThrown);
             loading(false);
-            composeSusiMessage(errorResponse);
+            composeSusiMessage(errorResponse, timestamp);
         },
         success: function(data) {
             if(!data.answers[0]){
@@ -484,6 +503,10 @@ function composeMyMessage(text, t= getCurrentTime()) {
     $(".empty-history").remove();
     var newP = document.createElement("p");
     var newDiv = document.createElement("div");
+
+    var messageFooter = document.createElement("li");
+    messageFooter.setAttribute("class", "mymessage-footer");
+
     newDiv.setAttribute("class", "mynewmessage");
     if (dark === true) {
         newDiv.setAttribute("class", "message-dark mynewmessage");
@@ -495,8 +518,8 @@ function composeMyMessage(text, t= getCurrentTime()) {
     currtime.setAttribute("class", "time");
     var time = document.createTextNode(t);
     currtime.append(time);
-    newDiv.appendChild(document.createElement("br"));
-    newDiv.appendChild(currtime);
+    messageFooter.appendChild(currtime);
+    newDiv.appendChild(messageFooter);
     messages.appendChild(newDiv);
     textarea.value = "";
     messages.scrollTop = messages.scrollHeight;
