@@ -35,7 +35,7 @@ var mapAccessToken = "pk.eyJ1IjoiZ2FicnUtbWQiLCJhIjoiY2pja285N2g0M3cyOTJxbnR1aTJ
 var synth = window.speechSynthesis;
 var voice = localStorage.getItem("voice");
 
-function speakOutput(msg, speak = false) {
+let speakOutput = (msg, speak = false) => {
     if (speak) {
         var voiceMsg = new SpeechSynthesisUtterance(msg);
         var voices = synth.getVoices();
@@ -45,9 +45,9 @@ function speakOutput(msg, speak = false) {
         voiceMsg.voice = voices[voice];
         window.speechSynthesis.speak(voiceMsg);
     }
-}
+};
 
-function feedback(isPositive, skill) {
+let feedback = (isPositive, skill) => {
     let apiUrl = "https://api.susi.ai";
     let rating = "negative";
     if (isPositive) {
@@ -73,14 +73,14 @@ function feedback(isPositive, skill) {
             jsonpCallback: "p",
             jsonp: "callback",
             crossDomain: "true",
-            success: function(response) {
+            success: (response) => {
                 if (response.accepted) {
                     console.log("Skill rated successfully");
                 } else {
                     console.log("Skill rating failed. Try Again");
                 }
             },
-            error: function(jqXHR) {
+            error: (jqXHR) => {
                 let jsonValue = jqXHR.status;
                 if (jsonValue === 404) {
                     console.log("Skill rating failed. Try Again");
@@ -90,9 +90,9 @@ function feedback(isPositive, skill) {
             },
         });
     }
-}
+};
 
-function loading(condition = true) {
+let loading = (condition = true) => {
     if (condition === true) {
         var newDiv = document.createElement("div");
         var newImg = document.createElement("img");
@@ -109,10 +109,10 @@ function loading(condition = true) {
     } else {
         messages.childNodes[messages.childElementCount].innerHTML = "";
     }
-}
+};
 
 
-function getCurrentTime( currDate = new Date() ) {
+let getCurrentTime = ( currDate = new Date() ) => {
     var ap = "AM";
     var hours = currDate.getHours();
     var minutes = currDate.getMinutes();
@@ -129,35 +129,33 @@ function getCurrentTime( currDate = new Date() ) {
     }
     time = hours + ":" + minutes + " " + ap + " ";
     return time;
-}
+};
 
-
-
-function composeImage(image) {
+let composeImage = (image) => {
     var newImg = document.createElement("img");
     newImg.setAttribute("src", image);
     newImg.setAttribute("class", "susi-img");
     return newImg;
-}
+};
 
-function composeLink(link) {
+let composeLink = (link) => {
     var newA = document.createElement("a");
     newA.appendChild(document.createTextNode(link));
     newA.setAttribute("href", link);
     newA.setAttribute("target", "_blank");
     newA.setAttribute("class", "link");
     return newA;
-}
+};
 
-function composeReplyAnswer(response, replyData) {
+let composeReplyAnswer = (response, replyData) => {
     response.reply = replyData;
     if (replyData.startsWith("https")) {
         response.image = true;
     }
     return response;
-}
+};
 
-function composeReplyTable(response, columns, data) {
+let composeReplyTable = (response, columns, data) => {
     var keys = Object.keys(columns);
     var table = document.createElement("table");
     table.setAttribute("class", "table-response");
@@ -201,9 +199,9 @@ function composeReplyTable(response, columns, data) {
     response.tableType = true;
     response.table = table;
     return response;
-}
+};
 
-function composeSusiMessage(response, t, rating) {
+let composeSusiMessage = (response, t, rating) => {
     var newP = document.createElement("p");
     newP.setAttribute("class", "susi-text-container");
     var thumbsUp = document.createElement("span");
@@ -214,7 +212,7 @@ function composeSusiMessage(response, t, rating) {
     messageFooter.setAttribute("class", "susimessage-footer");
     
     thumbsUp.setAttribute("class", "fa fa-thumbs-up");
-    thumbsUp.addEventListener("click", function(){
+    thumbsUp.addEventListener("click", () => {
         if (thumbsUp.hasAttribute("style")) {
             thumbsUp.removeAttribute("style");
         } else {
@@ -225,7 +223,7 @@ function composeSusiMessage(response, t, rating) {
     });
     
     thumbsDown.setAttribute("class", "fa fa-thumbs-down");
-    thumbsDown.addEventListener("click", function(){
+    thumbsDown.addEventListener("click", () => {
         if (thumbsDown.hasAttribute("style")) {
             thumbsDown.removeAttribute("style");
         } else {
@@ -336,9 +334,9 @@ function composeSusiMessage(response, t, rating) {
         });
     });
     messages.scrollTop = messages.scrollHeight;
-}
+};
 
-function composeReplyMap(response, action){
+let composeReplyMap = (response, action) => {
     var newDiv = messages.childNodes[messages.childElementCount];
     var mapDiv = document.createElement("div");
     var mapDivId = Date.now().toString();
@@ -360,9 +358,9 @@ function composeReplyMap(response, action){
     response.isMap = true;
     response.newMap = mapDiv;
     return response;
-}
+};
 
-function composeReplyVideo(response, identifier) {
+let composeReplyVideo = (response, identifier) => {
     var newDiv = messages.childNodes[messages.childElementCount];
     var iframeDiv = document.createElement("iframe");
     iframeDiv.setAttribute("id", "youtube-video");
@@ -371,9 +369,9 @@ function composeReplyVideo(response, identifier) {
     response.isVideo = true;
     response.video = iframeDiv;
     return response;
-}
+};
 
-function composeReplyAnchor(response, action){
+let composeReplyAnchor = (response, action) => {
     var newDiv = messages.childNodes[messages.childElementCount];
     var anchorDiv = document.createElement("div");
     var actionText = document.createElement("p");
@@ -393,9 +391,9 @@ function composeReplyAnchor(response, action){
 
     return response;
 
-}
+};
 
-function composeResponse(action, data) {
+let composeResponse = (action, data) => {
     var response = {
         error: false,
         reply: "",
@@ -428,9 +426,9 @@ function composeResponse(action, data) {
             break;
     }
     return response;
-}
+};
 
-function generateRating(skill) {
+let generateRating = (skill) => {
     let parsed = skill.split("/");
     let rating = {};
     if (parsed.length === 7) {
@@ -441,9 +439,9 @@ function generateRating(skill) {
         return rating;
     }
     return null;
-}
+};
 
-function successResponse(data , timestamp = getCurrentTime(), speak = true) {
+let successResponse = (data , timestamp = getCurrentTime(), speak = true) => {
     data.answers[0].actions.map((action) => {
         var response = composeResponse(action, data.answers[0].data);
         let skill = data.answers[0].skills[0];
@@ -455,13 +453,13 @@ function successResponse(data , timestamp = getCurrentTime(), speak = true) {
             loading(); //if not last action then create another loading box for susi response
         }
     });
-}
+};
 
 
 let queryUrl = "";
 let baseUrl = "https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=";
 
-function getResponse(query) {
+let getResponse = (query) => {
     var errorResponse = {
         error: true,
         errorText: "Sorry! request could not be made"
@@ -485,14 +483,14 @@ function getResponse(query) {
         dataType: "jsonp",
         type: "GET",
         url: queryUrl,
-        error: function(xhr, textStatus, errorThrown) {
+        error: (xhr, textStatus, errorThrown) => {
             console.log(xhr);
             console.log(textStatus);
             console.log(errorThrown);
             loading(false);
             composeSusiMessage(errorResponse, timestamp);
         },
-        success: function(data) {
+        success: (data) => {
             if(!data.answers[0]){
                 loading(false);
                 composeSusiMessage(noResponse, timestamp);
@@ -503,9 +501,9 @@ function getResponse(query) {
             
         }
     });
-}
+};
 
-function composeMyMessage(text, t= getCurrentTime()) {
+let composeMyMessage = (text, t= getCurrentTime()) => {
     $(".empty-history").remove();
     var newP = document.createElement("p");
     var newDiv = document.createElement("div");
@@ -551,9 +549,9 @@ function composeMyMessage(text, t= getCurrentTime()) {
             "message": storageArr
         }, () => {});
     });
-}
+};
 
-function restoreMessages(storageItems = []) {
+let restoreMessages = (storageItems = []) => {
     if (!storageItems && !accessToken) {
         var htmlMsg = "<div class='empty-history'> Start by saying \"Hi\"</div>";
         $(htmlMsg).appendTo(messages);
@@ -577,9 +575,9 @@ function restoreMessages(storageItems = []) {
             });
         }
     });
-}
+};
 
-function syncMessagesFromServer() {
+let syncMessagesFromServer = () => {
 
     if (queryAnswerData !== null) {
         chrome.storage.sync.remove("message");
@@ -602,10 +600,10 @@ function syncMessagesFromServer() {
         localStorage.setItem("messages", null);
         $(".empty-history").remove();
     }
-}
+};
 
 
-window.onload = function() {
+window.onload = () => {
 
 
     if (backUrl) {
@@ -624,7 +622,7 @@ window.onload = function() {
         console.log(msgTheme);
     }
 
-    chrome.storage.local.get("loggedUser", function(userDetails) {
+    chrome.storage.local.get("loggedUser", (userDetails) => {
         var log = document.getElementById("log");
         if (userDetails.loggedUser && userDetails.loggedUser.email) {
             accessToken = userDetails.loggedUser.accessToken;
@@ -647,7 +645,7 @@ window.onload = function() {
 };
 
 
-function handleScroll() {
+let handleScroll = () => {
     var scrollIcon = scrollIconElement;
     var end = messages.scrollHeight - messages.scrollTop === messages.clientHeight;
     if (end) {
@@ -657,13 +655,13 @@ function handleScroll() {
         //show icon
         scrollIcon.style.display = "block";
     }
-}
+};
 
 if (messages) {
     messages.addEventListener("scroll", handleScroll);
 }
 // to download file
-function download(filename, text) {
+let download = (filename, text) => {
     var element = document.createElement("a");
     element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
     element.setAttribute("download", filename);
@@ -671,11 +669,9 @@ function download(filename, text) {
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
-}
+};
 
-
-
-function submitForm() {
+let submitForm = () => {
     var text = textarea.value;
     text = text.trim();
     if (text === "") {
@@ -693,33 +689,32 @@ function submitForm() {
         loading(false);
         composeSusiMessage(response);
     }
-}
-
+};
 
 var recognizing;
 
-function reset() {
+let reset = () => {
     recognizing = false;
-}
+};
 
 var recognition = new webkitSpeechRecognition();
-recognition.onerror = function(e) {
+recognition.onerror = (e) => {
     console.log(e.error);
 };
 
-recognition.onstart = function() {
+recognition.onstart = () =>{
     micimg.setAttribute("src", "images/mic-animate.gif");
 };
 
 reset();
 
-recognition.onend = function() {
+recognition.onend = () => {
     reset();
     micmodal.classList.remove("active");
     micimg.setAttribute("src", "images/mic.gif");
 };
 
-recognition.onresult = function(event) {
+recognition.onresult = (event) => {
     var interimText = " ";
     for (var i = event.resultIndex; i < event.results.length; ++i) {
         if (event.results[i].isFinal) {
@@ -732,12 +727,11 @@ recognition.onresult = function(event) {
     }
 };
 
-
-function toggleStartStop() {
+let toggleStartStop = () => {
     navigator.getUserMedia({
             audio: true
         },
-        function() {
+        () => {
             if (recognizing) {
                 recognition.stop();
                 reset();
@@ -748,34 +742,34 @@ function toggleStartStop() {
                 micmodal.className += " active";
             }
         },
-        function() {
+        () => {
             $("body").overhang({
                 type:"error",
                 message: "Please Enable Mic by setting option(Note: If you have blocked the mic before you have to remove it from chrome settings and then enable from extension)",
                 duration: 3
             });
         });
-}
+};
 
-mic.addEventListener("click", function() {
+mic.addEventListener("click", () => {
     toggleStartStop();
 });
 
-setting.addEventListener("click", function() {
+setting.addEventListener("click", () => {
     chrome.tabs.create({
         url: chrome.runtime.getURL("options.html")
     });
 });
 
-clear.addEventListener("click", function() {
+clear.addEventListener("click", () => {
     chrome.storage.sync.clear();
 });
 
-exportData.addEventListener("click", function() {
+exportData.addEventListener("click", () => {
     download("susiExport.json", JSON.stringify(exportArr));
 });
 
-textarea.onkeyup = function(e) {
+textarea.onkeyup = (e) => {
     var prevMessages, myQuery;
     try {
         if (e.which === 38) {
@@ -798,11 +792,10 @@ textarea.onkeyup = function(e) {
     } catch (excep) {}
 };
 
-formid.addEventListener("submit", function(e) {
+formid.addEventListener("submit", (e) => {
     e.preventDefault();
     submitForm();
 });
-
 
 chrome.storage.sync.get("darktheme", (obj) => {
     if (obj.darktheme === true) {
@@ -811,7 +804,7 @@ chrome.storage.sync.get("darktheme", (obj) => {
     }
 });
 
-function sendUserSettingsToServer(darkTheme, accessToken) { // Sending  user settings to api
+let sendUserSettingsToServer = (darkTheme, accessToken) => { // Sending  user settings to api
     var themevalue = "";
     if (darkTheme !== true) {
         themevalue = "light";
@@ -825,13 +818,13 @@ function sendUserSettingsToServer(darkTheme, accessToken) { // Sending  user set
         jsonpCallback: "p",
         jsonp: "callback",
         crossDomain: "true",
-        success: function() {
+        success: () => {
             console.log("user Settings successfully sent");
         }
     });
-}
+};
 
-function check() {
+let check = () => {
     if (dark === false) {
         dark = true;
         chrome.storage.sync.set({
@@ -879,9 +872,9 @@ function check() {
     $(".susinewmessage").toggleClass("message-susi-dark");
     $(".mynewmessage").toggleClass("message-dark");
     $("#scrollIcon").toggleClass("scroll-dark");
-}
+};
 
-function changeSpeak() {
+let changeSpeak = () => {
     shouldSpeak = !shouldSpeak;
     var SpeakIcon = document.getElementById("speak-icon");
     if (!shouldSpeak) {
@@ -890,11 +883,9 @@ function changeSpeak() {
         SpeakIcon.innerText = "volume_up";
     }
     console.log("Should be speaking? " + shouldSpeak);
-}
+};
 
-
-
-scrollIconElement.addEventListener("click", function(e) {
+scrollIconElement.addEventListener("click", (e) => {
     $(messages).stop().animate({
         scrollTop: $(messages)[0].scrollHeight
     }, 800);

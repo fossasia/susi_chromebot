@@ -32,9 +32,9 @@ if(micAccess) {
     micAccess.addEventListener("click", () => {
         navigator.webkitGetUserMedia({
             audio: true
-        }, function (stream) {
+        }, (stream) => {
             stream.getTracks().forEach(track => track.stop());
-        }, function () {
+        }, () => {
             console.log("no access");
         });
     });
