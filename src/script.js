@@ -16,6 +16,7 @@ var exportData = document.getElementById("export");
 var dark = false;
 var upCount = 0;
 var shouldSpeak = true;
+var isOlderMessage = false;
 var storageItems = [];
 var storageArr = [];
 var exportArr = [];
@@ -45,6 +46,51 @@ function speakOutput(msg, speak = false) {
 		}
         voiceMsg.voice = voices[voice];
         window.speechSynthesis.speak(voiceMsg);
+    }
+}
+
+function feedback(isPositive, skill) {
+    let apiUrl = "https://api.susi.ai";
+    let rating = "negative";
+    if (isPositive) {
+        rating = "positive";
+    }
+    if (skill !== null){
+        let rateEndPoint =
+        apiUrl +
+        "cms/rateSkill.json?model="+
+        skill.model +
+        "group="+
+        skill.group +
+        "language="+
+        skill.language +
+        "skill="+
+        skill.skill +
+        "rating="+
+        rating;
+
+        $.ajax({
+            url: rateEndPoint,
+            dataType: "jsonp",
+            jsonpCallback: "p",
+            jsonp: "callback",
+            crossDomain: "true",
+            success: function(response) {
+                if (response.accepted) {
+                    console.log("Skill rated successfully");
+                } else {
+                    console.log("Skill rating failed. Try Again");
+                }
+            },
+            error: function(jqXHR) {
+                let jsonValue = jqXHR.status;
+                if (jsonValue === 404) {
+                    console.log("Skill rating failed. Try Again");
+                } else {
+                    console.log("Some error occurred. Try Again");
+                }
+            },
+        });
     }
 }
 
@@ -144,6 +190,7 @@ function composeReplyTable(response, columns, data) {
                     trItem.appendChild(tdItem);
                 } else {
                     tdItem.appendChild(document.createTextNode(item[key]));
+                    tdItem.setAttribute("class", "table-tweet-response");
                     trItem.appendChild(tdItem);
                 }
             }
@@ -158,8 +205,33 @@ function composeReplyTable(response, columns, data) {
     return response;
 }
 
-function composeSusiMessage(response, t) {
+function composeSusiMessage(response, t, rating) {
     var newP = document.createElement("p");
+    var thumbsUp = document.createElement("span");
+    var thumbsDown = document.createElement("span");
+    
+    thumbsUp.setAttribute("class", "fa fa-thumbs-up");
+    thumbsUp.addEventListener("click", function(){
+        if (thumbsUp.hasAttribute("style")) {
+            thumbsUp.removeAttribute("style");
+        } else {
+            thumbsDown.removeAttribute("style");
+            thumbsUp.style.color = "blue";
+        }
+        feedback(true, rating);
+    });
+    
+    thumbsDown.setAttribute("class", "fa fa-thumbs-down");
+    thumbsDown.addEventListener("click", function(){
+        if (thumbsDown.hasAttribute("style")) {
+            thumbsDown.removeAttribute("style");
+        } else {
+            thumbsUp.removeAttribute("style");
+            thumbsDown.style.color = "red";
+        }
+        feedback(false, rating);
+    });
+    
     var newDiv = messages.childNodes[messages.childElementCount];
     newDiv.setAttribute("class", "susinewmessage");
     if (dark === true) {
@@ -174,13 +246,13 @@ function composeSusiMessage(response, t) {
         susiTextNode = document.createTextNode(response.errorText);
         newP.appendChild(susiTextNode);
         newDiv.appendChild(newP);
-        speakOutput(response.errorText, shouldSpeak);
+        speakOutput(response.errorText, shouldSpeak && !isOlderMessage);
     } else {
         if (response.reply && !response.image) {
             susiTextNode = document.createTextNode(response.reply);
             newP.appendChild(susiTextNode);
             newDiv.appendChild(newP);
-            speakOutput(response.reply, shouldSpeak);
+            speakOutput(response.reply, shouldSpeak && !isOlderMessage);
         } else if (response.image) {
             var newImg = composeImage(response.reply);
             newDiv.appendChild(document.createElement("br"));
@@ -196,10 +268,16 @@ function composeSusiMessage(response, t) {
             newDiv.appendChild(response.newMap);
         } else if (response.isAnchor){
             newDiv.appendChild(response.anchor);
+        } else if (response.isVideo){
+            newDiv.appendChild(response.video);
         }
         else {
             console.log("could not make response");
         }
+    }
+    if (isOlderMessage) {
+        // reset isOlderMessage
+        isOlderMessage = false;
     }
     exportArr.push({
         time: t,
@@ -210,6 +288,9 @@ function composeSusiMessage(response, t) {
     });
     newDiv.appendChild(document.createElement("br"));
     newDiv.appendChild(currtime);
+    newDiv.appendChild(thumbsUp);
+    newDiv.appendChild(document.createTextNode(" "));
+    newDiv.appendChild(thumbsDown);
     messages.appendChild(newDiv);
     var storageObj = {
         senderClass: "",
@@ -260,7 +341,17 @@ function composeReplyMap(response, action){
     response.isMap = true;
     response.newMap = mapDiv;
     return response;
+}
 
+function composeReplyVideo(response, identifier) {
+    var newDiv = messages.childNodes[messages.childElementCount];
+    var iframeDiv = document.createElement("iframe");
+    iframeDiv.setAttribute("id", "youtube-video");
+    iframeDiv.setAttribute("src", `https://www.youtube.com/embed/${identifier}?rel=0&enablejsapi=1&origin=*`);
+    newDiv.appendChild(iframeDiv);
+    response.isVideo = true;
+    response.video = iframeDiv;
+    return response;
 }
 
 function composeReplyAnchor(response, action){
@@ -292,7 +383,9 @@ function composeResponse(action, data) {
         image: false,
         tableType: false,
         isMap: false,
-        isAnchor: false
+        isAnchor: false,
+        isVideo: false,
+        video: ""
     };
     switch (action.type) {
         case "answer":
@@ -307,6 +400,9 @@ function composeResponse(action, data) {
         case "anchor":
             response = composeReplyAnchor(response, action);
             break;
+        case "video_play":
+            response = composeReplyVideo(response, action.identifier);
+            break;
         default:
             response.error = true;
             response.errorText = "No matching action type";
@@ -315,17 +411,31 @@ function composeResponse(action, data) {
     return response;
 }
 
-function successResponse(data , timestamp = getCurrentTime()) {
-    if(data.answers[0]){
-        data.answers[0].actions.map((action) => {
-            var response = composeResponse(action, data.answers[0].data);
-            loading(false);
-            composeSusiMessage(response, timestamp);
-            if (action.type !== data.answers[0].actions[data.answers[0].actions.length - 1].type) {
-                loading(); //if not last action then create another loading box for susi response
-            }
-        });
+function generateRating(skill) {
+    let parsed = skill.split("/");
+    let rating = {};
+    if (parsed.length === 7) {
+        rating.model = parsed[3];
+        rating.group = parsed[4];
+        rating.language = parsed[5];
+        rating.skill = parsed[6].slice(0, -4);
+        return rating;
     }
+    return null;
+}
+
+function successResponse(data , timestamp = getCurrentTime(), speak = true) {
+    data.answers[0].actions.map((action) => {
+        var response = composeResponse(action, data.answers[0].data);
+        let skill = data.answers[0].skills[0];
+        let rating = generateRating(skill);
+        loading(false);
+        isOlderMessage = !speak;
+        composeSusiMessage(response, timestamp, rating);
+        if (action.type !== data.answers[0].actions[data.answers[0].actions.length - 1].type) {
+            loading(); //if not last action then create another loading box for susi response
+        }
+    });
 }
 
 
@@ -333,6 +443,18 @@ let queryUrl = "";
 let baseUrl = "https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=";
 
 function getResponse(query) {
+    var errorResponse = {
+        error: true,
+        errorText: "Sorry! request could not be made"
+    };
+
+    var noResponse = {
+        error: true,
+        errorText: "Hmm... I'm not sure if i understand you correctly."
+    };
+
+    var timestamp = getCurrentTime();
+
     loading();
     if (accessToken) {
         queryUrl = `${baseUrl}${query}&access_token=${accessToken}`;
@@ -349,17 +471,19 @@ function getResponse(query) {
             console.log(textStatus);
             console.log(errorThrown);
             loading(false);
-            var response = {
-                error: true,
-                errorText: "Sorry! request could not be made"
-            };
-            composeSusiMessage(response);
+            composeSusiMessage(errorResponse);
         },
         success: function(data) {
-            successResponse(data);
+            if(!data.answers[0]){
+                loading(false);
+                composeSusiMessage(noResponse, timestamp);
+            }
+            else {
+                successResponse(data);
+            }
+            
         }
     });
-
 }
 
 function composeMyMessage(text, t= getCurrentTime()) {
@@ -449,7 +573,7 @@ function syncMessagesFromServer() {
             var garbageElement = `<div class="mynewmessage"><p></p><br><p class="time"></p></div>`;
             $(".empty-history").remove();
             messages.insertAdjacentHTML("beforeend", garbageElement);
-            successResponse(answer, answerTime);
+            successResponse(answer, answerTime, false);
         }
         queryAnswerData = null;
         localStorage.setItem("messages", null);
@@ -490,15 +614,12 @@ window.onload = function() {
     });
     syncMessagesFromServer();
     chrome.storage.sync.get("message", (items) => {
-    if (items) {
-        storageItems = items.message;
-        restoreMessages(storageItems);
-
-    }
-    else
-    {
-	  		$(".empty-history").remove();
-	 }
+        if (items) {
+            storageItems = items.message;
+            restoreMessages(storageItems);
+        } else {
+            $(".empty-history").remove();
+        }
 	});
 };
 
@@ -700,8 +821,10 @@ function check() {
         }, () => {});
     }
     chrome.storage.sync.get("loggedUser", (userDetails) => { // checks if the user is loggedin or not
-        if (userDetails.loggedUser.accessToken) {
-            accessToken = userDetails.loggedUser.accessToken;
+        if(userDetails.loggedUser){
+            if (userDetails.loggedUser.accessToken) {
+                accessToken = userDetails.loggedUser.accessToken;
+            }
         }
         sendUserSettingsToServer(dark, accessToken); // Sends the theme settings to server
     });

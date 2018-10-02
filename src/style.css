@@ -78,6 +78,10 @@ body {
     padding-right: 10px;
 }
 
+.box:not(:last-child) {
+    margin-bottom: 6px;
+}
+
 .messages {
     overflow-y: auto;
     height: 250px;
@@ -561,4 +565,14 @@ th {
 .mapClass{
     height: 200px;
     width: 200px;
+}
+
+iframe#youtube-video {
+    width: 260px;
+
+.table-tweet-response{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    width: 80px;
 }
