@@ -19,6 +19,7 @@ var cpassword = document.getElementById("cpassword");
 var passwordlim = document.getElementById("passwordlim");
 var newPassword = document.getElementById("newPassword");
 var toggle = document.getElementById("toggle");
+var settings=document.getElementById("settings");
 
 chrome.storage.sync.get("darktheme", (obj) => {
     if (obj.darktheme === true) {
@@ -237,3 +238,8 @@ logoutButton.addEventListener("click", function logout(e) {
 });
 
 document.addEventListener("DOMContentLoaded", showLoggedInBlock(false));
+
+settings.addEventListener("click",()=>
+{
+    this.location.href="/options.html";
+});
