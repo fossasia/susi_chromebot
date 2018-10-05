@@ -16,6 +16,7 @@ var checkLogin = localStorage.getItem("checkLogin");
 var getVoice = document.getElementById("getVoice");
 var restore = document.getElementById("restore");
 var voice;
+var localimage=document.getElementById("localupload");
 
 
 window.onload = () => {
@@ -110,4 +111,12 @@ restore.addEventListener("click", ()=>{
             localStorage.removeItem(item);
         });
     }
+});
+
+
+
+localimage.addEventListener("change",()=>{
+    var tmppath = URL.createObjectURL(localimage.files[0]);
+    localStorage.setItem("theValue",tmppath);
+    alert("Image Updated");
 });
