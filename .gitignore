@@ -62,4 +62,7 @@ typings/
 # dotenv environment variables file
 .env
 
+#macOS custom attributes file 
+.DS_Store
+
 # End of https://www.gitignore.io/api/node
