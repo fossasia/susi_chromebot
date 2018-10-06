@@ -299,7 +299,7 @@ function composeSusiMessage(response, t, rating) {
     var susimessage = newDiv.innerHTML;
     storageObj.content = susimessage;
     storageObj.senderClass = "susinewmessage";
-    chrome.storage.sync.get("message", (items) => {
+    chrome.storage.local.get("message", (items) => {
         if (items.message) {
             storageArr = items.message;
             var temp = storageArr.map(x => $.parseHTML(x.content));
@@ -310,7 +310,7 @@ function composeSusiMessage(response, t, rating) {
             });
         }
         storageArr.push(storageObj);
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             "message": storageArr
         }, () => {
             console.log("saved");
@@ -519,18 +519,18 @@ function composeMyMessage(text, t= getCurrentTime()) {
         image: false,
         source: "user"
     });
-    chrome.storage.sync.get("message", (items) => {
+    chrome.storage.local.get("message", (items) => {
         if (items.message) {
             storageArr = items.message;
         }
         storageArr.push(storageObj);
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             "message": storageArr
         }, () => {});
     });
 }
 
-function restoreMessages(storageItems) {
+function restoreMessages(storageItems = []) {
     if (!storageItems && !accessToken) {
         var htmlMsg = "<div class='empty-history'> Start by saying \"Hi\"</div>";
         $(htmlMsg).appendTo(messages);
@@ -601,7 +601,7 @@ window.onload = function() {
         console.log(msgTheme);
     }
 
-    chrome.storage.sync.get("loggedUser", function(userDetails) {
+    chrome.storage.local.get("loggedUser", function(userDetails) {
         var log = document.getElementById("log");
         if (userDetails.loggedUser && userDetails.loggedUser.email) {
             accessToken = userDetails.loggedUser.accessToken;
@@ -613,7 +613,7 @@ window.onload = function() {
         }
     });
     syncMessagesFromServer();
-    chrome.storage.sync.get("message", (items) => {
+    chrome.storage.local.get("message", (items) => {
         if (items) {
             storageItems = items.message;
             restoreMessages(storageItems);
