@@ -36,8 +36,6 @@ var synth = window.speechSynthesis;
 var voice = localStorage.getItem("voice");
 let micDiv = document.getElementById("micdiv");
 let sendDiv = document.getElementById("senddiv");
-var ticks = "✓";
-// var sentTicks = "✔✔";
 
 function speakOutput(msg, speak = false) {
     if (speak) {
@@ -131,7 +129,7 @@ function getCurrentTime( currDate = new Date() ) {
     if (minutes < 10) {
         minutes = "0" + minutes;
     }
-    time = hours + ":" + minutes + " " + ap + " " + ticks;
+    time = hours + ":" + minutes + " " + ap + " ";
     return time;
 }
 
@@ -209,8 +207,13 @@ function composeReplyTable(response, columns, data) {
 
 function composeSusiMessage(response, t, rating) {
     var newP = document.createElement("p");
+    newP.setAttribute("class", "susi-text-container");
     var thumbsUp = document.createElement("span");
     var thumbsDown = document.createElement("span");
+    var shareOnTwitter = document.createElement("span");
+    var messageFooter = document.createElement("li");
+
+    messageFooter.setAttribute("class", "susimessage-footer");
     
     thumbsUp.setAttribute("class", "fa fa-thumbs-up");
     thumbsUp.addEventListener("click", function(){
@@ -232,6 +235,18 @@ function composeSusiMessage(response, t, rating) {
             thumbsDown.style.color = "red";
         }
         feedback(false, rating);
+    });
+
+    let shareMessageSUSI = response.reply === undefined ? "" : response.reply;
+    shareMessageSUSI = encodeURIComponent(shareMessageSUSI.trim());
+    let shareTag = " #SUSI.AI";
+    shareTag = encodeURIComponent(shareTag);
+    let twitterShare =
+        "https://twitter.com/intent/tweet?text=" + shareMessageSUSI + shareTag;
+
+    shareOnTwitter.setAttribute("class", "fa fa-share-alt");
+    shareOnTwitter.addEventListener("click", function(){
+        window.open(twitterShare, "_blank");
     });
     
     var newDiv = messages.childNodes[messages.childElementCount];
@@ -259,6 +274,7 @@ function composeSusiMessage(response, t, rating) {
             var newImg = composeImage(response.reply);
             newDiv.appendChild(document.createElement("br"));
             newDiv.appendChild(newImg);
+
         } else if (response.tableType) {
             newDiv.appendChild(response.table);
             if (dark === true) {
@@ -288,11 +304,14 @@ function composeSusiMessage(response, t, rating) {
         map: response.newMap,
         source: "susi"
     });
-    newDiv.appendChild(document.createElement("br"));
-    newDiv.appendChild(currtime);
-    newDiv.appendChild(thumbsUp);
-    newDiv.appendChild(document.createTextNode(" "));
-    newDiv.appendChild(thumbsDown);
+
+    messageFooter.appendChild(currtime);
+    messageFooter.appendChild(thumbsUp);
+    messageFooter.appendChild(document.createTextNode(" "));
+    messageFooter.appendChild(thumbsDown);
+    messageFooter.appendChild(document.createTextNode(" "));
+    messageFooter.appendChild(shareOnTwitter);
+    newDiv.appendChild(messageFooter);
     messages.appendChild(newDiv);
     var storageObj = {
         senderClass: "",
@@ -301,7 +320,7 @@ function composeSusiMessage(response, t, rating) {
     var susimessage = newDiv.innerHTML;
     storageObj.content = susimessage;
     storageObj.senderClass = "susinewmessage";
-    chrome.storage.sync.get("message", (items) => {
+    chrome.storage.local.get("message", (items) => {
         if (items.message) {
             storageArr = items.message;
             var temp = storageArr.map(x => $.parseHTML(x.content));
@@ -312,7 +331,7 @@ function composeSusiMessage(response, t, rating) {
             });
         }
         storageArr.push(storageObj);
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             "message": storageArr
         }, () => {
             console.log("saved");
@@ -473,7 +492,7 @@ function getResponse(query) {
             console.log(textStatus);
             console.log(errorThrown);
             loading(false);
-            composeSusiMessage(errorResponse);
+            composeSusiMessage(errorResponse, timestamp);
         },
         success: function(data) {
             if(!data.answers[0]){
@@ -492,6 +511,10 @@ function composeMyMessage(text, t= getCurrentTime()) {
     $(".empty-history").remove();
     var newP = document.createElement("p");
     var newDiv = document.createElement("div");
+
+    var messageFooter = document.createElement("li");
+    messageFooter.setAttribute("class", "mymessage-footer");
+
     newDiv.setAttribute("class", "mynewmessage");
     if (dark === true) {
         newDiv.setAttribute("class", "message-dark mynewmessage");
@@ -503,8 +526,8 @@ function composeMyMessage(text, t= getCurrentTime()) {
     currtime.setAttribute("class", "time");
     var time = document.createTextNode(t);
     currtime.append(time);
-    newDiv.appendChild(document.createElement("br"));
-    newDiv.appendChild(currtime);
+    messageFooter.appendChild(currtime);
+    newDiv.appendChild(messageFooter);
     messages.appendChild(newDiv);
     textarea.value = "";
     messages.scrollTop = messages.scrollHeight;
@@ -521,18 +544,18 @@ function composeMyMessage(text, t= getCurrentTime()) {
         image: false,
         source: "user"
     });
-    chrome.storage.sync.get("message", (items) => {
+    chrome.storage.local.get("message", (items) => {
         if (items.message) {
             storageArr = items.message;
         }
         storageArr.push(storageObj);
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             "message": storageArr
         }, () => {});
     });
 }
 
-function restoreMessages(storageItems) {
+function restoreMessages(storageItems = []) {
     if (!storageItems && !accessToken) {
         var htmlMsg = "<div class='empty-history'> Start by saying \"Hi\"</div>";
         $(htmlMsg).appendTo(messages);
@@ -603,7 +626,7 @@ window.onload = function() {
         console.log(msgTheme);
     }
 
-    chrome.storage.sync.get("loggedUser", function(userDetails) {
+    chrome.storage.local.get("loggedUser", function(userDetails) {
         var log = document.getElementById("log");
         if (userDetails.loggedUser && userDetails.loggedUser.email) {
             accessToken = userDetails.loggedUser.accessToken;
@@ -615,7 +638,7 @@ window.onload = function() {
         }
     });
     syncMessagesFromServer();
-    chrome.storage.sync.get("message", (items) => {
+    chrome.storage.local.get("message", (items) => {
         if (items) {
             storageItems = items.message;
             restoreMessages(storageItems);
