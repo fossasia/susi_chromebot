@@ -22,15 +22,18 @@
                             <br />
                             <div class="form-group">
                                 <label for="password">Password:</label>
-                                <input type="password" class="form-control" id="cpassword" placeholder="Enter your password">
+                                <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                                <div style="text-align: center">
+                                    <small hidden id="passwordlim">Minimum 6 characters required</small>
+                                </div>
                             </div>
                             <br />
                             <div class="form-group">
-                                <label for="password">Password:</label>
-                                <input type="password" class="form-control" id="password" placeholder="Confirm Password">
+                                <label for="password">Confirm Password:</label>
+                                <input type="password" class="form-control" id="cpassword" placeholder="Confirm Password">
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-success" id="signupbutton">Signup</button>
+                            <button disabled type="submit" class="btn btn-success" id="signupbutton">Signup</button>
                             <br>
                             <p style="text-align: center;">
                                 <a href="login.html" style="color: #fff; ">Already Registered? Want to Login</a>

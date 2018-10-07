@@ -48,13 +48,29 @@ label {
     margin : auto;
 }
 
+.fa-eye, .fa-eye-slash{
+    position: absolute;
+    top: 6px;
+    right: 5px;
+    z-index: 15;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+}
+
 #username{
     width: 100%;
 }
 
 #password{
     width: 100%;
-    margin-right: 10px;
+    border-radius: 0.25rem;
+}
+
+#passwordlim{
+    color: white;
 }
 
 #loggedin{
@@ -66,12 +82,12 @@ label {
     margin:auto;
     padding:7px;
     text-align: center;
-  }
+}
 
 #cPass input {
     width: 60%;
 }
 
 .fmargin {
-    margin-top: 4%;
+    margin: 4% auto auto;
 }

@@ -12,6 +12,18 @@ var askSusi = chrome.contextMenus.create({
 	id:"askSusi"
 });
 
+var goToChat = chrome.contextMenus.create({
+	"title": "Chat SUSI",
+	"contexts":["browser_action"],
+	id:"goToChatSusi"
+});
+
+var goToSkills = chrome.contextMenus.create({
+	"title": "Skills SUSI",
+	"contexts":["browser_action"],
+	id:"goToSkillsSusi"
+});
+
 // perform action on clicking a context menu
 chrome.contextMenus.onClicked.addListener(function(info,tab){
 	var menuId = info.menuItemId;
@@ -21,6 +33,15 @@ chrome.contextMenus.onClicked.addListener(function(info,tab){
 			"askSusiQuery":query
 		});
 		chrome.browserAction.setBadgeText({text: "*"});
+	}
+	else if(menuId==="goToChatSusi"){
+		var chatURL = "https://chat.susi.ai";
+    	chrome.tabs.create({ url: chatURL });
+	}
+
+	else{
+		var skillURL = "https://skills.susi.ai";
+    	chrome.tabs.create({ url: skillURL });
 	}
 
 });

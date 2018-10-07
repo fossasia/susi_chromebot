@@ -16,6 +16,7 @@ var pass = document.getElementById("pass");
 var cPass = document.getElementById("cPass");
 var cemail = document.getElementById("cemail");
 var cpassword = document.getElementById("cpassword");
+var passwordlim = document.getElementById("passwordlim");
 var newPassword = document.getElementById("newPassword");
 var toggle = document.getElementById("toggle");
 
@@ -41,6 +42,16 @@ pass.addEventListener("click", ()=>{
 $("#cPass").toggle();
 });
 
+newPassword.addEventListener("keyup", ()=>{
+    if(newPassword.value.length<6){
+        passwordlim.removeAttribute("hidden");
+        document.getElementById("csubmit").setAttribute("disabled", "true");        
+    } else {
+        passwordlim.setAttribute("hidden", "true");
+        document.getElementById("csubmit").removeAttribute("disabled");
+    }
+});
+
 cPass.addEventListener("submit", (e)=>{
 	e.stopPropagation();
 		var loginEP = BASE_URL+"/aaa/changepassword.json?"+"changepassword="+ cemail.value + "&password="+ cpassword.value + "&newpassword=" + newPassword.value + "&access_token=" + accessToken ;		    
@@ -62,7 +73,7 @@ cPass.addEventListener("submit", (e)=>{
 
 window.onload = function() {
     chrome.storage.sync.get("loggedUser", function(userDetails) {
-        if (userDetails.loggedUser.email) {
+        if (userDetails.loggedUser && userDetails.loggedUser.email) {
             var msg="You are logged in as "+userDetails.loggedUser.email;
             showStatus(msg,false);
             showLoggedInBlock(true);
@@ -86,9 +97,15 @@ function showLoggedInBlock(show) {
     if (show) {
         noLoggedInBlock.style.display = "none";
         loggedInBlock.style.display = "block";
-        document.getElementById("passwordchange").value = "";
-        document.getElementById("passwordnewconfirm").value = "";
-        document.getElementById("passwordnew").value = "";
+        if (document.getElementById("passwordchange") != null) {
+            document.getElementById("passwordchange").value = "";
+        }
+        if (document.getElementById("passwordnewconfirm") != null) {
+            document.getElementById("passwordnewconfirm").value = "";
+        }
+        if (document.getElementById("passwordnew") != null) {
+            document.getElementById("passwordnew").value = "";
+        }
     } else {
         noLoggedInBlock.style.display = "block";
         loggedInBlock.style.display = "none";

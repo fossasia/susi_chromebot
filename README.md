@@ -1,8 +1,8 @@
 # Chrome extension to access SUSI.AI
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/98a620d9aed84320ab5d38e03e23a09b)](https://www.codacy.com/app/zamhaq/susi_chromebot?utm_source=github.com&utm_medium=referral&utm_content=fossasia/susi_chromebot&utm_campaign=badger)
-[![Build Status](https://travis-ci.org/fossasia/susi_chromebot.svg?branch=master)](https://travis-ci.org/fossasia/susi_chromebot)
-[![Join the chat at https://gitter.im/fossasia/susi_server](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/fossasia/susi_server)
+| **Code Quality** | **Build** | **Chat** |
+|------------------|-----------|----------|
+| [![Codacy Badge](https://api.codacy.com/project/badge/Grade/98a620d9aed84320ab5d38e03e23a09b)](https://www.codacy.com/app/zamhaq/susi_chromebot?utm_source=github.com&utm_medium=referral&utm_content=fossasia/susi_chromebot&utm_campaign=badger) | [![Build Status](https://travis-ci.org/fossasia/susi_chromebot.svg?branch=master)](https://travis-ci.org/fossasia/susi_chromebot) | [![Join the chat at https://gitter.im/fossasia/susi_server](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/fossasia/susi_server) |
 
 This is a chrome extension to access SUSI.AI.
 
@@ -21,7 +21,7 @@ $ cd src
 3. Turn on developer mode if not already on.
 4. Load unpacked extension from `src` folder.
 5. Click on the SUSI icon you see on your browser toolbar (or) Use the keybkeyboard shortcut ``Alt+Shift+s`` to open. 
-6. Click on the settings icon (top left of the popup) to allow mic access.
+6. Right click on the manifest icon (SUSI.AI icon on chrome), then click on `Options`. `Allow`  mic-access from there.
 
 ## Working GIF
 
