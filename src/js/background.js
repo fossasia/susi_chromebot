@@ -1,5 +1,5 @@
 /* jshint ignore:start */
-chrome.browserAction.onClicked.addListener(function (tab) {
+chrome.browserAction.onClicked.addListener((tab) => {
     chrome.tabs.executeScript({
         file: 'script.js'
     });
@@ -25,7 +25,7 @@ var goToSkills = chrome.contextMenus.create({
 });
 
 // perform action on clicking a context menu
-chrome.contextMenus.onClicked.addListener(function(info,tab){
+chrome.contextMenus.onClicked.addListener((info,tab) => {
 	var menuId = info.menuItemId;
 	var query = info.selectionText;
 	if(menuId==="askSusi"){
