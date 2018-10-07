@@ -33,7 +33,7 @@ if(micAccess) {
         navigator.webkitGetUserMedia({
             audio: true
         }, function (stream) {
-            stream.stop();
+            stream.getTracks().forEach(track => track.stop());
         }, function () {
             console.log("no access");
         });
