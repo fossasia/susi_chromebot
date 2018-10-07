@@ -507,9 +507,19 @@ function handleScroll() {
     scrollIconTop.style.display = "none";
     scrollIconBottom.style.display = "none";
     if (st > lastScrollTop){ // downscroll
-        (messages.scrollHeight - messages.scrollTop === messages.clientHeight)?(scrollIconTop.style.display = "block") : (scrollIconBottom.style.display = "block");
+        if(messages.scrollHeight - messages.scrollTop === messages.clientHeight){
+            scrollIconTop.style.display = "block";
+        }
+        else{
+            scrollIconBottom.style.display = "block";
+        }
     } else { // upscroll
-        (messages.scrollTop === 0) ? (scrollIconBottom.style.display = "block") : (scrollIconTop.style.display = "block");
+        if(messages.scrollTop === 0){
+            scrollIconBottom.style.display = "block";
+        }
+        else{
+        scrollIconTop.style.display = "block";
+        }
     }
     lastScrollTop = st;
 }
