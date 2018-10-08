@@ -63,3 +63,8 @@ typings/
 .env
 
 # End of https://www.gitignore.io/api/node
+
+
+# Additional files and folders to be ignored
+
+.idea
