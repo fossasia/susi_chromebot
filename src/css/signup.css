@@ -44,3 +44,7 @@ label {
 #email, #password{
     width: 100%;
 }
+
+#passwordlim{
+	color: white;
+}
