@@ -11,7 +11,8 @@ var micimg = document.getElementById("micimg");
 var micmodal = document.getElementById("micmodal");
 var setting = document.getElementById("setting");
 var clear = document.getElementById("clear");
-var scrollIconElement = document.getElementById("scrollIcon");
+let scrollIconBottomElement = document.getElementById("scrollIconBottom");
+let scrollIconTopElement = document.getElementById("scrollIconTop");
 var exportData = document.getElementById("export");
 var dark = false;
 var upCount = 0;
@@ -587,8 +588,8 @@ let syncMessagesFromServer = () => {
             queryTime = new Date(Date.parse(queryAnswerData[i].queryTime));
             queryTime = getCurrentTime(queryTime);
             var answerTime = queryAnswerData[i].answerTime;
-			 answerTime = new Date(Date.parse(queryAnswerData[i].answerTime));
-			 answerTime = getCurrentTime(answerTime);
+			answerTime = new Date(Date.parse(queryAnswerData[i].answerTime));
+			answerTime = getCurrentTime(answerTime);
             var answer = queryAnswerData[i].answer;
             composeMyMessage(query, queryTime);
             var garbageElement = `<div class="mynewmessage"><p></p><br><p class="time"></p></div>`;
@@ -602,10 +603,7 @@ let syncMessagesFromServer = () => {
     }
 };
 
-
 window.onload = () => {
-
-
     if (backUrl) {
         box.style.backgroundImage = "url(" + backUrl + ")";
         box.style.backgroundRepeat = "no-repeat";
@@ -644,17 +642,20 @@ window.onload = () => {
 	});
 };
 
+let lastScrollTop = 0;
 
 let handleScroll = () => {
-    var scrollIcon = scrollIconElement;
-    var end = messages.scrollHeight - messages.scrollTop === messages.clientHeight;
-    if (end) {
-        //hide icon
-        scrollIcon.style.display = "none";
-    } else {
-        //show icon
-        scrollIcon.style.display = "block";
+    let scrollIconTop = scrollIconTopElement;
+    let scrollIconBottom = scrollIconBottomElement;
+    let st = $(this).scrollTop();
+    if (st > lastScrollTop){ // downscroll
+        scrollIconTop.style.display = (messages.scrollHeight - messages.scrollTop === messages.clientHeight) ? "block" : "none";
+        scrollIconBottom.style.display = (messages.scrollHeight - messages.scrollTop !== messages.clientHeight) ? "block" : "none";
+    } else { // upscroll
+        scrollIconBottom.style.display = (messages.scrollTop === 0) ? "block" : "none";
+        scrollIconTop.style.display = (messages.scrollTop !== 0) ? "block": "none";
     }
+    lastScrollTop = st;
 };
 
 if (messages) {
@@ -885,7 +886,14 @@ let changeSpeak = () => {
     console.log("Should be speaking? " + shouldSpeak);
 };
 
-scrollIconElement.addEventListener("click", (e) => {
+scrollIconTopElement.addEventListener("click", (e) => {
+    $(messages).stop().animate({
+        scrollTop: 0
+    }, 800);
+    e.preventDefault();
+});
+
+scrollIconBottomElement.addEventListener("click", (e) => {
     $(messages).stop().animate({
         scrollTop: $(messages)[0].scrollHeight
     }, 800);
