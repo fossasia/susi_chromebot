@@ -19,6 +19,7 @@ var cpassword = document.getElementById("cpassword");
 var passwordlim = document.getElementById("passwordlim");
 var newPassword = document.getElementById("newPassword");
 var toggle = document.getElementById("toggle");
+var settings=document.getElementById("settings");
 
 chrome.storage.sync.get("darktheme", (obj) => {
     if (obj.darktheme === true) {
@@ -59,21 +60,21 @@ cPass.addEventListener("submit", (e)=>{
 		    	url:loginEP,
 		        dataType: "jsonp",
 				jsonp: "callback",
-				crossDomain: true,
-		        success: function (response) {
+				crossDomain: true,		        
+		        success: (response) => {
 					alert(response.message);
 					cPass.style.display = "none";
 		        },
-		        error : function() {
+		        error : () => {
 		            console.log(loginEP);
 		        }
 		    });
 		});
 
 
-window.onload = function() {
-    chrome.storage.sync.get("loggedUser", function(userDetails) {
-        if (userDetails.loggedUser.email) {
+window.onload = () => {
+    chrome.storage.sync.get("loggedUser", (userDetails) => {
+        if (userDetails.loggedUser && userDetails.loggedUser.email) {
             var msg="You are logged in as "+userDetails.loggedUser.email;
             showStatus(msg,false);
             showLoggedInBlock(true);
@@ -84,31 +85,37 @@ window.onload = function() {
 };
 
 
-function showStatus(msg,isError){
+let showStatus = (msg,isError) => {
     if(!isError){
         statusBlock.classList.remove('alert-danger');
         statusBlock.classList.add('alert-success');
     }
     statusBlock.style.visibility="visible";
     statusBlock.innerHTML=msg;
-}
+};
 
-function showLoggedInBlock(show) {
+let showLoggedInBlock = (show) => {
     if (show) {
         noLoggedInBlock.style.display = "none";
         loggedInBlock.style.display = "block";
-        document.getElementById("passwordchange").value = "";
-        document.getElementById("passwordnewconfirm").value = "";
-        document.getElementById("passwordnew").value = "";
+        if (document.getElementById("passwordchange") != null) {
+            document.getElementById("passwordchange").value = "";
+        }
+        if (document.getElementById("passwordnewconfirm") != null) {
+            document.getElementById("passwordnewconfirm").value = "";
+        }
+        if (document.getElementById("passwordnew") != null) {
+            document.getElementById("passwordnew").value = "";
+        }
     } else {
         noLoggedInBlock.style.display = "block";
         loggedInBlock.style.display = "none";
         document.getElementById("username").value = "";
         document.getElementById("password").value = "";
     }
-}
+};
 
-function syncUserSettings() {
+let syncUserSettings = () => {
     var listUserSettings = BASE_URL + "/aaa/listUserSettings.json?access_token=" + accessToken;
     $.ajax({
         url: listUserSettings,
@@ -116,7 +123,7 @@ function syncUserSettings() {
         jsonpCallback: "p",
         jsonp: "callback",
         crossDomain: "true",
-        success: function(response) {
+        success: (response) => {
             if (response.accepted) {
                 if (response.settings.theme != null) {
                     var userThemeValue = response.settings.theme;
@@ -136,9 +143,9 @@ function syncUserSettings() {
             }
         }
     });
-}
+};
 
-function retrieveChatHistory() {
+let retrieveChatHistory = () => {
     var serverHistoryEndpoint = BASE_URL + "/susi/memory.json?access_token=" + accessToken;
     $.ajax({
         url: serverHistoryEndpoint,
@@ -146,7 +153,7 @@ function retrieveChatHistory() {
         jsonpCallback: "u",
         jsonp: "callback",
         crossDomain: "true",
-        success: function(response) {
+        success: (response) => {
             var messages = [];
             for (var i = response.cognitions.length - 1; i >= 0; i--) {
                 var queryAnswerPair = response.cognitions[i];
@@ -166,8 +173,9 @@ function retrieveChatHistory() {
         }
 
     });
-}
-loginForm.addEventListener("submit", function login(event) {
+};
+
+loginForm.addEventListener("submit", (event) => {
     event.preventDefault();
     var email = document.getElementById("username").value;
     var password = document.getElementById("password").value;
@@ -186,7 +194,7 @@ loginForm.addEventListener("submit", function login(event) {
         jsonpCallback: "p",
         jsonp: "callback",
         crossDomain: true,
-        success: function(response) {
+        success: (response) => {
             if (response.accepted) {
                 accessToken = response.access_token;
                 checkLogin = "true";
@@ -210,7 +218,7 @@ loginForm.addEventListener("submit", function login(event) {
                 showStatus("Log In Failed",true);
             }
         },
-        error: function(jqXHR) {
+        error: (jqXHR) => {
             loginButton.innerHTML = "Login";
             var msg = "";
             var jsonValue = jqXHR.status;
@@ -227,7 +235,7 @@ loginForm.addEventListener("submit", function login(event) {
         }
     });
 });
-logoutButton.addEventListener("click", function logout(e) {
+logoutButton.addEventListener("click", (e) => {
     e.preventDefault();
     window.location.reload();
     checkLogin = "false";
@@ -237,3 +245,8 @@ logoutButton.addEventListener("click", function logout(e) {
 });
 
 document.addEventListener("DOMContentLoaded", showLoggedInBlock(false));
+
+settings.addEventListener("click",()=>
+{
+    this.location.href="/options.html";
+});

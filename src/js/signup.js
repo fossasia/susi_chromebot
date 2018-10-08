@@ -4,12 +4,13 @@ var notsignupBlock = document.getElementById("notsignup");
 var signupBlock = document.getElementById("signedup");
 var BASE_URL = "https://api.susi.ai";
 var passwordlim = document.getElementById("passwordlim");
+var password = document.getElementById("password");
 
-window.onload = function(){
+window.onload = () => {
 	showsignupBlock(true);
 };
 
-function showsignupBlock(show){
+let showsignupBlock = (show) => {
 	if(show) {
 		notsignupBlock.style.display="block";
 		signupBlock.style.display="none";
@@ -18,10 +19,10 @@ function showsignupBlock(show){
 		signupBlock.style.display="block";
 		notsignupBlock.style.display="none";
 	}
-}
+};
 
-cpassword.addEventListener("keyup", ()=>{
-    if(cpassword.value.length<6){
+password.addEventListener("keyup", ()=>{
+    if(password.value.length<6){
 		passwordlim.removeAttribute("hidden");
 		document.getElementById("signupbutton").setAttribute("disabled", "true");
     } else {
@@ -30,7 +31,7 @@ cpassword.addEventListener("keyup", ()=>{
     }
 });
 
-signupForm.addEventListener("submit", function reset(event){
+signupForm.addEventListener("submit", (event) => {
 	event.preventDefault();
 	var email=document.getElementById("email").value;
 	if(!email){
@@ -50,13 +51,13 @@ signupForm.addEventListener("submit", function reset(event){
 		jsonpCallback: "p",
 		jsonp: "callback",
 		crossDomain: true,
-		success: function (response) {
+		success: (response) => {
 			if(response.accepted){
 				alert(response.message);
 				showsignupBlock(false);
 			}
 		},
-		error: function (jqXHR) {
+		error: (jqXHR) => {
 			var msg = "";
 			console.log(jqXHR);
 			var jsonValue =  jqXHR.status;
