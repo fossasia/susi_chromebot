@@ -16,6 +16,7 @@ var checkLogin = localStorage.getItem("checkLogin");
 var getVoice = document.getElementById("getVoice");
 var restore = document.getElementById("restore");
 var voice;
+var localimage=document.getElementById("localupload");
 
 
 window.onload = () => {
@@ -32,9 +33,9 @@ if(micAccess) {
     micAccess.addEventListener("click", () => {
         navigator.webkitGetUserMedia({
             audio: true
-        }, function (stream) {
+        }, (stream) => {
             stream.getTracks().forEach(track => track.stop());
-        }, function () {
+        }, () => {
             console.log("no access");
         });
     });
@@ -110,4 +111,12 @@ restore.addEventListener("click", ()=>{
             localStorage.removeItem(item);
         });
     }
+});
+
+
+
+localimage.addEventListener("change",()=>{
+    var tmppath = URL.createObjectURL(localimage.files[0]);
+    localStorage.setItem("theValue",tmppath);
+    alert("Image Updated");
 });
