@@ -38,6 +38,7 @@ var voice = localStorage.getItem("voice");
 
 textarea.addEventListener('keydown', resizeTextarea);
 
+//Function to resize the textarea for writing messages
 function resizeTextarea(){
   var element = this;
   setTimeout(function(){
