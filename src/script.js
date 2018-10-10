@@ -36,16 +36,18 @@ var mapAccessToken = "pk.eyJ1IjoiZ2FicnUtbWQiLCJhIjoiY2pja285N2g0M3cyOTJxbnR1aTJ
 var synth = window.speechSynthesis;
 var voice = localStorage.getItem("voice");
 
-textarea.addEventListener('keydown', resizeTextarea);
 
 //Function to resize the textarea for writing messages
 function resizeTextarea(){
   var element = this;
   setTimeout(function(){
-    element.style.cssText = 'height:auto';
-    element.style.cssText = 'height:' + element.scrollHeight + 'px';
+    element.style.cssText = "height:auto";
+    element.style.cssText = "height:" + element.scrollHeight + "px";
   },0);
 }
+
+textarea.addEventListener("keydown", resizeTextarea);
+
 
 let speakOutput = (msg, speak = false) => {
     if (speak) {
@@ -538,7 +540,7 @@ let composeMyMessage = (text, t= getCurrentTime()) => {
     newDiv.appendChild(messageFooter);
     messages.appendChild(newDiv);
     textarea.value = "";
-    textarea.style.cssText = 'height:40px';
+    textarea.style.cssText = "height:40px";
     messages.scrollTop = messages.scrollHeight;
     var storageObj = {
         senderClass: "",
