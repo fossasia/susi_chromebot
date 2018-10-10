@@ -5,7 +5,7 @@
 /* global L */
 var messages = document.getElementById("messages");
 var formid = document.getElementById("formid");
-var textarea = document.getElementById("textarea");
+var textarea = document.getElementById("inputtext");
 var mic = document.getElementById("mic");
 var micimg = document.getElementById("micimg");
 var micmodal = document.getElementById("micmodal");
@@ -35,6 +35,16 @@ var accessToken = "";
 var mapAccessToken = "pk.eyJ1IjoiZ2FicnUtbWQiLCJhIjoiY2pja285N2g0M3cyOTJxbnR1aTJ5aWU0ayJ9.YkpBlvuHFgd2V9DGHOElVA";
 var synth = window.speechSynthesis;
 var voice = localStorage.getItem("voice");
+
+textarea.addEventListener('keydown', resizeTextarea);
+
+function resizeTextarea(){
+  var element = this;
+  setTimeout(function(){
+    element.style.cssText = 'height:auto';
+    element.style.cssText = 'height:' + element.scrollHeight + 'px';
+  },0);
+}
 
 let speakOutput = (msg, speak = false) => {
     if (speak) {
@@ -211,7 +221,7 @@ let composeSusiMessage = (response, t, rating) => {
     var messageFooter = document.createElement("li");
 
     messageFooter.setAttribute("class", "susimessage-footer");
-    
+
     thumbsUp.setAttribute("class", "fa fa-thumbs-up");
     thumbsUp.addEventListener("click", () => {
         if (thumbsUp.hasAttribute("style")) {
@@ -222,7 +232,7 @@ let composeSusiMessage = (response, t, rating) => {
         }
         feedback(true, rating);
     });
-    
+
     thumbsDown.setAttribute("class", "fa fa-thumbs-down");
     thumbsDown.addEventListener("click", () => {
         if (thumbsDown.hasAttribute("style")) {
@@ -245,7 +255,7 @@ let composeSusiMessage = (response, t, rating) => {
     shareOnTwitter.addEventListener("click", function(){
         window.open(twitterShare, "_blank");
     });
-    
+
     var newDiv = messages.childNodes[messages.childElementCount];
     newDiv.setAttribute("class", "susinewmessage");
     if (dark === true) {
@@ -499,7 +509,7 @@ let getResponse = (query) => {
             else {
                 successResponse(data);
             }
-            
+
         }
     });
 };
@@ -527,6 +537,7 @@ let composeMyMessage = (text, t= getCurrentTime()) => {
     newDiv.appendChild(messageFooter);
     messages.appendChild(newDiv);
     textarea.value = "";
+    textarea.style.cssText = 'height:40px';
     messages.scrollTop = messages.scrollHeight;
     var storageObj = {
         senderClass: "",
