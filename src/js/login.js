@@ -32,7 +32,7 @@ chrome.storage.sync.get("darktheme", (obj) => {
 toggle.addEventListener("click", ()=>{
     toggle.classList.toggle("fa-eye");
     toggle.classList.toggle("fa-eye-slash");
-    if (toggle.classList.contains("fa-eye")) {
+    if (toggle.classList.contains("fa-eye-slash")) {
         document.getElementById("password").type = "password";
     } else {
         document.getElementById("password").type = "text";
@@ -46,7 +46,7 @@ $("#cPass").toggle();
 newPassword.addEventListener("keyup", ()=>{
     if(newPassword.value.length<6){
         passwordlim.removeAttribute("hidden");
-        document.getElementById("csubmit").setAttribute("disabled", "true");        
+        document.getElementById("csubmit").setAttribute("disabled", "true");
     } else {
         passwordlim.setAttribute("hidden", "true");
         document.getElementById("csubmit").removeAttribute("disabled");
@@ -55,7 +55,7 @@ newPassword.addEventListener("keyup", ()=>{
 
 cPass.addEventListener("submit", (e)=>{
 	e.stopPropagation();
-		var loginEP = BASE_URL+"/aaa/changepassword.json?"+"changepassword="+ cemail.value + "&password="+ cpassword.value + "&newpassword=" + newPassword.value + "&access_token=" + accessToken ;		    
+		var loginEP = BASE_URL+"/aaa/changepassword.json?"+"changepassword="+ cemail.value + "&password="+ cpassword.value + "&newpassword=" + newPassword.value + "&access_token=" + accessToken ;
 		  $.ajax({
 		    	url:loginEP,
 		        dataType: "jsonp",
@@ -69,7 +69,7 @@ cPass.addEventListener("submit", (e)=>{
 		            console.log(loginEP);
 		        }
 		    });
-		});	
+		});
 
 
 window.onload = () => {
@@ -199,7 +199,7 @@ loginForm.addEventListener("submit", (event) => {
                 accessToken = response.access_token;
                 checkLogin = "true";
                 localStorage.setItem("checkLogin", checkLogin);
-                
+
                 chrome.storage.sync.set({
                     loggedUser: {
                         email: email,
