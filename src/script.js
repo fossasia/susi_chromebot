@@ -211,7 +211,7 @@ let composeSusiMessage = (response, t, rating) => {
     var messageFooter = document.createElement("li");
 
     messageFooter.setAttribute("class", "susimessage-footer");
-    
+
     thumbsUp.setAttribute("class", "fa fa-thumbs-up");
     thumbsUp.addEventListener("click", () => {
         if (thumbsUp.hasAttribute("style")) {
@@ -222,7 +222,7 @@ let composeSusiMessage = (response, t, rating) => {
         }
         feedback(true, rating);
     });
-    
+
     thumbsDown.setAttribute("class", "fa fa-thumbs-down");
     thumbsDown.addEventListener("click", () => {
         if (thumbsDown.hasAttribute("style")) {
@@ -245,7 +245,7 @@ let composeSusiMessage = (response, t, rating) => {
     shareOnTwitter.addEventListener("click", function(){
         window.open(twitterShare, "_blank");
     });
-    
+
     var newDiv = messages.childNodes[messages.childElementCount];
     newDiv.setAttribute("class", "susinewmessage");
     if (dark === true) {
@@ -499,7 +499,7 @@ let getResponse = (query) => {
             else {
                 successResponse(data);
             }
-            
+
         }
     });
 };
@@ -763,7 +763,17 @@ setting.addEventListener("click", () => {
 });
 
 clear.addEventListener("click", () => {
+    var checkDark = 0;
+    if(dark === true){
+      checkDark = 1;
+    }
     chrome.storage.sync.clear();
+    if(checkDark === 1){
+      dark = true;
+      chrome.storage.sync.set({
+          "darktheme": true
+      }, () => {});
+    }
 });
 
 exportData.addEventListener("click", () => {
