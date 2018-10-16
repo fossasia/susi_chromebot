@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -54,9 +56,9 @@ body {
 
 .scroll-icon-bottom, .scroll-icon-top{
     position: absolute;
-    right: 20px;
+    right: 30px;
     cursor: pointer;
-    bottom: 85px;
+    bottom: 10px;
     background-color: rgb(66, 133, 244);
     padding: 0px 8px;
     border-radius: 50%;
@@ -75,6 +77,7 @@ body {
 .box {
     background-color: rgb(243, 242, 244);
     padding-right: 10px;
+    position: relative;
 }
 
 .box:not(:last-child) {
@@ -226,15 +229,25 @@ body {
     color: white;
 }
 
-.textarea {
-    /* max-width: 125%; */
-    width: 118%;
-    margin-bottom: 5px;
+.inputtext {
+    width: 100%;
     resize: none;
+    border-radius: 20px;
+    min-height: 40px;
+    height: auto;
+    padding: 10px;
+    font-family: 'Roboto Condensed', sans-serif;
+    border: none;
+    background-color: #E0E0E0;
+    color: #212121;
+}
+
+.inputtext:focus {
+    outline:none;
 }
 
 .textarea-mod {
-    background-color: rgb(25, 50, 76);
+    background-color: #37474F;
     border: 0;
     color: #0ad5c1;
 }

@@ -5,7 +5,7 @@
 /* global L */
 var messages = document.getElementById("messages");
 var formid = document.getElementById("formid");
-var textarea = document.getElementById("textarea");
+var textarea = document.getElementById("inputtext");
 var mic = document.getElementById("mic");
 var micimg = document.getElementById("micimg");
 var micmodal = document.getElementById("micmodal");
@@ -35,6 +35,19 @@ var accessToken = "";
 var mapAccessToken = "pk.eyJ1IjoiZ2FicnUtbWQiLCJhIjoiY2pja285N2g0M3cyOTJxbnR1aTJ5aWU0ayJ9.YkpBlvuHFgd2V9DGHOElVA";
 var synth = window.speechSynthesis;
 var voice = localStorage.getItem("voice");
+
+
+//Function to resize the textarea for writing messages
+function resizeTextarea(){
+  var element = this;
+  setTimeout(function(){
+    element.style.cssText = "height:auto";
+    element.style.cssText = "height:" + element.scrollHeight + "px";
+  },0);
+}
+
+textarea.addEventListener("keydown", resizeTextarea);
+
 
 let speakOutput = (msg, speak = false) => {
     if (speak) {
@@ -527,6 +540,7 @@ let composeMyMessage = (text, t= getCurrentTime()) => {
     newDiv.appendChild(messageFooter);
     messages.appendChild(newDiv);
     textarea.value = "";
+    textarea.style.cssText = "height:40px";
     messages.scrollTop = messages.scrollHeight;
     var storageObj = {
         senderClass: "",
