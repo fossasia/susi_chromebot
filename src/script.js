@@ -211,7 +211,7 @@ let composeSusiMessage = (response, t, rating) => {
     var messageFooter = document.createElement("li");
 
     messageFooter.setAttribute("class", "susimessage-footer");
-    
+
     thumbsUp.setAttribute("class", "fa fa-thumbs-up");
     thumbsUp.addEventListener("click", () => {
         if (thumbsUp.hasAttribute("style")) {
@@ -222,7 +222,7 @@ let composeSusiMessage = (response, t, rating) => {
         }
         feedback(true, rating);
     });
-    
+
     thumbsDown.setAttribute("class", "fa fa-thumbs-down");
     thumbsDown.addEventListener("click", () => {
         if (thumbsDown.hasAttribute("style")) {
@@ -245,7 +245,7 @@ let composeSusiMessage = (response, t, rating) => {
     shareOnTwitter.addEventListener("click", function(){
         window.open(twitterShare, "_blank");
     });
-    
+
     var newDiv = messages.childNodes[messages.childElementCount];
     newDiv.setAttribute("class", "susinewmessage");
     if (dark === true) {
@@ -499,7 +499,7 @@ let getResponse = (query) => {
             else {
                 successResponse(data);
             }
-            
+
         }
     });
 };
@@ -642,20 +642,17 @@ window.onload = () => {
 	});
 };
 
-let lastScrollTop = 0;
 
 let handleScroll = () => {
-    let scrollIconTop = scrollIconTopElement;
-    let scrollIconBottom = scrollIconBottomElement;
-    let st = $(this).scrollTop();
-    if (st > lastScrollTop){ // downscroll
-        scrollIconTop.style.display = (messages.scrollHeight - messages.scrollTop === messages.clientHeight) ? "block" : "none";
-        scrollIconBottom.style.display = (messages.scrollHeight - messages.scrollTop !== messages.clientHeight) ? "block" : "none";
-    } else { // upscroll
-        scrollIconBottom.style.display = (messages.scrollTop === 0) ? "block" : "none";
-        scrollIconTop.style.display = (messages.scrollTop !== 0) ? "block": "none";
-    }
-    lastScrollTop = st;
+  var end=messages.scrollHeight - messages.scrollTop === messages.clientHeight;
+  if(end){
+    scrollIconBottomElement.style.display="none";
+    scrollIconTopElement.style.display="block";
+  }
+  else{
+    scrollIconBottomElement.style.display="block";
+    scrollIconTopElement.style.display="none";
+  }
 };
 
 if (messages) {
