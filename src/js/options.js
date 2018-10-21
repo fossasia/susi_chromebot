@@ -4,9 +4,9 @@ var backUrl = document.getElementById("backUrl");
 var preDefThemes = document.getElementById("preDefThemes");
 var msgPaneThemes = document.getElementById("msgPaneThemes");
 var getVoice = document.getElementById("getVoice");
-var submit1 = document.getElementById("submit1");
-var submit2 = document.getElementById("submit2");
-var submit3 = document.getElementById("submit3");
+let submitThemeColor = document.getElementById("submit-themecolor");
+let submitMsgPaneColor = document.getElementById("submit-panecolor");
+let submitSusiVoice = document.getElementById("submit-susivoice");
 var theme;
 var msgTheme;
 var theValue;
@@ -72,23 +72,23 @@ if(getVoice) {
      });
 }
 
-if(submit1) {
-			submit1.addEventListener("click",()=>{
+if(submitThemeColor) {
+    submitThemeColor.addEventListener("click",()=>{
 			localStorage.setItem("theme",theme);
-			alert("success");
+			alert("Success");
       });
 }
 
-if(submit2) {
-			submit2.addEventListener("click",()=>{
+if(submitMsgPaneColor) {
+    submitMsgPaneColor.addEventListener("click",()=>{
 			localStorage.setItem("msgTheme",msgTheme);
-			alert("success");
+			alert("Success");
       });
 }
-if(submit3) {
- 			submit3.addEventListener("click",()=>{
+if(submitSusiVoice) {
+    submitSusiVoice.addEventListener("click",()=>{
  			localStorage.setItem("voice",voice);
- 			alert("success");
+ 			alert("Success");
       });
 }
 if(backgroundChange) {

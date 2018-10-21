@@ -35,6 +35,8 @@ var accessToken = "";
 var mapAccessToken = "pk.eyJ1IjoiZ2FicnUtbWQiLCJhIjoiY2pja285N2g0M3cyOTJxbnR1aTJ5aWU0ayJ9.YkpBlvuHFgd2V9DGHOElVA";
 var synth = window.speechSynthesis;
 var voice = localStorage.getItem("voice");
+let micDiv = document.getElementById("micdiv");
+let sendDiv = document.getElementById("senddiv");
 
 let speakOutput = (msg, speak = false) => {
     if (speak) {
@@ -912,3 +914,14 @@ scrollIconBottomElement.addEventListener("click", (e) => {
 
 document.getElementById("check").addEventListener("click", check);
 document.getElementById("speak").addEventListener("click", changeSpeak);
+
+textarea.addEventListener("input", (e) => {
+    if(e.target.value) {
+        micDiv.style.display = "none";
+        sendDiv.style.display = "block";
+    }
+    else {
+        micDiv.style.display = "block";
+        sendDiv.style.display = "none";
+    }
+});
