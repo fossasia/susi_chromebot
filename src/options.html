@@ -7,10 +7,12 @@
     <title>Settings page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="css/options.css">
+    <link rel="stylesheet" type="text/css" href="css/ldcp.css"/>
+    <script type="text/javascript" src="js/ldcp.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <div class="card">
+        <div class="blue-container">
             <div class="row">
                 <div class="col-sm-12">
                     <img src="images/susi-logo.png" class="img-fluid logo">
@@ -20,21 +22,22 @@
                     </div>
                 </div>
             </div>
-            <hr>
+        </div>
+        <div class="card">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="micAccess">
                         <div class="row">
-                           <div class="col-sm-12 sub-heading">
+                            <div class="col-sm-12 sub-heading">
                                 <span class="glyphicon glyphicon-ice-lolly"></span>
                                 <span> Microphone Access</span>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-4 row-label">
+                            <div class="col-sm-4">
                                 <span>Please Allow mic access</span>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="save-btn">
 								<button class="btn btn-success" id="micAccess" style="margin-left: 60px;color: #fff;">Allow</button>
                             </div>
                         </div>
@@ -53,21 +56,21 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-5 row-label">
+                                <div class="col-sm-10">
                                     <span>Enter the url to add Custom Background</span>
                                 </div>
 
-                                <div class="col-sm-5">
+                                <div class="col-sm-7 ">
                                     <input type="text" class="form-control" placeholder="Background URL" id="backUrl">
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="save-btn">
                                     <button type="submit" class="btn btn-success" style="color: #fff;">Submit</button>
                                 </div>
-                                <div class="col-12" style="text-align:center"><strong>OR</strong></div>
-                                <div class="col-sm-5 row-label">
+                                <div class="col-sm-7" style="text-align:center"><strong>OR</strong></div>
+                                <div class="col-sm-7">
                                     <span>Upload Local Image</span>
                                 </div>
-                                <div class="col-sm-5">
+                                <div class="col-sm-7">
                                     <input id="localupload"  type="file"  placeholder="Background URL" id="backUrl">
                                 </div>
                             </div>
@@ -90,9 +93,14 @@
                                 <input type="button" id="deeppink" class="btn theme" style="background-color: deeppink;">
                                 <input type="button" id="chartreuse" class="btn theme" style="background-color: chartreuse;">
                                 <input type="button" id="brown" class="btn theme" style="background-color: brown;">
+                                <div class="theme-picker-container">
+                                    <p style="margin: 10px 0px 0px;">Color picker</p>
+                                    <button id="btn-color-theme" class="btn theme"></button>
+                                    <input type="input" id="inputbox" data-toggle="colorpicker" class="color-picker">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-8">
+                        <div class="save-btn">
                              <button type="submit" id="submit-themecolor" class="btn btn-success" style="margin-left:58px;color: #fff; float: left;">Submit</button>
                         </div>
                     </div>
@@ -115,7 +123,7 @@
                                  <input type="button" id="brown" class="btn theme" style="background-color: brown;">
                              </div>
                          </div>
-                         <div class="col-sm-8">
+                         <div class="save-btn">
                              <button type="submit" id="submit-panecolor" class="btn btn-success" style="margin-left: 58px;color: #fff; float: left;">Submit</button>
                          </div>
                      </div>
@@ -136,7 +144,7 @@
                                          <button type="button" id= "4" class="btn btn-primary">Female</button>
                                     </div>
                                </div>
-                               <div class="col-sm-8">
+                               <div class="save-btn">
                                     <button type="submit" id="submit-susivoice" class="btn btn-success" style="margin-left: 58px;color: #fff; float: left;">Submit</button>
                                </div>
                            </div>
