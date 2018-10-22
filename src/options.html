@@ -5,10 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Settings page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="css/options.css">
 </head>
+
 <body>
+    <div id="alertback" >
+
+        <div  id="alerts">
+
+        </div>
+    </div>
     <div class="container">
         <div class="card">
             <div class="row">
@@ -21,11 +29,12 @@
                 </div>
             </div>
             <hr>
+
             <div class="row">
                 <div class="col-sm-12">
                     <div class="micAccess">
                         <div class="row">
-                           <div class="col-sm-12 sub-heading">
+                            <div class="col-sm-12 sub-heading">
                                 <span class="glyphicon glyphicon-ice-lolly"></span>
                                 <span> Microphone Access</span>
                             </div>
@@ -35,7 +44,7 @@
                                 <span>Please Allow mic access</span>
                             </div>
                             <div class="col-sm-8">
-								<button class="btn btn-success" id="micAccess" style="margin-left: 60px;color: #fff;">Allow</button>
+                                <button class="btn btn-success" id="micAccess" style="margin-left: 60px;color: #fff;">Allow</button>
                             </div>
                         </div>
                     </div>
@@ -85,62 +94,65 @@
                             </div>
                         </div>
                         <div class="col-sm-8">
-                             <button type="submit" id="submit1" class="btn btn-success" style="margin-left:58px;color: #fff; float: left;">Submit</button>
+                            <button type="submit" id="submit1" class="btn btn-success" style="margin-left:58px;color: #fff; float: left;">Submit</button>
                         </div>
                     </div>
                 </div>
             </div>
-			      <div class="row">
-                 <div class="col-sm-12">
-                     <div class="row">
-                         <div class="col-sm-12 sub-heading">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12 sub-heading">
                             <span class="glyphicon glyphicon-tint"></span>
-                             <span>Message Pane Colour</span>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="col-sm-4">
-                             <div class="themeSelectors" id="msgPaneThemes">
-                                 <input type="button" id="black" class="btn theme" style="background-color: black;">
-                                 <input type="button" id="deeppink" class="btn theme" style="background-color: deeppink;">
-                                 <input type="button" id="chartreuse" class="btn theme" style="background-color: chartreuse;">
-                                 <input type="button" id="brown" class="btn theme" style="background-color: brown;">
-                             </div>
-                         </div>
-                         <div class="col-sm-8">
-                             <button type="submit" id="submit2" class="btn btn-success" style="margin-left: 58px;color: #fff; float: left;">Submit</button>
-                         </div>
-                     </div>
-                 </div>
-               </div>
-               <div class="row">
-                    <div class="col-sm-12">
-                          <div class="row">
-                               <div class="col-sm-12 sub-heading">
-                                    <span class="glyphicon glyphicon-volume-up"></span>
-                                    <span>Susi's Voice</span>
-                                </div>
-                          </div>
-                          <div class="row">
-                               <div class="col-sm-4">
-                                    <div class="btn-group" style = "color: #0084ff;" id="getVoice">
-                                         <button type="button" id= "5" class="btn btn-primary">Male</button>
-                                         <button type="button" id= "4" class="btn btn-primary">Female</button>
-                                    </div>
-                               </div>
-                               <div class="col-sm-8">
-                                    <button type="submit" id="submit3" class="btn btn-success" style="margin-left: 58px;color: #fff; float: left;">Submit</button>
-                               </div>
-                           </div>
-                     </div>
-                </div>
-                <div style="text-align: center;">
-                    <button class="btn btn-danger" id="restore">Restore Defaults</button>
+                            <span>Message Pane Colour</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="themeSelectors" id="msgPaneThemes">
+                                <input type="button" id="black" class="btn theme" style="background-color: black;">
+                                <input type="button" id="deeppink" class="btn theme" style="background-color: deeppink;">
+                                <input type="button" id="chartreuse" class="btn theme" style="background-color: chartreuse;">
+                                <input type="button" id="brown" class="btn theme" style="background-color: brown;">
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <button type="submit" id="submit2" class="btn btn-success" style="margin-left: 58px;color: #fff; float: left;">Submit</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-      </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12 sub-heading">
+                            <span class="glyphicon glyphicon-volume-up"></span>
+                            <span>Susi's Voice</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="btn-group" id="getVoice">
+                                <button type="button" id="5" class="btn btn-primary">Male</button>
+                                <button type="button" id="4" class="btn btn-primary">Female</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <button type="submit" id="submit3" class="btn btn-success" style="margin-left: 58px;color: #fff; float: left;">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <button class="btn btn-danger" id="restore">Restore Defaults</button>
+            </div>
+        </div>
+    </div>
     <script src="js/options.js"></script>
     <script src="jquery/jquery-3.2.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+   
 </body>
+
 </html>

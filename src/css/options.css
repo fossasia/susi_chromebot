@@ -50,3 +50,32 @@ body {
 {
     border: 3px solid #fff;
 }
+#alertback {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: block;
+    background-color: black;
+    z-index: 99;
+    text-align: center;
+    color:white;
+}
+#alerts {
+    height:100px;
+    position: fixed;
+    top:20%;
+    width: 90%;
+    margin-left:5%;
+    background-color: #fff;
+    color: black;
+    font-size: 1.2em;
+    border-radius: 25px;
+}
+#alertback {
+    display: none;
+}
+#getVoice {
+    color: #0084ff;
+}
