@@ -40,6 +40,10 @@ body {
     bottom: -28px;
 } */
 
+#senddiv {
+    display: none;
+}
+
 .dark {
     background: rgb(25, 50, 76);
 }
@@ -52,18 +56,17 @@ body {
     background-color: rgb(25, 50, 76);
 }
 
-.scroll-icon{
-     position: absolute;
-     right: 20px;
-     cursor: pointer;
-     z-index: 99;
-     bottom: 85px;
-     background-color: rgb(66, 133, 244);
-     padding: 0px 8px;
-     border-radius: 50%;
-     padding-top: 5px;
-     display: none;
- }
+.scroll-icon-bottom, .scroll-icon-top{
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+    bottom: 85px;
+    background-color: rgb(66, 133, 244);
+    padding: 0px 8px;
+    border-radius: 50%;
+    padding-top: 5px;
+    display: none;
+}
 
 .surroundbox {
     min-width: 300px;
@@ -89,11 +92,10 @@ body {
 }
 
 .mynewmessage {
-    text-align: right;
     margin-right: 0.5rem;
     background-color: #e0e0e0;
-    width: auto;
-    max-width: 100%;
+    min-width: 110px;
+    max-width: 80%;
     float: right;
     clear: both;
     overflow-wrap: break-word;
@@ -102,6 +104,8 @@ body {
     margin-top: 0.5rem;
     border-radius: 0.5rem 0.5rem;
     border-top-right-radius: 0;
+    padding: 6px 7px 8px 9px;
+    box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
 }
 
 .mynewmessage:before {
@@ -130,16 +134,16 @@ body {
 
 .mynewmessage p {
     display: inline;
-    padding: 1rem;
+    font-size: 14px;
 }
 
 .susinewmessage {
     text-align: left;
     margin-left: 0.3rem;
-    padding: 0.5rem;
+    padding: 6px 7px 8px 9px;
     margin-top: 0.5rem;
-    width: auto;
-    max-width: 100%;
+    min-width: 110px;
+    max-width: 80%;
     float: left;
     clear: both;
     overflow-wrap: break-word;
@@ -147,6 +151,7 @@ body {
     position: relative;
     border-radius: 0.5rem 0.5rem;
     border-top-left-radius: 0;
+    box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
 }
 
 .susinewmessage:before {
@@ -173,7 +178,7 @@ body {
 
 .susinewmessage p {
     display: inline;
-    padding: 1rem;
+    font-size: 14px;
 }
 
 .send {
@@ -230,6 +235,7 @@ body {
     width: 118%;
     margin-bottom: 5px;
     resize: none;
+    border-radius: 7px;
 }
 
 .textarea-mod {
@@ -569,10 +575,40 @@ th {
 
 iframe#youtube-video {
     width: 260px;
+}
 
 .table-tweet-response{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
     width: 80px;
+}
+
+.susimessage-footer {
+    list-style-type: none;
+    font-size: 12px;
+    color: #90a4ae;
+    margin: 3px 0 -3px -38px;
+    padding: 0;
+    text-align: right;
+}
+
+.mymessage-footer{
+    list-style-type: none;
+    font-size: 12px;
+    color: #90a4ae;
+    padding: 0;
+}
+
+.fa{
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+p.time {
+    font-size: 12px;
+}
+
+.susi-text-container{
+    padding-right: 8px;
 }

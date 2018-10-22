@@ -91,3 +91,11 @@ label {
 .fmargin {
     margin: 4% auto auto;
 }
+#settings
+{
+    margin:auto;
+    width:50%;
+}
+button{
+    cursor: pointer;
+}

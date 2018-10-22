@@ -4,9 +4,9 @@ var backUrl = document.getElementById("backUrl");
 var preDefThemes = document.getElementById("preDefThemes");
 var msgPaneThemes = document.getElementById("msgPaneThemes");
 var getVoice = document.getElementById("getVoice");
-var submit1 = document.getElementById("submit1");
-var submit2 = document.getElementById("submit2");
-var submit3 = document.getElementById("submit3");
+let submitThemeColor = document.getElementById("submit-themecolor");
+let submitMsgPaneColor = document.getElementById("submit-panecolor");
+let submitSusiVoice = document.getElementById("submit-susivoice");
 var theme;
 var msgTheme;
 var theValue;
@@ -17,6 +17,7 @@ var getVoice = document.getElementById("getVoice");
 var restore = document.getElementById("restore");
 var alerts = document.getElementById("alertback");
 var voice;
+var localimage=document.getElementById("localupload");
 
 
 window.onload = () => {
@@ -33,9 +34,9 @@ if (micAccess) {
     micAccess.addEventListener("click", () => {
         navigator.webkitGetUserMedia({
             audio: true
-        }, function (stream) {
-            stream.stop();
-        }, function () {
+        }, (stream) => {
+            stream.getTracks().forEach(track => track.stop());
+        }, () => {
             console.log("no access");
         });
     });
@@ -93,6 +94,7 @@ if (submit3) {
         document.getElementById("alerts").innerHTML = "<strong>Success</strong>,Changed the Voice Output";
         document.getElementById("alertback").style.display = "block";
     });
+
 }
 if (backgroundChange) {
     backgroundChange.addEventListener("submit", (e) => {
@@ -120,4 +122,11 @@ restore.addEventListener("click", () => {
 
 alerts.addEventListener("click", () => {
     alerts.style.display = "none";
+});
+
+
+localimage.addEventListener("change",()=>{
+    var tmppath = URL.createObjectURL(localimage.files[0]);
+    localStorage.setItem("theValue",tmppath);
+    alert("Image Updated");
 });

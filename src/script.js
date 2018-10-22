@@ -11,7 +11,8 @@ var micimg = document.getElementById("micimg");
 var micmodal = document.getElementById("micmodal");
 var setting = document.getElementById("setting");
 var clear = document.getElementById("clear");
-var scrollIconElement = document.getElementById("scrollIcon");
+let scrollIconBottomElement = document.getElementById("scrollIconBottom");
+let scrollIconTopElement = document.getElementById("scrollIconTop");
 var exportData = document.getElementById("export");
 var dark = false;
 var upCount = 0;
@@ -34,10 +35,10 @@ var accessToken = "";
 var mapAccessToken = "pk.eyJ1IjoiZ2FicnUtbWQiLCJhIjoiY2pja285N2g0M3cyOTJxbnR1aTJ5aWU0ayJ9.YkpBlvuHFgd2V9DGHOElVA";
 var synth = window.speechSynthesis;
 var voice = localStorage.getItem("voice");
-var ticks = "✓";
-// var sentTicks = "✔✔";
+let micDiv = document.getElementById("micdiv");
+let sendDiv = document.getElementById("senddiv");
 
-function speakOutput(msg, speak = false) {
+let speakOutput = (msg, speak = false) => {
     if (speak) {
         var voiceMsg = new SpeechSynthesisUtterance(msg);
         var voices = synth.getVoices();
@@ -47,9 +48,9 @@ function speakOutput(msg, speak = false) {
         voiceMsg.voice = voices[voice];
         window.speechSynthesis.speak(voiceMsg);
     }
-}
+};
 
-function feedback(isPositive, skill) {
+let feedback = (isPositive, skill) => {
     let apiUrl = "https://api.susi.ai";
     let rating = "negative";
     if (isPositive) {
@@ -75,14 +76,14 @@ function feedback(isPositive, skill) {
             jsonpCallback: "p",
             jsonp: "callback",
             crossDomain: "true",
-            success: function(response) {
+            success: (response) => {
                 if (response.accepted) {
                     console.log("Skill rated successfully");
                 } else {
                     console.log("Skill rating failed. Try Again");
                 }
             },
-            error: function(jqXHR) {
+            error: (jqXHR) => {
                 let jsonValue = jqXHR.status;
                 if (jsonValue === 404) {
                     console.log("Skill rating failed. Try Again");
@@ -92,9 +93,9 @@ function feedback(isPositive, skill) {
             },
         });
     }
-}
+};
 
-function loading(condition = true) {
+let loading = (condition = true) => {
     if (condition === true) {
         var newDiv = document.createElement("div");
         var newImg = document.createElement("img");
@@ -111,10 +112,10 @@ function loading(condition = true) {
     } else {
         messages.childNodes[messages.childElementCount].innerHTML = "";
     }
-}
+};
 
 
-function getCurrentTime( currDate = new Date() ) {
+let getCurrentTime = ( currDate = new Date() ) => {
     var ap = "AM";
     var hours = currDate.getHours();
     var minutes = currDate.getMinutes();
@@ -129,37 +130,35 @@ function getCurrentTime( currDate = new Date() ) {
     if (minutes < 10) {
         minutes = "0" + minutes;
     }
-    time = hours + ":" + minutes + " " + ap + " " + ticks;
+    time = hours + ":" + minutes + " " + ap + " ";
     return time;
-}
+};
 
-
-
-function composeImage(image) {
+let composeImage = (image) => {
     var newImg = document.createElement("img");
     newImg.setAttribute("src", image);
     newImg.setAttribute("class", "susi-img");
     return newImg;
-}
+};
 
-function composeLink(link) {
+let composeLink = (link) => {
     var newA = document.createElement("a");
     newA.appendChild(document.createTextNode(link));
     newA.setAttribute("href", link);
     newA.setAttribute("target", "_blank");
     newA.setAttribute("class", "link");
     return newA;
-}
+};
 
-function composeReplyAnswer(response, replyData) {
+let composeReplyAnswer = (response, replyData) => {
     response.reply = replyData;
     if (replyData.startsWith("https")) {
         response.image = true;
     }
     return response;
-}
+};
 
-function composeReplyTable(response, columns, data) {
+let composeReplyTable = (response, columns, data) => {
     var keys = Object.keys(columns);
     var table = document.createElement("table");
     table.setAttribute("class", "table-response");
@@ -203,15 +202,20 @@ function composeReplyTable(response, columns, data) {
     response.tableType = true;
     response.table = table;
     return response;
-}
+};
 
-function composeSusiMessage(response, t, rating) {
+let composeSusiMessage = (response, t, rating) => {
     var newP = document.createElement("p");
+    newP.setAttribute("class", "susi-text-container");
     var thumbsUp = document.createElement("span");
     var thumbsDown = document.createElement("span");
-    
+    var shareOnTwitter = document.createElement("span");
+    var messageFooter = document.createElement("li");
+
+    messageFooter.setAttribute("class", "susimessage-footer");
+
     thumbsUp.setAttribute("class", "fa fa-thumbs-up");
-    thumbsUp.addEventListener("click", function(){
+    thumbsUp.addEventListener("click", () => {
         if (thumbsUp.hasAttribute("style")) {
             thumbsUp.removeAttribute("style");
         } else {
@@ -220,9 +224,9 @@ function composeSusiMessage(response, t, rating) {
         }
         feedback(true, rating);
     });
-    
+
     thumbsDown.setAttribute("class", "fa fa-thumbs-down");
-    thumbsDown.addEventListener("click", function(){
+    thumbsDown.addEventListener("click", () => {
         if (thumbsDown.hasAttribute("style")) {
             thumbsDown.removeAttribute("style");
         } else {
@@ -231,7 +235,19 @@ function composeSusiMessage(response, t, rating) {
         }
         feedback(false, rating);
     });
-    
+
+    let shareMessageSUSI = response.reply === undefined ? "" : response.reply;
+    shareMessageSUSI = encodeURIComponent(shareMessageSUSI.trim());
+    let shareTag = " #SUSI.AI";
+    shareTag = encodeURIComponent(shareTag);
+    let twitterShare =
+        "https://twitter.com/intent/tweet?text=" + shareMessageSUSI + shareTag;
+
+    shareOnTwitter.setAttribute("class", "fa fa-share-alt");
+    shareOnTwitter.addEventListener("click", function(){
+        window.open(twitterShare, "_blank");
+    });
+
     var newDiv = messages.childNodes[messages.childElementCount];
     newDiv.setAttribute("class", "susinewmessage");
     if (dark === true) {
@@ -257,6 +273,7 @@ function composeSusiMessage(response, t, rating) {
             var newImg = composeImage(response.reply);
             newDiv.appendChild(document.createElement("br"));
             newDiv.appendChild(newImg);
+
         } else if (response.tableType) {
             newDiv.appendChild(response.table);
             if (dark === true) {
@@ -286,11 +303,14 @@ function composeSusiMessage(response, t, rating) {
         map: response.newMap,
         source: "susi"
     });
-    newDiv.appendChild(document.createElement("br"));
-    newDiv.appendChild(currtime);
-    newDiv.appendChild(thumbsUp);
-    newDiv.appendChild(document.createTextNode(" "));
-    newDiv.appendChild(thumbsDown);
+
+    messageFooter.appendChild(currtime);
+    messageFooter.appendChild(thumbsUp);
+    messageFooter.appendChild(document.createTextNode(" "));
+    messageFooter.appendChild(thumbsDown);
+    messageFooter.appendChild(document.createTextNode(" "));
+    messageFooter.appendChild(shareOnTwitter);
+    newDiv.appendChild(messageFooter);
     messages.appendChild(newDiv);
     var storageObj = {
         senderClass: "",
@@ -299,7 +319,7 @@ function composeSusiMessage(response, t, rating) {
     var susimessage = newDiv.innerHTML;
     storageObj.content = susimessage;
     storageObj.senderClass = "susinewmessage";
-    chrome.storage.sync.get("message", (items) => {
+    chrome.storage.local.get("message", (items) => {
         if (items.message) {
             storageArr = items.message;
             var temp = storageArr.map(x => $.parseHTML(x.content));
@@ -310,16 +330,16 @@ function composeSusiMessage(response, t, rating) {
             });
         }
         storageArr.push(storageObj);
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             "message": storageArr
         }, () => {
             console.log("saved");
         });
     });
     messages.scrollTop = messages.scrollHeight;
-}
+};
 
-function composeReplyMap(response, action){
+let composeReplyMap = (response, action) => {
     var newDiv = messages.childNodes[messages.childElementCount];
     var mapDiv = document.createElement("div");
     var mapDivId = Date.now().toString();
@@ -341,9 +361,9 @@ function composeReplyMap(response, action){
     response.isMap = true;
     response.newMap = mapDiv;
     return response;
-}
+};
 
-function composeReplyVideo(response, identifier) {
+let composeReplyVideo = (response, identifier) => {
     var newDiv = messages.childNodes[messages.childElementCount];
     var iframeDiv = document.createElement("iframe");
     iframeDiv.setAttribute("id", "youtube-video");
@@ -352,9 +372,9 @@ function composeReplyVideo(response, identifier) {
     response.isVideo = true;
     response.video = iframeDiv;
     return response;
-}
+};
 
-function composeReplyAnchor(response, action){
+let composeReplyAnchor = (response, action) => {
     var newDiv = messages.childNodes[messages.childElementCount];
     var anchorDiv = document.createElement("div");
     var actionText = document.createElement("p");
@@ -374,9 +394,9 @@ function composeReplyAnchor(response, action){
 
     return response;
 
-}
+};
 
-function composeResponse(action, data) {
+let composeResponse = (action, data) => {
     var response = {
         error: false,
         reply: "",
@@ -409,9 +429,9 @@ function composeResponse(action, data) {
             break;
     }
     return response;
-}
+};
 
-function generateRating(skill) {
+let generateRating = (skill) => {
     let parsed = skill.split("/");
     let rating = {};
     if (parsed.length === 7) {
@@ -422,9 +442,9 @@ function generateRating(skill) {
         return rating;
     }
     return null;
-}
+};
 
-function successResponse(data , timestamp = getCurrentTime(), speak = true) {
+let successResponse = (data , timestamp = getCurrentTime(), speak = true) => {
     data.answers[0].actions.map((action) => {
         var response = composeResponse(action, data.answers[0].data);
         let skill = data.answers[0].skills[0];
@@ -436,13 +456,13 @@ function successResponse(data , timestamp = getCurrentTime(), speak = true) {
             loading(); //if not last action then create another loading box for susi response
         }
     });
-}
+};
 
 
 let queryUrl = "";
 let baseUrl = "https://api.susi.ai/susi/chat.json?timezoneOffset=-300&q=";
 
-function getResponse(query) {
+let getResponse = (query) => {
     var errorResponse = {
         error: true,
         errorText: "Sorry! request could not be made"
@@ -466,14 +486,14 @@ function getResponse(query) {
         dataType: "jsonp",
         type: "GET",
         url: queryUrl,
-        error: function(xhr, textStatus, errorThrown) {
+        error: (xhr, textStatus, errorThrown) => {
             console.log(xhr);
             console.log(textStatus);
             console.log(errorThrown);
             loading(false);
-            composeSusiMessage(errorResponse);
+            composeSusiMessage(errorResponse, timestamp);
         },
-        success: function(data) {
+        success: (data) => {
             if(!data.answers[0]){
                 loading(false);
                 composeSusiMessage(noResponse, timestamp);
@@ -481,15 +501,19 @@ function getResponse(query) {
             else {
                 successResponse(data);
             }
-            
+
         }
     });
-}
+};
 
-function composeMyMessage(text, t= getCurrentTime()) {
+let composeMyMessage = (text, t= getCurrentTime()) => {
     $(".empty-history").remove();
     var newP = document.createElement("p");
     var newDiv = document.createElement("div");
+
+    var messageFooter = document.createElement("li");
+    messageFooter.setAttribute("class", "mymessage-footer");
+
     newDiv.setAttribute("class", "mynewmessage");
     if (dark === true) {
         newDiv.setAttribute("class", "message-dark mynewmessage");
@@ -501,8 +525,8 @@ function composeMyMessage(text, t= getCurrentTime()) {
     currtime.setAttribute("class", "time");
     var time = document.createTextNode(t);
     currtime.append(time);
-    newDiv.appendChild(document.createElement("br"));
-    newDiv.appendChild(currtime);
+    messageFooter.appendChild(currtime);
+    newDiv.appendChild(messageFooter);
     messages.appendChild(newDiv);
     textarea.value = "";
     messages.scrollTop = messages.scrollHeight;
@@ -519,18 +543,18 @@ function composeMyMessage(text, t= getCurrentTime()) {
         image: false,
         source: "user"
     });
-    chrome.storage.sync.get("message", (items) => {
+    chrome.storage.local.get("message", (items) => {
         if (items.message) {
             storageArr = items.message;
         }
         storageArr.push(storageObj);
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             "message": storageArr
         }, () => {});
     });
-}
+};
 
-function restoreMessages(storageItems) {
+let restoreMessages = (storageItems = []) => {
     if (!storageItems && !accessToken) {
         var htmlMsg = "<div class='empty-history'> Start by saying \"Hi\"</div>";
         $(htmlMsg).appendTo(messages);
@@ -554,9 +578,9 @@ function restoreMessages(storageItems) {
             });
         }
     });
-}
+};
 
-function syncMessagesFromServer() {
+let syncMessagesFromServer = () => {
 
     if (queryAnswerData !== null) {
         chrome.storage.sync.remove("message");
@@ -566,8 +590,8 @@ function syncMessagesFromServer() {
             queryTime = new Date(Date.parse(queryAnswerData[i].queryTime));
             queryTime = getCurrentTime(queryTime);
             var answerTime = queryAnswerData[i].answerTime;
-			 answerTime = new Date(Date.parse(queryAnswerData[i].answerTime));
-			 answerTime = getCurrentTime(answerTime);
+			answerTime = new Date(Date.parse(queryAnswerData[i].answerTime));
+			answerTime = getCurrentTime(answerTime);
             var answer = queryAnswerData[i].answer;
             composeMyMessage(query, queryTime);
             var garbageElement = `<div class="mynewmessage"><p></p><br><p class="time"></p></div>`;
@@ -579,12 +603,9 @@ function syncMessagesFromServer() {
         localStorage.setItem("messages", null);
         $(".empty-history").remove();
     }
-}
+};
 
-
-window.onload = function() {
-
-
+window.onload = () => {
     if (backUrl) {
         box.style.backgroundImage = "url(" + backUrl + ")";
         box.style.backgroundRepeat = "no-repeat";
@@ -601,7 +622,7 @@ window.onload = function() {
         console.log(msgTheme);
     }
 
-    chrome.storage.sync.get("loggedUser", function(userDetails) {
+    chrome.storage.local.get("loggedUser", (userDetails) => {
         var log = document.getElementById("log");
         if (userDetails.loggedUser && userDetails.loggedUser.email) {
             accessToken = userDetails.loggedUser.accessToken;
@@ -613,7 +634,7 @@ window.onload = function() {
         }
     });
     syncMessagesFromServer();
-    chrome.storage.sync.get("message", (items) => {
+    chrome.storage.local.get("message", (items) => {
         if (items) {
             storageItems = items.message;
             restoreMessages(storageItems);
@@ -623,24 +644,27 @@ window.onload = function() {
 	});
 };
 
+let lastScrollTop = 0;
 
-function handleScroll() {
-    var scrollIcon = scrollIconElement;
-    var end = messages.scrollHeight - messages.scrollTop === messages.clientHeight;
-    if (end) {
-        //hide icon
-        scrollIcon.style.display = "none";
-    } else {
-        //show icon
-        scrollIcon.style.display = "block";
+let handleScroll = () => {
+    let scrollIconTop = scrollIconTopElement;
+    let scrollIconBottom = scrollIconBottomElement;
+    let st = $(this).scrollTop();
+    if (st > lastScrollTop){ // downscroll
+        scrollIconTop.style.display = (messages.scrollHeight - messages.scrollTop === messages.clientHeight) ? "block" : "none";
+        scrollIconBottom.style.display = (messages.scrollHeight - messages.scrollTop !== messages.clientHeight) ? "block" : "none";
+    } else { // upscroll
+        scrollIconBottom.style.display = (messages.scrollTop === 0) ? "block" : "none";
+        scrollIconTop.style.display = (messages.scrollTop !== 0) ? "block": "none";
     }
-}
+    lastScrollTop = st;
+};
 
 if (messages) {
     messages.addEventListener("scroll", handleScroll);
 }
 // to download file
-function download(filename, text) {
+let download = (filename, text) => {
     var element = document.createElement("a");
     element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
     element.setAttribute("download", filename);
@@ -648,11 +672,9 @@ function download(filename, text) {
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
-}
+};
 
-
-
-function submitForm() {
+let submitForm = () => {
     var text = textarea.value;
     text = text.trim();
     if (text === "") {
@@ -670,33 +692,32 @@ function submitForm() {
         loading(false);
         composeSusiMessage(response);
     }
-}
-
+};
 
 var recognizing;
 
-function reset() {
+let reset = () => {
     recognizing = false;
-}
+};
 
 var recognition = new webkitSpeechRecognition();
-recognition.onerror = function(e) {
+recognition.onerror = (e) => {
     console.log(e.error);
 };
 
-recognition.onstart = function() {
+recognition.onstart = () =>{
     micimg.setAttribute("src", "images/mic-animate.gif");
 };
 
 reset();
 
-recognition.onend = function() {
+recognition.onend = () => {
     reset();
     micmodal.classList.remove("active");
     micimg.setAttribute("src", "images/mic.gif");
 };
 
-recognition.onresult = function(event) {
+recognition.onresult = (event) => {
     var interimText = " ";
     for (var i = event.resultIndex; i < event.results.length; ++i) {
         if (event.results[i].isFinal) {
@@ -709,12 +730,11 @@ recognition.onresult = function(event) {
     }
 };
 
-
-function toggleStartStop() {
+let toggleStartStop = () => {
     navigator.getUserMedia({
             audio: true
         },
-        function() {
+        () => {
             if (recognizing) {
                 recognition.stop();
                 reset();
@@ -725,34 +745,44 @@ function toggleStartStop() {
                 micmodal.className += " active";
             }
         },
-        function() {
+        () => {
             $("body").overhang({
                 type:"error",
                 message: "Please Enable Mic by setting option(Note: If you have blocked the mic before you have to remove it from chrome settings and then enable from extension)",
                 duration: 3
             });
         });
-}
+};
 
-mic.addEventListener("click", function() {
+mic.addEventListener("click", () => {
     toggleStartStop();
 });
 
-setting.addEventListener("click", function() {
+setting.addEventListener("click", () => {
     chrome.tabs.create({
         url: chrome.runtime.getURL("options.html")
     });
 });
 
-clear.addEventListener("click", function() {
+clear.addEventListener("click", () => {
+    var checkDark = 0;
+    if(dark === true){
+      checkDark = 1;
+    }
     chrome.storage.sync.clear();
+    if(checkDark === 1){
+      dark = true;
+      chrome.storage.sync.set({
+          "darktheme": true
+      }, () => {});
+    }
 });
 
-exportData.addEventListener("click", function() {
+exportData.addEventListener("click", () => {
     download("susiExport.json", JSON.stringify(exportArr));
 });
 
-textarea.onkeyup = function(e) {
+textarea.onkeyup = (e) => {
     var prevMessages, myQuery;
     try {
         if (e.which === 38) {
@@ -775,11 +805,10 @@ textarea.onkeyup = function(e) {
     } catch (excep) {}
 };
 
-formid.addEventListener("submit", function(e) {
+formid.addEventListener("submit", (e) => {
     e.preventDefault();
     submitForm();
 });
-
 
 chrome.storage.sync.get("darktheme", (obj) => {
     if (obj.darktheme === true) {
@@ -788,7 +817,7 @@ chrome.storage.sync.get("darktheme", (obj) => {
     }
 });
 
-function sendUserSettingsToServer(darkTheme, accessToken) { // Sending  user settings to api
+let sendUserSettingsToServer = (darkTheme, accessToken) => { // Sending  user settings to api
     var themevalue = "";
     if (darkTheme !== true) {
         themevalue = "light";
@@ -802,13 +831,13 @@ function sendUserSettingsToServer(darkTheme, accessToken) { // Sending  user set
         jsonpCallback: "p",
         jsonp: "callback",
         crossDomain: "true",
-        success: function() {
+        success: () => {
             console.log("user Settings successfully sent");
         }
     });
-}
+};
 
-function check() {
+let check = () => {
     if (dark === false) {
         dark = true;
         chrome.storage.sync.set({
@@ -856,9 +885,9 @@ function check() {
     $(".susinewmessage").toggleClass("message-susi-dark");
     $(".mynewmessage").toggleClass("message-dark");
     $("#scrollIcon").toggleClass("scroll-dark");
-}
+};
 
-function changeSpeak() {
+let changeSpeak = () => {
     shouldSpeak = !shouldSpeak;
     var SpeakIcon = document.getElementById("speak-icon");
     if (!shouldSpeak) {
@@ -867,11 +896,16 @@ function changeSpeak() {
         SpeakIcon.innerText = "volume_up";
     }
     console.log("Should be speaking? " + shouldSpeak);
-}
+};
 
+scrollIconTopElement.addEventListener("click", (e) => {
+    $(messages).stop().animate({
+        scrollTop: 0
+    }, 800);
+    e.preventDefault();
+});
 
-
-scrollIconElement.addEventListener("click", function(e) {
+scrollIconBottomElement.addEventListener("click", (e) => {
     $(messages).stop().animate({
         scrollTop: $(messages)[0].scrollHeight
     }, 800);
@@ -880,3 +914,14 @@ scrollIconElement.addEventListener("click", function(e) {
 
 document.getElementById("check").addEventListener("click", check);
 document.getElementById("speak").addEventListener("click", changeSpeak);
+
+textarea.addEventListener("input", (e) => {
+    if(e.target.value) {
+        micDiv.style.display = "none";
+        sendDiv.style.display = "block";
+    }
+    else {
+        micDiv.style.display = "block";
+        sendDiv.style.display = "none";
+    }
+});
