@@ -644,20 +644,17 @@ window.onload = () => {
 	});
 };
 
-let lastScrollTop = 0;
 
 let handleScroll = () => {
-    let scrollIconTop = scrollIconTopElement;
-    let scrollIconBottom = scrollIconBottomElement;
-    let st = $(this).scrollTop();
-    if (st > lastScrollTop){ // downscroll
-        scrollIconTop.style.display = (messages.scrollHeight - messages.scrollTop === messages.clientHeight) ? "block" : "none";
-        scrollIconBottom.style.display = (messages.scrollHeight - messages.scrollTop !== messages.clientHeight) ? "block" : "none";
-    } else { // upscroll
-        scrollIconBottom.style.display = (messages.scrollTop === 0) ? "block" : "none";
-        scrollIconTop.style.display = (messages.scrollTop !== 0) ? "block": "none";
-    }
-    lastScrollTop = st;
+  var end=messages.scrollHeight - messages.scrollTop === messages.clientHeight;
+  if(end){
+    scrollIconBottomElement.style.display="none";
+    scrollIconTopElement.style.display="block";
+  }
+  else{
+    scrollIconBottomElement.style.display="block";
+    scrollIconTopElement.style.display="none";
+  }
 };
 
 if (messages) {
