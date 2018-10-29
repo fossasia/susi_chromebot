@@ -554,7 +554,7 @@ let composeMyMessage = (text, t= getCurrentTime()) => {
     });
 };
 
-let restoreMessages = (storageItems = []) => {
+let restoreMessages = (storageItems) => {
     if (!storageItems && !accessToken) {
         var htmlMsg = "<div class='empty-history'> Start by saying \"Hi\"</div>";
         $(htmlMsg).appendTo(messages);
