@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>SUSI Login Portal</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/signup.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
+
 <body>
     <div class="container">
         <div class="row">
@@ -22,7 +26,12 @@
                             <br />
                             <div class="form-group">
                                 <label for="password">Password:</label>
-                                <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                                    <span class="field-icon">
+                                        <i class="fa fa-eye" id="toggle"></i>
+                                    </span>
+                                </div>
                                 <div style="text-align: center">
                                     <small hidden id="passwordlim">Minimum 6 characters required</small>
                                 </div>
@@ -30,7 +39,12 @@
                             <br />
                             <div class="form-group">
                                 <label for="password">Confirm Password:</label>
-                                <input type="password" class="form-control" id="cpassword" placeholder="Confirm Password">
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="cpassword" placeholder="Confirm Password">
+                                    <span class="field-icon">
+                                        <i class="fa fa-eye" id="cptoggle"></i>
+                                    </span>
+                                </div>
                             </div>
                             <br>
                             <button disabled type="submit" class="btn btn-success" id="signupbutton">Signup</button>
@@ -56,4 +70,5 @@
     <script src="bootstrap/bootstrap.min.js"></script>
     <script src="js/signup.js"></script>
 </body>
+
 </html>

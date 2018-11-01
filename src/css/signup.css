@@ -48,3 +48,20 @@ label {
 #passwordlim{
 	color: white;
 }
+.field-icon{
+    float: right;
+    font-size:24px;
+    display: flex;
+    align-items: center;
+}
+.fa-eye, .fa-eye-slash{
+    position: absolute;
+    top: 6px;
+    right: 5px;
+    z-index: 15;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+}
