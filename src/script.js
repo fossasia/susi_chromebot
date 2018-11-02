@@ -762,11 +762,12 @@ setting.addEventListener("click", () => {
 });
 
 clear.addEventListener("click", () => {
+    chrome.storage.local.clear();   
     var checkDark = 0;
     if(dark === true){
       checkDark = 1;
     }
-    chrome.storage.sync.clear();
+    chrome.storage.sync.clear();          
     if(checkDark === 1){
       dark = true;
       chrome.storage.sync.set({

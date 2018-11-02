@@ -103,20 +103,21 @@ if(backgroundChange) {
         }
     });
 }
+if(restore !=null) {
+    restore.addEventListener("click", ()=>{
+        if(confirm("This will remove your customized settings. This action is irreversible.")){
+            userItems = ["theValue", "voice", "msgTheme", "theme"];
+            userItems.forEach(item => {
+                localStorage.removeItem(item);
+            });
+        }
+    });
+}
 
-restore.addEventListener("click", ()=>{
-    if(confirm("This will remove your customized settings. This action is irreversible.")){
-        userItems = ["theValue", "voice", "msgTheme", "theme"];
-        userItems.forEach(item => {
-            localStorage.removeItem(item);
-        });
-    }
-});
-
-
-
-localimage.addEventListener("change",()=>{
-    var tmppath = URL.createObjectURL(localimage.files[0]);
-    localStorage.setItem("theValue",tmppath);
-    alert("Image Updated");
-});
+if(localimage !=null) {
+    localimage.addEventListener("change",()=>{
+        var tmppath = URL.createObjectURL(localimage.files[0]);
+        localStorage.setItem("theValue",tmppath);
+        alert("Image Updated");
+    });
+}
