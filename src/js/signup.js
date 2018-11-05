@@ -5,6 +5,30 @@ var signupBlock = document.getElementById("signedup");
 var BASE_URL = "https://api.susi.ai";
 var passwordlim = document.getElementById("passwordlim");
 var password = document.getElementById("password");
+var cpassword = document.getElementById("cpassword");
+var toggle = document.getElementById("toggle");
+var ctoggle = document.getElementById("ctoggle");
+
+toggle.addEventListener("click", ()=>{
+    toggle.classList.toggle("fa-eye");
+    toggle.classList.toggle("fa-eye-slash");
+    if (toggle.classList.contains("fa-eye")) {
+        document.getElementById("password").type = "password";
+    } else {
+        document.getElementById("password").type = "text";
+    }
+});
+
+ctoggle.addEventListener("click", ()=>{
+    ctoggle.classList.toggle("fa-eye");
+    ctoggle.classList.toggle("fa-eye-slash");
+    if (ctoggle.classList.contains("fa-eye")) {
+        document.getElementById("cpassword").type = "password";
+    } else {
+        document.getElementById("cpassword").type = "text";
+    }
+});
+
 
 window.onload = () => {
 	showsignupBlock(true);
@@ -27,7 +51,7 @@ password.addEventListener("keyup", ()=>{
 		document.getElementById("signupbutton").setAttribute("disabled", "true");
     } else {
 		passwordlim.setAttribute("hidden", "true");
-		document.getElementById("signupbutton").removeAttribute("disabled");	
+		document.getElementById("signupbutton").removeAttribute("disabled");
     }
 });
 
