@@ -40,7 +40,7 @@ toggle.addEventListener("click", ()=>{
 });
 
 pass.addEventListener("click", ()=>{
-$("#cPass").toggle();
+    pass.innerHTML = ($("#cPass").toggle().is(":visible"))?("Click here to hide change password form"):("Click here to change password");
 });
 
 newPassword.addEventListener("keyup", ()=>{
