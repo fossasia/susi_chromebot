@@ -17,7 +17,9 @@ var getVoice = document.getElementById("getVoice");
 var restore = document.getElementById("restore");
 var voice;
 var localimage=document.getElementById("localupload");
-
+let themeColorPickerButton = document.getElementById("btn-color-theme");
+let themeColorPicker = new LdColorPicker(themeColorPickerButton);
+LdColorPicker.init();
 
 window.onload = () => {
     if(checkLogin === "true") {
@@ -121,3 +123,19 @@ if(localimage !=null) {
         alert("Image Updated");
     });
 }
+restore.addEventListener("click", ()=>{
+    if(confirm("This will remove your customized settings. This action is irreversible.")){
+        userItems = ["theValue", "voice", "msgTheme", "theme"];
+        userItems.forEach(item => {
+            localStorage.removeItem(item);
+        });
+    }
+});
+
+
+
+themeColorPicker.on("change", function(color){
+    themeColorPickerButton.style.backgroundColor = color;
+    theme = color;
+});
+
