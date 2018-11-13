@@ -53,6 +53,14 @@ newPassword.addEventListener("keyup", ()=>{
     }
 });
 
+confirmPassword.addEventListener("keyup", ()=>{
+    if(confirmPassword.value !== newPassword.value){
+        passwordmatch.removeAttribute("hidden");
+    } else {
+        passwordmatch.setAttribute("hidden", "true");
+    }
+});
+
 cPass.addEventListener("submit", (e)=>{
 	e.stopPropagation();
 		var loginEP = BASE_URL+"/aaa/changepassword.json?"+"changepassword="+ cemail.value + "&password="+ cpassword.value + "&newpassword=" + newPassword.value + "&access_token=" + accessToken ;
@@ -60,7 +68,7 @@ cPass.addEventListener("submit", (e)=>{
 		    	url:loginEP,
 		        dataType: "jsonp",
 				jsonp: "callback",
-				crossDomain: true,		        
+				crossDomain: true,
 		        success: (response) => {
 					alert(response.message);
 					cPass.style.display = "none";
