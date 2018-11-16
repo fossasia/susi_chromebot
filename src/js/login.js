@@ -14,12 +14,12 @@ var defaultThemeValue = "";
 var password = document.getElementById("password");
 var pass = document.getElementById("pass");
 var cPass = document.getElementById("cPass");
-var cemail = document.getElementById("cemail");
 var cpassword = document.getElementById("cpassword");
 var passwordlim = document.getElementById("passwordlim");
 var newPassword = document.getElementById("newPassword");
 var toggle = document.getElementById("toggle");
 var settings=document.getElementById("settings");
+var username = document.getElementById("username");
 
 chrome.storage.sync.get("darktheme", (obj) => {
     if (obj.darktheme === true) {
@@ -55,12 +55,12 @@ newPassword.addEventListener("keyup", ()=>{
 
 cPass.addEventListener("submit", (e)=>{
 	e.stopPropagation();
-		var loginEP = BASE_URL+"/aaa/changepassword.json?"+"changepassword="+ cemail.value + "&password="+ cpassword.value + "&newpassword=" + newPassword.value + "&access_token=" + accessToken ;
+		var loginEP = BASE_URL+"/aaa/changepassword.json?"+"changepassword="+ username.value + "&password="+ cpassword.value + "&newpassword=" + newPassword.value + "&access_token=" + accessToken ;
 		  $.ajax({
 		    	url:loginEP,
 		        dataType: "jsonp",
 				jsonp: "callback",
-				crossDomain: true,		        
+				crossDomain: true,
 		        success: (response) => {
 					alert(response.message);
 					cPass.style.display = "none";
