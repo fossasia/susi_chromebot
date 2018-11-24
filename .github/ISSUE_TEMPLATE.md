@@ -25,11 +25,14 @@ insert any relevant code here else remove this section
 
 <!-- Add information about the system you're facing this bug on. If you think this is irrelevant or if it's a UI bug or a feature request, please remove this section -->
 
+**Screenshots of the issue:**
+<!-- Wherever applicable attach a screenshot of the issue. -->
+
 ```
 Your operating system
 ```
 
 **Would you like to work on the issue?**
 
-Please let us know if you can work on it or the issue should be assigned to someone else.
+<!-- Please let us know if you can work on it or the issue should be assigned to someone else. -->
 ```
