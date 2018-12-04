@@ -887,6 +887,12 @@ let check = () => {
     $("#scrollIcon").toggleClass("scroll-dark");
 };
 
+chrome.storage.sync.get("speakcheck", (obj) => {
+  if(obj.speakcheck === false){
+    document.getElementById("speak").click();
+  }
+});
+
 let changeSpeak = () => {
     shouldSpeak = !shouldSpeak;
     var SpeakIcon = document.getElementById("speak-icon");
@@ -896,6 +902,9 @@ let changeSpeak = () => {
         SpeakIcon.innerText = "volume_up";
     }
     console.log("Should be speaking? " + shouldSpeak);
+    chrome.storage.sync.set({
+        "speakcheck": shouldSpeak
+    }, () => {});
 };
 
 scrollIconTopElement.addEventListener("click", (e) => {
