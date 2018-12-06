@@ -37,8 +37,10 @@ if(micAccess) {
             audio: true
         }, (stream) => {
             stream.getTracks().forEach(track => track.stop());
+            displayNotification("success", " Mic Access Granted", 1000);
         }, () => {
             console.log("no access");
+            displayNotification("error", " No Access", 1000);
         });
     });
 }
@@ -77,31 +79,31 @@ if(getVoice) {
 if(submitThemeColor) {
     submitThemeColor.addEventListener("click",()=>{
 			localStorage.setItem("theme",theme);
-			alert("Success");
-      });
+            displayNotification("info", "Theme successfully changed", 1000);
+        });
 }
 
 if(submitMsgPaneColor) {
     submitMsgPaneColor.addEventListener("click",()=>{
 			localStorage.setItem("msgTheme",msgTheme);
-			alert("Success");
-      });
+            displayNotification("warning", " Message Pane Color Changed", 1000);
+        });
 }
 if(submitSusiVoice) {
     submitSusiVoice.addEventListener("click",()=>{
  			localStorage.setItem("voice",voice);
- 			alert("Success");
-      });
+             displayNotification("success", "Voice successfully changed", 1000);
+            });
 }
 if(backgroundChange) {
     backgroundChange.addEventListener("submit", (e) => {
         e.preventDefault();
         theValue = backUrl.value;
         if (!theValue) {
-            alert("Error: No value specified");
+            displayNotification("error", " Error Background Not Changed", 1000);
         } else {
             localStorage.setItem("theValue", theValue);
-            alert("Successfully stored");
+            displayNotification("warning", " Background successfully changed", 1000);
         }
     });
 }
@@ -111,24 +113,19 @@ restore.addEventListener("click", ()=>{
         userItems = ["theValue", "voice", "msgTheme", "theme"];
         userItems.forEach(item => {
             localStorage.removeItem(item);
+
         });
+        displayNotification("warning", " Restored Settings", 1000);
+
     }
 });
 
 localimage.addEventListener("change",()=>{
     var tmppath = URL.createObjectURL(localimage.files[0]);
     localStorage.setItem("theValue",tmppath);
-    alert("Image Updated");
+    displayNotification("success", " Image Updates", 1000);
 });
 
-restore.addEventListener("click", ()=>{
-    if(confirm("This will remove your customized settings. This action is irreversible.")){
-        userItems = ["theValue", "voice", "msgTheme", "theme"];
-        userItems.forEach(item => {
-            localStorage.removeItem(item);
-        });
-    }
-});
 
 themeColorPicker.on("change", function(color){
     themeColorPickerButton.style.backgroundColor = color;
