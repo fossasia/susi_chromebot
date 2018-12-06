@@ -73,6 +73,10 @@ label {
     color: white;
 }
 
+#passwordmatch{
+  color: white;
+}
+
 #loggedin{
     margin-top: 15px;
 }
