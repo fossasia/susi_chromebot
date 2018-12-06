@@ -187,10 +187,16 @@ loginForm.addEventListener("submit", (event) => {
     event.preventDefault();
     var email = document.getElementById("username").value;
     var password = document.getElementById("password").value;
+    var isEmailValid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
     if (!email) {
         showStatus("Email field cannot be empty",true);
         return;
-    } else if (!password) {
+    }
+    else if(!isEmailValid){
+        showStatus("Please enter a valid email", true);
+        return;
+    }
+    else if (!password) {
         showStatus("Password field cannot be empty",true);
         return;
     }
