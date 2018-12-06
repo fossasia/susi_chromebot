@@ -121,15 +121,6 @@ localimage.addEventListener("change",()=>{
     alert("Image Updated");
 });
 
-restore.addEventListener("click", ()=>{
-    if(confirm("This will remove your customized settings. This action is irreversible.")){
-        userItems = ["theValue", "voice", "msgTheme", "theme"];
-        userItems.forEach(item => {
-            localStorage.removeItem(item);
-        });
-    }
-});
-
 themeColorPicker.on("change", function(color){
     themeColorPickerButton.style.backgroundColor = color;
     theme = color;
