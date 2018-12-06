@@ -17,7 +17,9 @@ var getVoice = document.getElementById("getVoice");
 var restore = document.getElementById("restore");
 var voice;
 var localimage=document.getElementById("localupload");
-
+let themeColorPickerButton = document.getElementById("btn-color-theme");
+let themeColorPicker = new LdColorPicker(themeColorPickerButton);
+LdColorPicker.init();
 
 window.onload = () => {
     if(checkLogin === "true") {
@@ -113,10 +115,13 @@ restore.addEventListener("click", ()=>{
     }
 });
 
-
-
 localimage.addEventListener("change",()=>{
     var tmppath = URL.createObjectURL(localimage.files[0]);
     localStorage.setItem("theValue",tmppath);
     alert("Image Updated");
+});
+
+themeColorPicker.on("change", function(color){
+    themeColorPickerButton.style.backgroundColor = color;
+    theme = color;
 });
