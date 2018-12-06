@@ -15,14 +15,14 @@
             <div class="col-md-8">
                 <div class="card">
                     <img src="images/susi-logo.png" class="img-fluid signin-image">
-                    
+
                     <button class="btn btn-warning"   id="settings">SUSI Settings</button>
                     <br/>
                     <div class="alert alert-danger error col-md-10" id="error">
 
                        Error
                    </div>
-                   
+
 
 
                     <div class="nologgedin" id="nologgedin">
@@ -37,7 +37,7 @@
                                 <div class="input-group">
                                 <input type="password" class="form-control" id="password" placeholder="Password">
                                     <span class="field-icon">
-                                        <i class="fa fa-eye" id="toggle"></i>
+                                        <i class="fa fa-eye pointer" id="toggle"></i>
                                     </span>
                                 </div>
                             </div>
@@ -52,11 +52,11 @@
                             </p>
                         </form>
                     </div>
-                    
+
                     <div class="loggedin" id="loggedin">
                         <button class="btn btn-danger" name="Logout" id="logout">Logout</button>
                         <br/>
-                       
+
                         <div style="text-align: center">
                             <a style="color:#fff;"  id="pass" href="#" >Click here to change password</a>
                         </div>
@@ -71,7 +71,13 @@
                         <div class="form-group">
                             <input type="password" class="form-control fmargin" id="newPassword" placeholder="New Password">
                             <div style="text-align: center">
-                                <small hidden id="passwordlim">Minimum 6 characters required</small>
+                                <small hidden id="passwordlim">Allowed password length is 6 to 64 characters</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control fmargin" id="confirmPassword" placeholder="Confirm New Password">
+                            <div style="text-align: center">
+                                <small hidden id="passwordmatch">Password does not match.</small>
                             </div>
                         </div>
                         <div style="text-align: center">

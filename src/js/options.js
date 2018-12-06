@@ -126,7 +126,6 @@ localimage.addEventListener("change",()=>{
     displayNotification("success", " Image Updates", 1000);
 });
 
-
 themeColorPicker.on("change", function(color){
     themeColorPickerButton.style.backgroundColor = color;
     theme = color;
