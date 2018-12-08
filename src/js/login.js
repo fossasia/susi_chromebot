@@ -18,6 +18,9 @@ var cpassword = document.getElementById("cpassword");
 var passwordlim = document.getElementById("passwordlim");
 var newPassword = document.getElementById("newPassword");
 var toggle = document.getElementById("toggle");
+var ctoggle = document.getElementById("ctoggle");
+var newtoggle = document.getElementById("newtoggle");
+var confirmtoggle = document.getElementById("confirmtoggle");
 var settings=document.getElementById("settings");
 var username = document.getElementById("username");
 
@@ -36,6 +39,36 @@ toggle.addEventListener("click", ()=>{
         document.getElementById("password").type = "password";
     } else {
         document.getElementById("password").type = "text";
+    }
+});
+
+newtoggle.addEventListener("click", ()=>{
+    newtoggle.classList.toggle("fa-eye");
+    newtoggle.classList.toggle("fa-eye-slash");
+    if (newtoggle.classList.contains("fa-eye-slash")) {
+        document.getElementById("newPassword").type = "password";
+    } else {
+        document.getElementById("newPassword").type = "text";
+    }
+});
+
+ctoggle.addEventListener("click", ()=>{
+    ctoggle.classList.toggle("fa-eye");
+    ctoggle.classList.toggle("fa-eye-slash");
+    if (ctoggle.classList.contains("fa-eye-slash")) {
+        document.getElementById("cpassword").type = "password";
+    } else {
+        document.getElementById("cpassword").type = "text";
+    }
+});
+
+confirmtoggle.addEventListener("click", ()=>{
+    confirmtoggle.classList.toggle("fa-eye");
+    confirmtoggle.classList.toggle("fa-eye-slash");
+    if (confirmtoggle.classList.contains("fa-eye-slash")) {
+        document.getElementById("confirmPassword").type = "password";
+    } else {
+        document.getElementById("confirmPassword").type = "text";
     }
 });
 
