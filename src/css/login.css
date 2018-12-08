@@ -73,6 +73,10 @@ label {
     color: white;
 }
 
+#passwordmatch{
+  color: white;
+}
+
 #loggedin{
     margin-top: 15px;
 }
@@ -97,5 +101,8 @@ label {
     width:50%;
 }
 button{
+    cursor: pointer;
+}
+.pointer {
     cursor: pointer;
 }

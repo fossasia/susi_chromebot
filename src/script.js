@@ -554,7 +554,7 @@ let composeMyMessage = (text, t= getCurrentTime()) => {
     });
 };
 
-let restoreMessages = (storageItems = []) => {
+let restoreMessages = (storageItems) => {
     if (!storageItems && !accessToken) {
         var htmlMsg = "<div class='empty-history'> Start by saying \"Hi\"</div>";
         $(htmlMsg).appendTo(messages);
@@ -624,13 +624,16 @@ window.onload = () => {
 
     chrome.storage.local.get("loggedUser", (userDetails) => {
         var log = document.getElementById("log");
+        var settings = document.getElementById("settings-tab");
         if (userDetails.loggedUser && userDetails.loggedUser.email) {
             accessToken = userDetails.loggedUser.accessToken;
             log.innerHTML = log.innerHTML.replace("Login", "Logout");
             log.innerHTML = log.innerHTML.replace("login.svg", "logout.png");
+            settings.style.display = "flex";
         } else {
             log.innerHTML = log.innerHTML.replace("Logout", "Login");
             log.innerHTML = log.innerHTML.replace("logout.png", "login.svg");
+            settings.style.display = "none";
         }
     });
     syncMessagesFromServer();
@@ -884,6 +887,12 @@ let check = () => {
     $("#scrollIcon").toggleClass("scroll-dark");
 };
 
+chrome.storage.sync.get("speakcheck", (obj) => {
+  if(obj.speakcheck === false){
+    document.getElementById("speak").click();
+  }
+});
+
 let changeSpeak = () => {
     shouldSpeak = !shouldSpeak;
     var SpeakIcon = document.getElementById("speak-icon");
@@ -893,6 +902,9 @@ let changeSpeak = () => {
         SpeakIcon.innerText = "volume_up";
     }
     console.log("Should be speaking? " + shouldSpeak);
+    chrome.storage.sync.set({
+        "speakcheck": shouldSpeak
+    }, () => {});
 };
 
 scrollIconTopElement.addEventListener("click", (e) => {
