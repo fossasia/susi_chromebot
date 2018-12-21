@@ -746,10 +746,10 @@ let toggleStartStop = () => {
             }
         },
         () => {
-            var messageN = '<div style="padding-left: 8px;">Please Enable Mic by setting option(Note: If you have blocked the mic before you have to remove it from chrome settings and then enable from extension)</div>';
+            var message = '<div style="padding-left: 8px;">Please Enable Mic by setting option(Note: If you have blocked the mic before you have to remove it from chrome settings and then enable from extension)</div>';
             $("body").overhang({
                 type:"error",
-                message: messageN,
+                message: message,
                 duration: 3,
                 html: true,
             });
