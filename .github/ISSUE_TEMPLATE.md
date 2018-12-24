@@ -1,4 +1,4 @@
-**I'm submitting a ...**  (check one with "x")
+**I'm submitting a ...**  <!-- check one with "x" -->
 - [ ] bug report
 - [ ] feature request
 - [ ] support request => Please do not submit support requests here, instead ask your query in our [Gitter channel](https://gitter.im/fossasia/susi_server)
