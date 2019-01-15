@@ -74,16 +74,34 @@ if(getVoice) {
      });
 }
 
+var check1=document.getElementsByClassName("check1");
+var f2=0,j;
+for(j=0;j<check1.length;j++)
+{
+	check1[j].addEventListener("click",()=>{
+		f2=1;
+	});
+}
 if(submitThemeColor) {
     submitThemeColor.addEventListener("click",()=>{
 			localStorage.setItem("theme",theme);
+			if(f2===1)
 			alert("Success");
       });
 }
 
+var check=document.getElementsByClassName("check");
+var f1=0,i;
+for(i=0;i<check.length;i++)
+{
+	check[i].addEventListener("click",()=>{
+		f1=1;
+	});
+}
 if(submitMsgPaneColor) {
     submitMsgPaneColor.addEventListener("click",()=>{
 			localStorage.setItem("msgTheme",msgTheme);
+			if(f1===1)
 			alert("Success");
       });
 }
