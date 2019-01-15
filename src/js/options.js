@@ -74,16 +74,34 @@ if(getVoice) {
      });
 }
 
+var button_clicked=document.getElementsByClassName("button_clicked");
+var f2=0,j;
+for(j=0;j<button_clicked.length;j++)
+{
+	button_clicked[j].addEventListener("click",()=>{
+		f2=1;
+	});
+}
 if(submitThemeColor) {
     submitThemeColor.addEventListener("click",()=>{
 			localStorage.setItem("theme",theme);
+			if(f2===1)
 			alert("Success");
       });
 }
 
+var message_pane_button_clicked=document.getElementsByClassName("message_pane_button_clicked");
+var f1=0,i;
+for(i=0;i<message_pane_button_clicked.length;i++)
+{
+	message_pane_button_clicked[i].addEventListener("click",()=>{
+		f1=1;
+	});
+}
 if(submitMsgPaneColor) {
     submitMsgPaneColor.addEventListener("click",()=>{
 			localStorage.setItem("msgTheme",msgTheme);
+			if(f1===1)
 			alert("Success");
       });
 }
