@@ -74,11 +74,11 @@ if(getVoice) {
      });
 }
 
-var check1=document.getElementsByClassName("check1");
+var button_clicked=document.getElementsByClassName("button_clicked");
 var f2=0,j;
-for(j=0;j<check1.length;j++)
+for(j=0;j<button_clicked.length;j++)
 {
-	check1[j].addEventListener("click",()=>{
+	button_clicked[j].addEventListener("click",()=>{
 		f2=1;
 	});
 }
@@ -90,11 +90,11 @@ if(submitThemeColor) {
       });
 }
 
-var check=document.getElementsByClassName("check");
+var message_pane_button_clicked=document.getElementsByClassName("message_pane_button_clicked");
 var f1=0,i;
-for(i=0;i<check.length;i++)
+for(i=0;i<message_pane_button_clicked.length;i++)
 {
-	check[i].addEventListener("click",()=>{
+	message_pane_button_clicked[i].addEventListener("click",()=>{
 		f1=1;
 	});
 }
