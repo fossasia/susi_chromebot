@@ -764,18 +764,40 @@ setting.addEventListener("click", () => {
     });
 });
 
+let changeSpeak = () => {
+    shouldSpeak = !shouldSpeak;
+    var SpeakIcon = document.getElementById("speak-icon");
+    if (!shouldSpeak) {
+        SpeakIcon.innerText = "volume_off";
+    } else {
+        SpeakIcon.innerText = "volume_up";
+    }
+    console.log("Should be speaking? " + shouldSpeak);
+    chrome.storage.sync.set({
+        "speakcheck": shouldSpeak
+    }, () => {});
+};
+
 clear.addEventListener("click", () => {
-    var checkDark = 0;
+    let checkDark = 0;
+    let checkSpeak = 0;
     if(dark === true){
       checkDark = 1;
     }
+    if(!speakcheck) {
+        checkSpeak = 1;
+    }
     chrome.storage.sync.clear();
+    if (checkSpeak === 1){
+        changeSpeak();
+    }
     if(checkDark === 1){
       dark = true;
       chrome.storage.sync.set({
           "darktheme": true
       }, () => {});
     }
+
 });
 
 exportData.addEventListener("click", () => {
@@ -892,20 +914,6 @@ chrome.storage.sync.get("speakcheck", (obj) => {
     document.getElementById("speak").click();
   }
 });
-
-let changeSpeak = () => {
-    shouldSpeak = !shouldSpeak;
-    var SpeakIcon = document.getElementById("speak-icon");
-    if (!shouldSpeak) {
-        SpeakIcon.innerText = "volume_off";
-    } else {
-        SpeakIcon.innerText = "volume_up";
-    }
-    console.log("Should be speaking? " + shouldSpeak);
-    chrome.storage.sync.set({
-        "speakcheck": shouldSpeak
-    }, () => {});
-};
 
 scrollIconTopElement.addEventListener("click", (e) => {
     $(messages).stop().animate({
