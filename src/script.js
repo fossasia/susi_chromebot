@@ -836,7 +836,20 @@ let sendUserSettingsToServer = (darkTheme, accessToken) => { // Sending  user se
         }
     });
 };
-
+var f;
+var dc=document.getElementsByClassName("dropdown-content")[0];
+let show= ()=> {
+	if(f===0)
+	{
+		dc.style.display="flex";
+		f=1;
+	}
+	else
+	{
+		dc.style.display="none";
+		f=0;
+	}
+};
 let check = () => {
     if (dark === false) {
         dark = true;
@@ -923,6 +936,7 @@ scrollIconBottomElement.addEventListener("click", (e) => {
 
 document.getElementById("check").addEventListener("click", check);
 document.getElementById("speak").addEventListener("click", changeSpeak);
+document.getElementById("dropdown").addEventListener("click",show);
 
 textarea.addEventListener("input", (e) => {
     if(e.target.value) {
@@ -934,4 +948,3 @@ textarea.addEventListener("input", (e) => {
         sendDiv.style.display = "none";
     }
 });
-
