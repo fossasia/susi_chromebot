@@ -799,6 +799,8 @@ textarea.onkeyup = (e) => {
         }
         if (e.which === 13 && !e.shiftKey) {
             upCount = 0;
+            micDiv.style.display = "block";
+            sendDiv.style.display = "none";
             e.preventDefault();
             submitForm();
         }
