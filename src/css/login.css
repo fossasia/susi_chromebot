@@ -69,6 +69,10 @@ label {
     border-radius: 0.25rem;
 }
 
+.input-group>#password {
+    padding-right: 3rem;
+}
+
 #passwordlim{
     color: white;
 }
