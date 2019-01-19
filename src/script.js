@@ -769,7 +769,7 @@ clear.addEventListener("click", () => {
     if(dark === true){
       checkDark = 1;
     }
-    chrome.storage.sync.clear();
+    //chrome.storage.sync.clear();
     if(checkDark === 1){
       dark = true;
       chrome.storage.sync.set({
