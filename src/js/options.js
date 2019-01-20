@@ -75,13 +75,55 @@ if(getVoice) {
 }
 
 var button_clicked=document.getElementsByClassName("button_clicked");
-var f2=0,j;
+var inputbox=document.getElementById("inputbox");
+var f2=0,j,inputclicked=0,f3=0;
+
+var button_color_theme=document.getElementById("btn-color-theme");
+inputbox.addEventListener("click",()=>{
+  if(f3===0)
+  {
+      button_color_theme.disabled=true;
+      f3=1;
+  }
+  else
+  {
+    button_color_theme.disabled=false;
+    f3=0;
+  }
+
+})
+
+
 for(j=0;j<button_clicked.length;j++)
 {
-	button_clicked[j].addEventListener("click",()=>{
-		f2=1;
-	});
+  if(j==4)
+    {
+      button_clicked[j].addEventListener("click",()=>{
+          if(f2===0)
+          {
+            f2=1;
+            inputbox.setAttribute("hidden",true);
+          }
+          else
+          {
+            f2=0;
+            inputbox.removeAttribute("hidden");
+          }
+        });
+    }
+  else
+	{
+      button_clicked[j].addEventListener("click",()=>{
+        if(f2===0)
+		  f2=1;
+    else
+      f2=0;
+	     });
+  }
 }
+
+
+
 if(submitThemeColor) {
     submitThemeColor.addEventListener("click",()=>{
 			localStorage.setItem("theme",theme);
