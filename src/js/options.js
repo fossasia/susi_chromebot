@@ -76,7 +76,7 @@ if(getVoice) {
 
 var button_clicked=document.getElementsByClassName("button_clicked");
 var inputbox=document.getElementById("inputbox");
-var f2=0,j,inputclicked=0,f3=0;
+var f2=0,j,f3=0;
 
 var button_color_theme=document.getElementById("btn-color-theme");
 inputbox.addEventListener("click",()=>{
@@ -91,12 +91,12 @@ inputbox.addEventListener("click",()=>{
     f3=0;
   }
 
-})
+});
 
 
 for(j=0;j<button_clicked.length;j++)
 {
-  if(j==4)
+  if(j===4)
     {
       button_clicked[j].addEventListener("click",()=>{
           if(f2===0)
@@ -115,9 +115,13 @@ for(j=0;j<button_clicked.length;j++)
 	{
       button_clicked[j].addEventListener("click",()=>{
         if(f2===0)
-		  f2=1;
+		    {
+          f2=1;
+        }
     else
+    {
       f2=0;
+    }
 	     });
   }
 }
