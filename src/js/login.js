@@ -70,11 +70,11 @@ cPass.addEventListener("submit", (e)=>{
 				jsonp: "callback",
 				crossDomain: true,
 		        success: (response) => {
-					alert(response.message);
+                    displayNotification("success","Password changed",2000)
 					cPass.style.display = "none";
 		        },
 		        error : () => {
-		            console.log(loginEP);
+                    displayNotification("error","Password not changed",2000)
 		        }
 		    });
 		});

@@ -4,6 +4,7 @@
     <title>SUSI Login Portal</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" type="text/css" href="css/notifications.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 </head>
 <body>
@@ -62,7 +63,10 @@
                     </div>
                     <form id="cPass" style="display:none;">
                         <div class="form-group">
-                            <input type="password" class="form-control fmargin" id="cpassword" placeholder="Password">
+                            <input type="email" class="form-control fmargin" id="cemail" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control fmargin" id="cpassword" placeholder="Current Password">
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control fmargin" id="newPassword" placeholder="New Password">
@@ -88,5 +92,7 @@
     <script src="jquery/jquery-3.2.1.min.js"></script>
     <script src="bootstrap/bootstrap.min.js"></script>
     <script src="js/login.js"></script>
+    <script src="js/notifications.min.js"></script>
+
 </body>
 </html>
