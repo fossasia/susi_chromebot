@@ -624,13 +624,16 @@ window.onload = () => {
 
     chrome.storage.sync.get("loggedUser",(userDetails) => {
         var log = document.getElementById("log");
-        if(userDetails.loggedUser.email){
-            log.innerHTML = log.innerHTML.replace("Login","Logout");
-            log.innerHTML = log.innerHTML.replace("login.svg","logout.png");
-        }
-        else{
-            log.innerHTML = log.innerHTML.replace("Logout","Login");
-            log.innerHTML = log.innerHTML.replace("logout.png","login.svg");
+        var settings = document.getElementById("settings-tab");
+        if (userDetails.loggedUser && userDetails.loggedUser.email) {
+            accessToken = userDetails.loggedUser.accessToken;
+            log.innerHTML = log.innerHTML.replace("Login", "Logout");
+            log.innerHTML = log.innerHTML.replace("login.svg", "logout.png");
+            settings.style.display = "flex";
+        } else {
+            log.innerHTML = log.innerHTML.replace("Logout", "Login");
+            log.innerHTML = log.innerHTML.replace("logout.png", "login.svg");
+            settings.style.display = "none";
         }
     });
 
