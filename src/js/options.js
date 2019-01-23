@@ -21,6 +21,12 @@ let themeColorPickerButton = document.getElementById("btn-color-theme");
 let themeColorPicker = new LdColorPicker(themeColorPickerButton);
 LdColorPicker.init();
 
+
+const isImageURL = url => {
+    let pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+    return (pattern.test(url) && ((/\.(jpeg|jpg|gif|png)$/).test(url) != null));
+};
+
 window.onload = () => {
     if(checkLogin === "true") {
         customBackground.style.display = "block";
@@ -99,6 +105,8 @@ if(backgroundChange) {
         theValue = backUrl.value;
         if (!theValue) {
             alert("Error: No value specified");
+        } else if(!isImageURL(theValue)){
+            alert("Please enter valid image URL");
         } else {
             localStorage.setItem("theValue", theValue);
             alert("Successfully stored");
