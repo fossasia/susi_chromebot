@@ -121,7 +121,7 @@ restore.addEventListener("click", ()=>{
 localimage.addEventListener("change",()=>{
     var tmppath = URL.createObjectURL(localimage.files[0]);
     localStorage.setItem("theValue",tmppath);
-    displayNotification("success", " Image Updates", 1000);
+    displayNotification("success", " Image Updated", 1000);
 });
 
 themeColorPicker.on("change", function(color){

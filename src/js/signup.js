@@ -22,7 +22,7 @@ let showsignupBlock = (show) => {
 };
 
 password.addEventListener("keyup", ()=>{
-    if(password.value.length<6){
+    if(password.value.length<6 || password.value.length>64){
 		passwordlim.removeAttribute("hidden");
 		document.getElementById("signupbutton").setAttribute("disabled", "true");
     } else {

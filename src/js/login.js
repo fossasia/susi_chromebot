@@ -14,12 +14,12 @@ var defaultThemeValue = "";
 var password = document.getElementById("password");
 var pass = document.getElementById("pass");
 var cPass = document.getElementById("cPass");
-var cemail = document.getElementById("cemail");
 var cpassword = document.getElementById("cpassword");
 var passwordlim = document.getElementById("passwordlim");
 var newPassword = document.getElementById("newPassword");
 var toggle = document.getElementById("toggle");
 var settings=document.getElementById("settings");
+var username = document.getElementById("username");
 
 chrome.storage.sync.get("darktheme", (obj) => {
     if (obj.darktheme === true) {
@@ -40,11 +40,11 @@ toggle.addEventListener("click", ()=>{
 });
 
 pass.addEventListener("click", ()=>{
-$("#cPass").toggle();
+    pass.innerHTML = ($("#cPass").toggle().is(":visible"))?("Click here to hide change password form"):("Click here to change password");
 });
 
 newPassword.addEventListener("keyup", ()=>{
-    if(newPassword.value.length<6){
+    if(newPassword.value.length<6 || newPassword.value.length>64 ){
         passwordlim.removeAttribute("hidden");
         document.getElementById("csubmit").setAttribute("disabled", "true");
     } else {
@@ -53,14 +53,22 @@ newPassword.addEventListener("keyup", ()=>{
     }
 });
 
+confirmPassword.addEventListener("keyup", ()=>{
+    if(confirmPassword.value !== newPassword.value){
+        passwordmatch.removeAttribute("hidden");
+    } else {
+        passwordmatch.setAttribute("hidden", "true");
+    }
+});
+
 cPass.addEventListener("submit", (e)=>{
 	e.stopPropagation();
-		var loginEP = BASE_URL+"/aaa/changepassword.json?"+"changepassword="+ cemail.value + "&password="+ cpassword.value + "&newpassword=" + newPassword.value + "&access_token=" + accessToken ;
+		var loginEP = BASE_URL+"/aaa/changepassword.json?"+"changepassword="+ username.value + "&password="+ cpassword.value + "&newpassword=" + newPassword.value + "&access_token=" + accessToken ;
 		  $.ajax({
 		    	url:loginEP,
 		        dataType: "jsonp",
 				jsonp: "callback",
-				crossDomain: true,		        
+				crossDomain: true,
 		        success: (response) => {
 					alert(response.message);
 					cPass.style.display = "none";
@@ -179,10 +187,16 @@ loginForm.addEventListener("submit", (event) => {
     event.preventDefault();
     var email = document.getElementById("username").value;
     var password = document.getElementById("password").value;
+    var isEmailValid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
     if (!email) {
         showStatus("Email field cannot be empty",true);
         return;
-    } else if (!password) {
+    }
+    else if(!isEmailValid){
+        showStatus("Please enter a valid email", true);
+        return;
+    }
+    else if (!password) {
         showStatus("Password field cannot be empty",true);
         return;
     }

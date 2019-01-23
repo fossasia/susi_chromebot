@@ -69,8 +69,16 @@ label {
     border-radius: 0.25rem;
 }
 
+.input-group>#password {
+    padding-right: 3rem;
+}
+
 #passwordlim{
     color: white;
+}
+
+#passwordmatch{
+  color: white;
 }
 
 #loggedin{
@@ -97,5 +105,8 @@ label {
     width:50%;
 }
 button{
+    cursor: pointer;
+}
+.pointer {
     cursor: pointer;
 }
