@@ -26,8 +26,11 @@ window.onload = () => {
         customBackground.style.display = "block";
     }
     else {
-        warning.innerHTML = "Please login for some useful features";
+        warning.innerHTML = "Please login for some useful features <button type='button' id='loginbutton' class=' btn btn-success ' style='color:white; float:right '>Login</button>";
         customBackground.style.display = "none";
+        document.getElementById("loginbutton").addEventListener("click",function(){
+            window.location.href = "login.html";
+        });
     }
 };
 
