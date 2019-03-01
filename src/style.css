@@ -451,7 +451,7 @@ input:checked+.slider:before {
     right: 10px;
 }
 .dropdown:hover .dropdown-content{
-    display: flex;
+    display: none;
 }
 
 #ddown{
