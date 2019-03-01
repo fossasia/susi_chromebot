@@ -43,14 +43,26 @@ pass.addEventListener("click", ()=>{
     pass.innerHTML = ($("#cPass").toggle().is(":visible"))?("Click here to hide change password form"):("Click here to change password");
 });
 
+const password_validation = () => {
+    if (confirmPassword.value === newPassword.value && newPassword.value.length >=6 && newPassword.value.length<=64 && cpassword.value.length>0) {
+        document.getElementById("csubmit").removeAttribute("disabled");
+    } 
+    else {
+        document.getElementById("csubmit").setAttribute("disabled", "true");
+    }
+}
+
+cpassword.addEventListener("keyup", ()=>{
+    password_validation();
+});
+
 newPassword.addEventListener("keyup", ()=>{
     if(newPassword.value.length<6 || newPassword.value.length>64 ){
         passwordlim.removeAttribute("hidden");
-        document.getElementById("csubmit").setAttribute("disabled", "true");
     } else {
         passwordlim.setAttribute("hidden", "true");
-        document.getElementById("csubmit").removeAttribute("disabled");
     }
+    password_validation();
 });
 
 confirmPassword.addEventListener("keyup", ()=>{
@@ -59,6 +71,7 @@ confirmPassword.addEventListener("keyup", ()=>{
     } else {
         passwordmatch.setAttribute("hidden", "true");
     }
+    password_validation();
 });
 
 cPass.addEventListener("submit", (e)=>{
