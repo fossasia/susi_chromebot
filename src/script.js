@@ -622,7 +622,7 @@ window.onload = () => {
         console.log(msgTheme);
     }
 
-    chrome.storage.local.get("loggedUser", (userDetails) => {
+    chrome.storage.sync.get("loggedUser",(userDetails) => {
         var log = document.getElementById("log");
         var settings = document.getElementById("settings-tab");
         if (userDetails.loggedUser && userDetails.loggedUser.email) {
@@ -636,6 +636,7 @@ window.onload = () => {
             settings.style.display = "none";
         }
     });
+
     syncMessagesFromServer();
     chrome.storage.local.get("message", (items) => {
         if (items) {
