@@ -782,13 +782,13 @@ let changeSpeak = () => {
 clear.addEventListener("click", () => {
     let checkDark = 0;
     let checkSpeak = 0;
+	chrome.storage.local.clear();	
     if(dark === true){
       checkDark = 1;
     }
     if(!speakcheck) {
         checkSpeak = 1;
     }
-    chrome.storage.sync.clear();
     if (checkSpeak === 1){
         changeSpeak();
     }
