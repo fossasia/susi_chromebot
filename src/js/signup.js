@@ -25,7 +25,12 @@ password.addEventListener("keyup", ()=>{
     if(password.value.length<6 || password.value.length>64){
 		passwordlim.removeAttribute("hidden");
 		document.getElementById("signupbutton").setAttribute("disabled", "true");
-    } else {
+	} else if(!email){
+		passwordlim.removeAttribute("hidden");
+		document.getElementById("signupbutton").setAttribute("disabled", "true");
+	}
+	
+	else {
 		passwordlim.setAttribute("hidden", "true");
 		document.getElementById("signupbutton").removeAttribute("disabled");	
     }
