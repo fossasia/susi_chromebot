@@ -4,6 +4,7 @@
 <!-- Add the issue number that is fixed by this PR (In the form Fixes #123) -->
 
 Fixes #
+[Add issue number here. If you do not solve the issue entirely, please change the message e.g. "First steps for issues #IssueNumber]
 
 #### Checklist
 
@@ -14,6 +15,9 @@ Fixes #
 - [ ] I have added necessary documentation (if appropriate)
 <!-- If an existing function does not have a docstring, please add one -->
 - [ ] All the functions created/modified in this PR contain relevant docstrings.
+
+#### Screenshots for the change: 
+
 
 #### Short description of what this resolves:
 
