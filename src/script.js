@@ -935,3 +935,4 @@ textarea.addEventListener("input", (e) => {
         sendDiv.style.display = "none";
     }
 });
+
