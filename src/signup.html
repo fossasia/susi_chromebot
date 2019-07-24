@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>SUSI Login Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/signup.css">
 </head>
@@ -16,8 +18,11 @@
                     <div id="notsignup">
                         <form id="signupForm">
                             <div class="form-group">
-                                <label for="email">Email address:</label>
+                                <label for="email">Email Address:</label>
                                 <input type="email" class="form-control" id="email" placeholder="Email">
+                                <div style="text-align: center">
+                                    <small hidden id="emailLim" style="color: #fff;"> Please enter the email</small>
+                                </div>
                             </div>
                             <br />
                             <div class="form-group">
@@ -31,13 +36,18 @@
                             <div class="form-group">
                                 <label for="password">Confirm Password:</label>
                                 <input type="password" class="form-control" id="cpassword" placeholder="Confirm Password">
+                                <div style="text-align: center">
+                                    <small hidden id="cpasswordlim"  style="color: #fff;">Password doesnot match</small>
+                                </div>
                             </div>
                             <br>
                             <button disabled type="submit" class="btn btn-success" id="signupbutton">Signup</button>
                             <br>
                             <p style="text-align: center;">
-                                <a href="login.html" style="color: #fff; ">Already Registered? Want to Login</a>
-                            </p>
+                                <a href="login.html" style="color: #fff; ">Already Registered? Want to Login</a><br>
+                                <!-- <a href=""style="color: #fff;"> <i class="fa fa-google-plus"></i> Signup via Google </a><br>
+                                <a href=""style="color: #fff;"> <i class="fa fa-facebook"></i>  Signup via facebook </a><br>
+                           -->  </p>
                         </form>
                     </div>
                     <div id="signedup">
