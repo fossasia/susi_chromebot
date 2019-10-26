@@ -58,7 +58,7 @@ body {
 
 .scroll-icon-bottom, .scroll-icon-top{
     position: absolute;
-    right: 20px;
+    right: 25px;
     cursor: pointer;
     bottom: 85px;
     background-color: rgb(66, 133, 244);
@@ -66,6 +66,7 @@ body {
     border-radius: 50%;
     padding-top: 5px;
     display: none;
+    opacity: 0.75;
 }
 
 .surroundbox {
