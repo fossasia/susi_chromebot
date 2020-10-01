@@ -11,13 +11,13 @@ var askSusi = chrome.contextMenus.create({
 	"contexts":["selection"],
 	id:"askSusi"
 });
-
+// creating the chat menu for SUSI
 var goToChat = chrome.contextMenus.create({
 	"title": "Chat SUSI",
 	"contexts":["browser_action"],
 	id:"goToChatSusi"
 });
-
+// menu for skills of SUSI
 var goToSkills = chrome.contextMenus.create({
 	"title": "Skills SUSI",
 	"contexts":["browser_action"],
