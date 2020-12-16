@@ -40,7 +40,7 @@ signupForm.addEventListener("submit", (event) => {
 		return;
 	}
 	else if(!isEmailValid){
-        showStatus("Please enter a valid email", true);
+        alert("Please enter a valid email");
         return;
     }
 	var password=document.getElementById("password").value;
