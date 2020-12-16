@@ -34,10 +34,15 @@ password.addEventListener("keyup", ()=>{
 signupForm.addEventListener("submit", (event) => {
 	event.preventDefault();
 	var email=document.getElementById("email").value;
+    var isEmailValid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 	if(!email){
 		alert("Email field cannot be empty");
 		return;
 	}
+	else if(!isEmailValid){
+        alert("Please enter a valid email");
+        return;
+    }
 	var password=document.getElementById("password").value;
 	if(!password){
 		alert("Password field cannot be empty");
